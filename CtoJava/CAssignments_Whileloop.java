@@ -1,7 +1,7 @@
 import java.lang.Math;
 import java.util.Scanner;
 
-public class Answers {
+public class CAssignments_Whileloop {
     public static void main(String[] args) {
         System.out.println("Part 1:\n X to the Power Y:");
         int x,y;

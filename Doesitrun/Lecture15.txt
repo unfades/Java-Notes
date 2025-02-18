@@ -102,7 +102,26 @@ class Insurance{
 }
 
 The switch Statement
+/*
 
+The switch statement in Java can accept several data types as parameters:
+
+    Primitive Types:
+        byte
+        short
+        char
+        int 
+    Wrapper Classes:
+        Byte
+        Short
+        Character
+        Integer 
+    Enumerated Types (Enums)
+    String: (Since Java 7) 
+
+It's important to note that switch statements cannot accept long, float, or double primitive types. Attempting to use these types will result in a compile-time error.
+
+*/
 In java there's 2 syntaxes for switch
 
 Syntax 1:
