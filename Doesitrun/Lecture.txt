@@ -1,0 +1,20 @@
+public class Lecture{
+
+    public static void main(String[] args) {
+        
+        byte a = (byte)512;
+        /*
+        the concept of modulo, when getting out of the range, it will use
+        
+        the lower limit of byte is 128 and upper limit is 127 for accosting rotations it also takes 1 value to rotate pos to neg
+
+        then what we do is the formula for moduloing and getting rotations is lowerlimit + upperlimit + 1 then modulo the value of number by that
+        and you will get the same answer as if you did the subtractions and rotations all those times.
+        
+        and if its within the range of lowerlimit + upperlimit then what happens is it simply subtracts that value from the number
+
+        */
+        byte b = (byte)200;
+        System.out.println("value of = " + a + " b is = " + b);
+    }
+}

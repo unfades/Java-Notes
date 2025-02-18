@@ -1,0 +1,202 @@
+CONSTRUCTOR OVERLOADING
+=======================
+Identifiers are fancy names for variables, methods, classes, packages, arrays, and references.
+Because it identifies a location of something in memory.
+
+Just like we can overload methods in JAVA, similarly we also can OVERLOAD constructors. This means that a 
+SINGLE CLASS can have  multiple constructors.
+
+But each of these constructors should appear different than each other wrt their arguments.
+
+When an object of the class is created, Java will execute the constructor which most closely matches the type/number/Order
+of arguments passed to the object
+
+class Box{
+    private int l,b,h;
+
+    public Box(){
+        l=b=h=0; // no need to assign here, as its by default given default values mentioned
+        //in UseBox class see that code explanation as default values put
+        //the body of this constructor is usesless.
+    }
+    public Box(int s){
+        l=b=h=s;
+    }
+    public Box(int i, int j, int k){
+        l= i;
+        b = j;
+        h = k;
+    }
+    public void show(){
+        System.out.println(l+","+b+","+h);
+    }
+}
+
+class UseBox{
+    public static void main(String[] args){
+        Box B1, B2, B3; //no new objects made, just references
+        B1 = new Box(); //Box class object made of 12 bytes
+        B2 = new Box(10); //new added default values, then the 10 is passed after and overwrites that
+        B2 = new Box(20,40,60); // same here, first default values, thenthe 20,40,60 overwrites them as in parameters
+        B4 = new Box(B3); // no Box type value is there that can be taken 
+        //so error
+        we need to make a constructor that can accept Box type as parameter
+        //3 object references made up there on first line
+        //so no constructors were called up there^
+
+        B1.show();
+        B2.show();
+        B3.show();
+        B4.show();
+    }
+}
+
+========================================================
+
+class Box{
+    private int l,b,h;
+
+    public Box(){
+        l=b=h=0;
+    }
+    public Box(int s){
+        l=b=h=s;
+    }
+    public Box(int i, int j, int k){
+        l= i;
+        b = j;
+        h = k;
+    }
+    public Box(Box P){
+        l = P.l; // l is B4's length, P.l i B3's l copied to B4 now same for the rest below
+        b = P.b;
+        h = P.h;
+    }
+    public void show(){
+        System.out.println(l+","+b+","+h);
+    }
+}
+
+class UseBox{
+    public static void main(String[] args){
+        Box B1, B2, B3;
+        B1 = new Box();
+        B2 = new Box(10);
+        B2 = new Box(20,40,60);
+        B4 = new Box(B3); // now 20,40,60 also come into B4 the address of B3 is passed to B4...
+        //P is now pointing to the B3 constructor as well
+
+        B1.show();
+        B2.show();
+        B3.show();
+        B4.show();
+    }
+}
+============================================
+Are these lines doing the exact same job?
+
+COde1:
+=====
+Box B4 = new Box(B3);
+
+COde2:
+=====
+Box B4 = B3;
+
+ANs.
+No.
+Code 1 makes a new Box Object and then using a constructor
+it is copying the values of the Object pointed by B3 into the newly created
+object B4
+
+Code 2 does not create any new Object. It simply copies the address stored in B3
+and copied it into B4 also.
+This means B3 and B4 both point to the same Object in memory.
+There is no constructor called here as no object is made here.
+
+=====================================================================================
+
+ARGUMENT PASSING IN JAVA
+
+Styles of Argument Passing:
+
+Just 1 Style, Pass by Value in Java.
+There is no Pass by refeerence in Java.
+//Pass by reference means pass the address so why Java says no pass by reference
+//Controversial topic, even wrong tutorials wrongvideos online...
+
+//There is no pass by reference in Java
+
+JAVA HASS ONLY PASS BY VALUE:
+=============================
+
+class Box{
+
+    ........
+    ........
+    public Box(Box P){
+        l = P.l;
+        b = P.b;
+        h = P.h;
+        P.l = 100;//what does this line do?
+        //does 20 get replaced by 100 or not?
+        //Ans. the 100 goes into B3's 20 overwrites it to 100
+        //THis is pass by reference.
+        //But Java says it's pass by value.
+        //For B3, 3000 the address is a value. Not an address. That's why.
+    }
+}
+
+class UseBox{
+    psvm{
+        ....
+        ....
+    
+    Box B3 = new Box(20,40,60);
+    Box B4 = new Box(B3);
+    ...
+    ...
+    B3.show();
+    B4.show();
+    }
+}
+==================================
+
+class Box{
+
+    ........
+    ........
+    public Box(Box P){
+        l = P.l;
+        b = P.b;
+        h = P.h;
+        P = new Box();
+        //there is no effect of this on B3.
+        //This is why there is no pass by Reference.
+        //It's pass by Value.
+        //For B3, 3000 the address is a value. Not an address. That's why.
+        //You cannot manipulate B3 through that, so there is no pass by reference
+        //in Java it is always pass by Value.
+        //you would need to pass object's reference's reference, which is not possible.
+        //reference to array of references is made in Java
+        //reference to references is not made in java, see past lectures.
+    }
+}
+
+class UseBox{
+    psvm{
+        ....
+        ....
+    
+    Box B3 = new Box(20,40,60);
+    Box B4 = new Box(B3);
+    ...
+    ...
+    B3.show();
+    B4.show();
+    }
+}
+=======================================================
+If Java team wanted, they could do pass by reference.
+Why do they not do pass by reference.
+//maybe security

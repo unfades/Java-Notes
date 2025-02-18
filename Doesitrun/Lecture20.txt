@@ -1,0 +1,125 @@
+ARRAY 
+========
+Java says arrays are objects in Java.
+They are created dynamically.
+The Objects are made with new keyword.
+Arrays are also made with the new keyword.
+Array reference points to the Array object in Memory.
+
+1. In Java, just like C and C++ the array is a collection of similar kinds of data elements stored at continuous memory
+locations.
+
+But in Java there are few points which make arrays different than arrays of C/C++
+
+In Java Arrays are Objects
+Because of this we must remember few points about arrays.
+1.Since arrays are treated as objects in Java, so they are also ALWAYS CREATED dynamically.
+2. TO create an array we use the keyword new, just like we use it to create an object.
+
+3. Since they are dynamically created they live in HEAP AREA. (HEAP IS AT RUNTIMR)
+
+4.Because they are dynamic, they don't haveany name, so they require a reference to be connected to them
+THis reference is calle ARRAY REFERENCE.
+
+Syntax of Creating an Array in Java
+====================================
+
+Since arrays are objects, they are created in 2 steps:
+
+1. Creating array reference
+
+<datatype> [] <array_ref_nam>; // This is recommended
+OR
+<datatype> <array_ref_name>[]; // This is Not Recommended
+
+2. Creating the Real/Actual Array
+<array_ref_name> = new <data_type> [size]; //size can both be a variable or an int literal
+
+DIAGRAM IN DETAIL HOW TO READ ARRAYS
+==========
+STEP 1:
+int [] arr; // arr is a reference to an array of integers
+
+STEP 2:
+arrr = new int[10]; //Now java goes to the heap, and it creates an object, an array object.
+//the reference will store the address of the array object where it is saved in the HEAP.
+//and the array reference is in the stack area of the memory if it is inside a method.
+//by default, all the cells inside the array are 0, stored by new keyword.
+
+// we can also merge the above 2 lines into one line also:
+//new puts 0 inside the array cells by default, the compiler does default initialization in the
+objects made with new. Remember this.
+
+int [] arr = new int[10]; //Recommended
+OR
+int arr[] = new int[10];
+
+Q. Are int[] arr ad int arr[] exactly the same in JAva?
+A.
+
+For a single reference they are the same:
+int[] arr;
+OR
+int arr[];
+
+They both are doing the same thing.
+
+But if we make multiple references then they are different.
+
+int [] arr,brr; // all are references
+//both point to an array
+vs 
+int arr[],brr; // only arr is a reference, brr is a variable, you would need to add [] after every variable declaration like arr[], brr[]
+both here do not point to an array...
+
+The first statement is going to create two array references called as arr and brr.
+The second statement is gonna make 1 reference called arr and the brr is just an int variable.
+
+Accessing an Array
+==================
+
+Syntax:
+
+<array_refname>[index_no] = value;
+<var_name> = <array_ref_name>[index_no];
+
+Example:
+
+int [] arr = new int[5];
+
+arr[0] = 10;
+arr[1] = 10;
+arr[2] = 10;
+....
+System.out.println(arr[0]);
+System.out.println(arr[1]);
+System.out.println(arr[2]);
+
+//WAP to create an integer array of size 'n' should be taken from the user. Then ask the user to input 'n' elements in the array and display all the elements along with their sum and average.
+import java.util.Scanner;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+		System.out.print("SumandAvgOfArray\nEnter the array size: ");
+		int arrlen = sc.nextInt();
+		int [] arr = new int[arrlen];
+		int sum;
+		float avg;
+		avg = sum = 0;
+		System.out.println();
+		for(int i = 0; i<arr.length; i++){
+		    System.out.print("Enter the " + (i+1) +"th number: ");
+		    arr[i] = sc.nextInt();
+		    sum+=arr[i];
+		    System.out.println();
+		}
+		avg = (float)sum/arr.length;
+		System.out.println("The sum and average of the numbers of the array is:");
+		System.out.println("Sum of Array Elements: " + sum);
+		System.out.println("Average of Array Elements: "+ avg);
+	}
+}
+
+//THERE IS NO NULL value IN THE ARRAY IN JAVA EVEN IN CHAR ARRAYS

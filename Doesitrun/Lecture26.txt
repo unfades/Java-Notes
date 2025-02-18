@@ -1,0 +1,318 @@
+OBJECT INITIALIZATION
+=======================
+
+When we initialize a new object, we use a new keyword.
+new puts default values inside the objects based on datatype
+ex: int -> 0, boolean -> false.
+
+The word initialization means setting the initial value of the data members(instance members) of
+an object other than the default values at the time of creation of the object.
+
+In Java, theres 3 ways to initialize an object and they are:
+
+1. Explicit initialization
+2. Initialization using Constructor
+3. Using initializer blocks
+
+1. Explicit initialization
+============================
+
+class <classname>{
+    <accessmodifier> <datatype> <varname> = <value>;
+    <accessmodifier> <datatype> <varname> = <value>;
+    <accessmodifier> <datatype> <varname> = <value>;
+    ...
+    ...
+}
+
+This is called explicit initialization, it is the fastest way
+and best way of initializing objects of a class in terms of speed.
+
+class Account{
+    private int accountID = 101;
+    private String name = "Sachin";
+    private double balance = 50_000.0;
+
+    public void show(){
+        System.out.println(accountID +" " + name + " " + balance);
+    }
+}
+
+class UseAccount{
+
+    public static void main(String[] args){
+        Account A; //reference of Account object named A is made
+        A = new Account(); // makes new Account object in HEAP with 101, address of Sachin String, and 50000 balance
+        //drawback is all objects made have same values in them
+        //great for identical values for all objects needed, but not here for accounts of people
+        A.show();
+    }
+}
+
+CONSTRUCTORS 
+====================
+
+In Java, just like C++ or many other OOP languages we have the concept of
+Constructors.
+
+Constructors are special member functions of a class with the following important
+features:
+
+1. Their name is exactly the same as the name of the class. (In most languages) In Java
+
+2. They do not have any return type, not even void and they do not return any value.
+ You can simply write return; nothing like return 0, return "o", nothing else.
+ just return; will work
+
+ Difference between return and exit()
+
+ 1: exit is a function, return is a statement.
+ 2: exit makes the whole program stop.
+ return makes just the function stop. the program may keep running depending on flow.
+
+    If you write return then the program will keep running, and if you write exit, 
+    the program will stop altogether.
+
+3. They are automatically called by Java as soon as the object of a class gets created. Since in Java, object creation
+happens at run time so we say that constructor calling also happens at runtime.
+
+
+4. In Java if we mention the return type with a constructor, then although the code will
+compiler and run that is no syntax or runtime error will appear, then Java will not
+consider it to be a constructor anymore, and will not call it automatically on object creation.
+In other words it will become just like any ordinary method.
+
+5. In Java if a programmer does not definer any constructor in his class on his own, then the java compiler
+automatically inserts an empty body constructor in our class called as DEFAULT CONSTRUCTOR.
+
+class Student{
+    private int roll;
+    private char grade;
+    private String name;
+    private double per;
+
+    public void setStudent(int r, char c, String n, double p){
+        roll = r;
+        grade = c;
+        name = n;
+        per = p;
+    }
+
+    public void showStudent(){
+        System.out.println("Name =" +name+"\nRoll =" +roll+"\nGrade ="+grade+"\nper ="+per);
+    }
+}
+
+There is a constructor here that the JVM made on it's own. Since we did not define one ourselves.
+How to prove there is a default constructor in Java?
+
+command called javap
+p is profile.
+All we have to do is javap classname
+like 
+javap Student
+will show the default constructor
+Student();
+made by the compiler.
+Very easily proven.
+Only there until we have not made a constructor ourselves.
+If we made a Student() constructor, java compiler will not make one.
+
+
+6. Unlike C++, in Java we do not have the concept of Copy Constructor.
+That is the Java Compiler by default does not provide any COPY CONSTRUCTOR.
+So We will have to define it on our own.
+
+
+class Account{
+    private int accountID;
+    private String name;
+    private double balance;
+
+    public Account(){ // this is our user defined constructor
+        System.out.println("constructor called...");
+    }
+}
+
+class UseAccount{
+    public stativ void main(String[] args){
+        Account A; //object reference
+        //no output of this program at runtime since no object made to call constructor.
+    }
+}
+=====================================
+class Account{
+    private int accountID;
+    private String name;
+    private double balance;
+
+    public Account(){ // this is our user defined constructor
+        System.out.println("constructor called...");
+    }
+}
+
+class UseAccount{
+    public stativ void main(String[] args){
+        Account A = new Account();object reference pointing to object of Accunt in Heap
+        //outputs constructor called.
+        Account B = new Account();object reference pointing to object of Accunt in Heap
+        //outputs constructor called.
+        Account C = new Account();object reference pointing to object of Accunt in Heap
+        //outputs constructor called.
+        Each time an object of the class Account is made, the constructor Account() is called
+    }
+}
+=================================
+class Account{
+    private int accountID;
+    private String name;
+    private double balance;
+
+    public Account(){ // this is our user defined constructor
+        accountID = 101;
+        name = "Sachin";
+        balance = 5000.0;
+        System.out.println("constructor called...");
+    }
+    public void show(){
+        System.out.println(accountID +" " + name + " " + balance);
+    }
+}
+
+class UseAccount{
+    public stativ void main(String[] args){
+        Account A = new Account();
+        A.show();
+        //101, Sachin, 5000.0 at output window.
+        //because the constructor put the vals in it.
+    }
+}
+================================
+class Account{
+    private int accountID;
+    private String name;
+    private double balance;
+
+    public void Account(){ // now it is made into an ordinary method
+        //java provides a default constructor now called Account() with
+        //default values
+        //this is now just a method...
+        accountID = 101;
+        name = "Sachin";
+        balance = 5000.0;
+        System.out.println("constructor called...");
+    }
+    public void show(){
+        System.out.println(accountID +" " + name + " " + balance);
+    }
+}
+
+class UseAccount{
+    public stativ void main(String[] args){
+        Account A = new Account();
+        A.show();
+        //shows default values at output window.
+        //because the constructor put the vals in it.
+    }
+}
+===========================================
+PARAMETERIZED CONSTRUCTORS 
+YOU CAN HAVE PARAMETERIZED CONSTRUCTORS JUST LIKE 
+PARAMETERIZED MEMBER FUNCTIONS 
+WE CAN ALSO HAVE PARAMETERIZED CONSTRUCTORS IN THE CLASS.
+THAT IS THE CONSTRUCTOR CAN ALSO ACCEPT ARGuments in JAVA
+
+SPECIAL NOTE:
+
+If a class has ONLY PARAMETERIZED CONSTRUCTOR. Then We must remember that EVERY OBJECT of
+that class which we are going to create must also be PARAMETERIZED.
+
+SYNTAX of PARAMETERIZED CONSTRUCTOR
+===================================
+
+public <name of class> (list of arguments){
+    //body of constructor
+}
+
+SYNTAX of CALLING A PARAMETERIZED CONSTRUCTOR
+=============================================
+
+<classname> <object_ref_name> = new <classname>(<list of arguments>);
+
+example:
+
+class Account{
+    private int accountID;
+    private String name;
+    private double balance;
+
+    public Account(int id, String n, double b){ // this is our user defined constructor
+        accountID = id;
+        name = n;
+        balance = b;
+    }
+    public void show(){
+        System.out.println(accountID +" " + name + " " + balance);
+    }
+}
+
+class UseAccount{
+    public stativ void main(String[] args){
+        Account A1 = new Account(101, "sachin", 60000.0);
+        A1.show();
+        Account A2 = new Account(10, "shav", 5000.0);
+        A2.show();
+        //runs fine 
+    }
+}
+
+=================================================
+class Account{
+    private int accountID;
+    private String name;
+    private double balance;
+
+    public Account(int id, String n, double b){ // this is our user defined constructor
+        accountID = id;
+        name = n;
+        balance = b;
+    }
+    public void show(){
+        System.out.println(accountID +" " + name + " " + balance);
+    }
+}
+
+class UseAccount{
+    public stativ void main(String[] args){
+        Account A1 = new Account(101, "sachin", 60000.0);
+        A1.show();
+        Account A2 = new Account();
+        //actual and formal arguments differ in length error.
+        //because now the compiler will look for default constructor, 
+        //which was never made and not there so throws this error.
+        A2.show();
+        //runs fine 
+    }
+}
+
+Q. Challenge try this before the next leture:
+The data is passed by the programmer rn, 
+For both objects, pass the data by the user.
+
+Modify te previous code so that the values being passed to the objects must be accepted from the user.
+
+At first accept input for both the objects, initialize, and then display both of them.
+
+Sample output:
+
+Enter accountID, name and balance for object 1:
+
+Enter accountID, name and balance for object 2:
+
+Account details:
+
+accountID = 101, name = Amit, balance = 1000.0
+accountID = 10, name = Arshi, balance = 7000.0
+
+then we will discuss it.
+

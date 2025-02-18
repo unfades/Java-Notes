@@ -1,0 +1,237 @@
+INPUT AND OUTPUT IN A JAGGED ARRAY
+==================================
+We leave one square bracket empty.
+
+import java.util.Scanner;
+class Jagged2DArr{
+
+    public static void main(String[] args){
+        int[][]arr = new int[3][];
+        arr[0] = new int[4];
+        arr[1] = new int[2];
+        arr[2] = new int[5];
+        Scanner sc = new Scanner(System.in);
+    }
+    for(int i = 0; i<arr.length; i++){
+        for(int j = 0; j< arr[i].length; j++){
+            System.out.println("Enter number: ");
+            arr[i][j] = sc.nextInt();
+        }
+    }
+    for(int i = 0; i<arr.length; i++){
+        for(int j = 0; j< arr[i].length; j++){
+            System.out.println("Numbers are : " + arr[i][j]);
+        }
+    }
+}
+
+ASSIGNMENTS
+=============
+WAP to calculate average sales made by every salesman of a company.
+Number of salesmen, number of sales, and sale value amount
+all have to be accepted from the user.
+
+SAMPLE OUTPUT:
+HOW MANY SALESMEN?
+3
+
+HOW MANY SALES FOR SALESMAN 1?
+3
+ENTER SALE 1 VALUE:30
+ENTER SALE 2 VALUE:10
+ENTER SALE 3 VALUE:50
+
+HOW many SALES FOR SALESMAN2?
+2
+ENTER SALE 1 VALUE:30
+ENTER SALE 2 VALUE:10
+
+HOW many SALES FOR SALESMAN3?
+3
+ENTER SALE 1 VALUE:30
+ENTER SALE 2 VALUE:10
+ENTER SALE 3 VALUE: 5
+
+AVERAGE SALE OF SALESMAN1: ...
+AVERAGE SALE OF SALESMAN2: ...
+AVERAGE SALE OF SALESMAN3: ...
+//this program runs for n salesmen
+PART 2
+
+ALSO OUTPUT THE BEST SALESMAN.
+THE BEST IS THE ONE WITH THE HIGHEST AVERAGE SALES.
+THIS TAKES JAGGED ARRAYS
+
+
+
+OBJECT ORIENTED PROGRAMMING
+===========================
+//SEE SIRS CRASH COURSE YOUTUBE VIDEO FOR OOP ON THERE
+//THE REFRESHER CLASS FROM C++ IS THERE ON YOUTUBE
+
+Q.
+WHAT IS OBJECT ORIENTED PROGRAMMING?
+A.
+1.IT IS A METHODOLOGY/APPROACH OF DEVELOPING SOFTWARE IN TODAYS world
+MAXIMUM SOFTWARE TODAY IS MADE THROUGH THE OBJECT ORIENTED PROGRAMMING APPROACH
+
+2. IN THIS EVERY COMPONENT IS AN OBJECT(OBJECTS ARE HEROES OF OOP),
+EVERY OBJECT HAS 2 THINGS:
+a. data: which is also called attributes, fields, data members, properties.
+b. functions: whichi is also calle methods, behaviors, actions, etc.
+
+For example suppose we have to design an employee management system...
+in an object oriented ways.
+
+We would first try to identify different types of objects.
+a. Employee
+b. Department
+c. Project
+d. Customers
+etc.. etc...
+To create each of these objects, we will first have to create a Class for each of them.
+
+Thus we can say that in object oriented programming we always model real world entities
+into software objects as well as Object Oriented Programming also offers
+a very high level of security.
+
+SYNTAX OF CREATING A CLASS IN JAVA
+==================================
+//first mention access modifier always, in Java Classes are also public thats possible 
+//then write class keyword
+//then class name
+<access modifier> class <classname>{ // class body start
+    <accessmodifier> <datatype> <varname> = <VALUE>; //only in new compilers, like any java one
+    <accessmodifier> <datatype> <varname> = <VALUE>;
+    ....
+    ....
+    <access_modifier> <return_type> <method_name>(arg_list){
+        //IMPORTANT method body it is javas compulsion, all methods must be writtin inside class bodies.
+    }
+    ....
+} // class body end
+DIFFERENCE WITH C++
+===================
+1 - 
+1. in C++ we do not use keywords like public or private with a class
+2. in Java, classes can be public however. Benefits discussed in package chapter.
+
+2 - 
+1. In turbo C++ we cannot initialize datamembers inside the class
+2. But in Java, we CAN initialize data members inside a class.
+
+3 - 
+1. Access modifier needs to be mentioned with every variable if it is of
+different data type in Java.
+if they are n different datatypes, then n different access modifiers for them.
+if all the same datatype then just 1 access modifier needed.
+
+4 -
+Unlike C++, in Java we do not have method/function declaration.
+Rather we directly define a method and that too WITHIN the body of the class
+NOT OUTSIDE THE CLASS.
+
+5. In C++, by default all the members of a class are in private mode. But in Java
+all members of a class are in default mode.
+
+In C++, by default all members of a class is private
+In Java, by devault all members of a class is default.
+java has 4 access modifiers, public private protected and default.
+This will be learned in packages chapter.
+Right now we will only discuess modifiers private and public.
+
+WARNING: KNOW THAT default and public have different behaviors. will learn in package chapter.
+Right now we just discuss private and public modifiers. They work the same in Java
+as in C++.
+
+==========================================================
+
+DESIGNING THE "Student" CLASS
+//understanding, these are like structs of c++
+//creating objects for Java classes is important to use the class
+// we didn't put name in Student class, because multiple classes
+//might need to use the name, so why a name in every one?
+//Entity class means object, Student class is entity class
+//Then we make public static void main(String[] args)
+//Main is also kept in another class, not entity class 
+//because if we made Student private, it isn't gonna be accessible
+
+
+// we make a UseStudent class, called a Driver class.
+//If program is a car, driver is Main, so main is Driver class containing Main method.
+// before we just made driver classes, now we have Entity classes, and Driver class.
+//It's just a methodology from sir, we use. Usually people call it Main class.
+//Sir calls it driver class.
+
+class Student{
+    int roll;
+    char grade;
+    double per;
+}
+
+class UseStudent{
+    public static void main(String[] args){
+        Student S; //S reference made
+        S = new Student(); //An object made of Student in HEAP, size int, char, double --> 14 bytes
+        //it is made by new, so put default values in the object in heap.
+        // roll = 0, grade = '\o' per = 0.0
+
+        S.roll = 10;
+        S.grade = 'A';
+        S.per = 76.5
+
+        System.out.println("Roll is: " + S.roll); //changed the default values in S object
+        System.out.println("Grade is: " + S.grade);
+        System.out.println("Per is" + S.per);
+
+    }
+}
+
+Set the Program name UseStudent.java,
+because UseStudent contains the Main method.
+This is why we named it UseStudent.java 
+so the same name is used to compile and run too.
+Like javac UseStudent.java for source code file 
+And java UseStudent, for the class name that contains main method, which is 
+UseStudent class, so class name and source code file same so we don't need
+to memorize 2 names.
+
+This program is going against OOP programming, OOPs teaches the right to Access class data
+should only be for class functions.
+
+Now we need to make 3 changes in the program for proper object oriented programming
+To make them private.
+Before they were default which is similar to public but not the same.
+
+they were set as default modifiers.
+
+class Student{
+    private int roll;
+    private char grade;
+    private double per;
+}
+//code gives 6 syntax errors, that how can you access these,
+//they are private.
+//if they are changeable properties then theres problems
+// if they are not changeable, like length of array, then no problem,
+//security is maintained.
+
+
+
+class UseStudent{
+    public static void main(String[] args){
+        Student S; //S reference made
+        S = new Student(); //An object made of Student in HEAP, size int, char, double --> 14 bytes
+        //it is made by new, so put default values in the object in heap.
+        // roll = 0, grade = '\o' per = 0.0
+
+        S.roll = 10;
+        S.grade = 'A';
+        S.per = 76.5
+
+        System.out.println("Roll is: " + S.roll); //changed the default values in S object
+        System.out.println("Grade is: " + S.grade);
+        System.out.println("Per is" + S.per);
+
+    }
+}

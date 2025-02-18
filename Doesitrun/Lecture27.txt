@@ -1,0 +1,269 @@
+METHOD OVERLOADING, IMPORTANT POINTS FOR METHOD OVERLOADING
+============================================================
+
+//My answer it's wrong, gotta scan use Scanner, sir said, and loops
+
+class Account{
+    private int accountID;
+    private String name;
+    private double balance;
+
+    public Account(int id, String n, double b){ // this is our user defined constructor
+        accountID = id;
+        name = n;
+        balance = b;
+    }
+    public void show(){
+        System.out.println(accountID +" " + name + " " + balance);
+    }
+}
+
+public class Main{
+    public static void main(String[] args){
+        Account A1 = new Account(101, "sachin", 60000.0);
+        Account A2 = new Account(100,"sahabi", 777777.0);
+        A1.show();
+        A2.show();
+    }
+}
+
+======================================================
+Sir's answer
+
+import java.util.Scanner;
+
+class Account{
+    private int accountID;
+    private String name;
+    private double bal;
+
+    public Account(int id, String str, double bl){ //constructor definition
+        accountID = id;
+        name = str;
+        bal = bl;
+    }
+
+    public void showAccount(){
+        System.out.println(AccountID + "," + name + "," + bal);
+    }
+}
+
+class UseAccount{
+    public stati void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        //Array of references needed to be made, there is no Array of objects in Java
+        Account[] A = new Account[2]; // This is an array of Account references
+        //In the HEAP Java made a 16 byte array in there, since A is a reference each object is 8 bytes so
+        //16 bytes
+        //its start address goes to A at 0 index
+
+
+        for(int i = 0; i<A.length; i++){
+            System.out.println("Enter accountID,name, and balance:" );
+            int id = sc.nextInt();
+            String str = sc.next();
+            double amt = sc.nextDouble();
+            A[i] = new Account(id,str,amt); //<--- Now the new object is made, here, since it is parameterized get it
+            //constructor is called here, these vals get passed in A[0] then A[1] then stops
+        }
+        System.out.println("Account details: ");
+        for(int i = 0; i<A.length; i++){
+            
+            A[i].showAccount();
+        }
+        //There is no such thing as an array of objects in java, its an array of references
+        //Here A is a reference to an Array of references which is referring to an Object of Account
+    }
+}
+/*enhanced for version of this code
+//Account type reference, and copied the address of first Object into x
+//then show Account called for X 
+//next address went into it, then shows for the next object
+//Just like Student S; S is a reference of Student
+//Account X, X is a reference of Account 
+for(Account X: A){
+    X.showAccount();
+}
+
+*/
+
+
+METHOD OVERLOADING
+==================
+Means a method that has multiple versions
+Like + operator in java is overloaded, it concatenates and adds as well...
+
+The word "overloading" means having different versions/implementations of the same entity.
+This if we have multiple methods in a class but every method has same name, then we say that it is
+METHOD OVERLOADING. 
+
+The most common example of METHOD OVERLOADING in JAVA is println();
+
+case 1:
+int a = 10;
+System.out.println(a);
+
+case 2:
+String name = "Sachin";
+System.out.println(name);
+
+case 3:
+double b = 1.5;
+System.out.println(b);
+
+case 4:
+boolean flag = true;
+System.out.println(flag);
+
+
+This is called method overloading..
+Java team could have said printBoolean, printInt, printDouble, etc
+but the same println() can handle multiple dataTypes..
+
+
+int a = 10;
+char ch = 'X';
+double c = 1.5;
+
+System.out.println(a,ch,c); // doesnt work
+System.out.println(a+","+ch+","+c); // works
+
+concatenation of string, 10 + str -> str ch + Str -> str double +str ->str
+everything becomes String.
+
+
+POINTS TO remember
+=================
+WHen we overload 2 or more methods, then these methods must differ with each other in terms
+of their arguments and this can be of 3 types:
+
+A. Number of arguments
+B. Types of arguments
+C. Order of arguments
+
+
+This is all valid for overloading in JAVA
+
+println() is overloaded on the basis of B. Type of Arguments.
+
+
+class Ovld{
+    public void show(int a){
+        System.out.println("in show with int arg:" + a);
+    }
+    public void show(char c){
+        System.out.println("in show with char arg:" + c);
+    }
+    public void show(String st){
+        System.out.println("in show with String arg:" + st);
+    }
+    public void show(float d){
+        System.out.println("in show with float arg:" + d);
+    }
+}
+
+class UseOvld{
+
+    public static void main(String[] args){
+        Ovld obj = new Ovld();
+        //exact match char
+        //if ther was no implementation of char, it would go into int
+        //it would not go into String if char and int were not there
+        //because String is a class, char is a primitive datatype
+        //this is also why String s = 'c'; cannot be implicitly cast
+        //char can never be implicitly converted to String.
+
+        obj.show('z');
+        //exact match int
+        obj.show(12);
+        //exact match String
+        obj.show("hello");
+        //exact match, goes into the float implementation of overloaded method
+        obj.show(2.4f);
+        //goes into float, 10L turned into 10.0f
+        obj.show(10L);
+        //double, then it cannot go into float, error because double cannot go into float implicitly
+        //cannot go into other types
+        obj.show(2.5);
+        //nothing can take boolean as cannot implicitly convert boolean to other types.
+        obj.show(true);
+
+        //first java chooses exact match, if not found, it chooses nearest
+        //method that can implicitly be cast inside, like short-->int
+        //if not found it will choose next nearest compatible, like short-->long/double whatever can take it
+        //if not found, then it will give an error
+        //VVimportant
+    }
+}
+
+ASSIGNMENTS
+Create a class called Geometry
+which should contain 4 methods of the same name called
+area()
+
+to calculate area of rectangle, square, and triangle and circle.
+Now design a driver class called UseGeometry,and ask the user
+to select a figure, then based on the selected figure
+ask the user to input it's dimensions, and based upon the user's choice
+calculate and display the area of the seleted figure.
+
+SPECIAL POINT:
+In JAVA also, like C++, return type has no role to play in overloading. This means
+if 2 methods are having the same SIGNATURE (name and argument type) then even if they have
+different return types, still the code will not compile and Java will give SYNTAX error.
+
+ex:
+void display(int a){
+    ....
+}
+
+int display(int b){ // syntax error, name and argument same, return type doesn't matter if changed
+    .... // the signature needs to be different, then name kept same, and argument must be changed for overloading to be valid.
+    return 0; // VVIMP
+}
+=========================
+void display(int a){
+    ....
+}
+void display(double b){ // works, name and argument same, return type doesn't matter if changed
+    .... // signature, here the argument was changed for overloading to be valid.
+}
+
+So Argumetns taking in square can be int and circle can be double for overloading to work with 1 parameter arguments
+Yeh.
+Crcle and Square takes 1 argument, how can we differentiate?
+Making square data typedifferent, and circle dataType different works.
+
+========================================================================
+Answer:
+
+import java.lang.Math;
+import java.util.Scanner;
+
+class Geometry{
+    
+    public void area(int a){
+        System.out.println("The area of a square is " + a*a);
+    }
+    public void area(long b){
+        System.out.println("The area of a circle is "+ Math.PI*Math.pow(b,2));
+    }
+    public void area(float c, float d){
+        System.out.println("The area of a rectangle is: " + (2*c+2*d));
+    }
+    public void area(long e, long f){
+        System.out.println("The area of a triangle is: " + (2*e*f));
+    }
+    
+}
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+		Geometry myGeometry = new Geometry();
+        //overloading explained
+	    myGeometry.area(2.5f, 2.5f);// outputted float rectangle because of the overloaded parameters
+	    
+	}
+}
+

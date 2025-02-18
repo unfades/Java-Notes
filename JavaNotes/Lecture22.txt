@@ -1,0 +1,258 @@
+Q.WAP to take numbers from command line arguments and then print the sum of those numebers,
+if less than 2 numbers are passed then you have to display: "please enter at least 2 numbers"
+A. // My Answer
+public class WAP {
+    public static void main(String[] args) {
+        System.out.println("Enter amount of numbers: ");
+        int n = Integer.parseInt(args[0]);
+        int sum = 0;
+        int num = 0;
+        if(n<2){
+            System.out.println("please enter at least 2 numbers...");
+        }else{
+            System.out.println("Now enter" + n + " numbers: ");
+            for(int i = 0; i<n; i++){
+                System.out.println("Enter element "+ i + ": ");
+                num = Integer.parseInt(args[i]);
+                sum+=num;
+            }
+        }
+        System.out.println(sum);
+    }
+}
+
+//Sirs answer, you're wrong, you gotta use args.length to get length of args, not from
+user input...
+
+public class WAP {
+    public static void main(String[] args) {
+        System.out.println("Enter amount of numbers: ");
+        int n = args.length; // this is the right way. you can straight up use args.length instead of n to save space btw.
+        int sum = 0;
+        int num = 0;
+        if(n<2){
+            System.out.println("please enter at least 2 numbers...");
+        }else{
+            System.out.println("Now enter" + n + " numbers: ");
+            for(int i = 0; i<n; i++){
+                System.out.println("Enter element "+ i + ": ");
+                num = Integer.parseInt(args[i]);
+                sum+=num;
+            }
+        }
+        System.out.println(sum);
+    }
+}
+
+How to exit out of programs like exit in C++
+
+if a method is static then call it with class name,
+if not stati then make an object and then call it.
+exit is a methof of the System class. 
+so we use System.exit(0);
+Because exit is of Class System, so Class name then exit method, parameter passed is 0
+0 or 1?
+0 when there is no problem in program and we are terminating the program at our will.
+We give 1 when there is an issue in the program. This is the story why 0 is passed into 
+exit() as exit(0).
+
+public class WAP {
+    public static void main(String[] args) {
+        System.out.println("Enter amount of numbers: ");
+        int n = args.length; // this is the right way. you can straight up use args.length instead of n to save space btw.
+        int sum = 0;
+        int num = 0;
+        if(n<2){
+            System.out.println("please enter at least 2 numbers...");
+            System.exit(0);
+        }
+        System.out.println("Now enter" + n + " numbers: ");
+        for(int i = 0; i<n; i++){
+            System.out.println("Enter element "+ i + ": ");
+            num = Integer.parseInt(args[i]);
+            sum+=num;
+        }
+        System.out.println(sum);
+    }
+}
+
+Q. WAP to accept some numbers from command line arguments and display them in a sorted order.
+ex: java SortNumbers 5 2 8 1 9
+Sorted list is 
+1
+2
+5
+8
+9
+
+Modify the above code so that now user will pass "A" or "D" as the first arg followed by nos.
+if"A" is passed, sorting is in ascending order,
+if"D" is passed, sorting is in descending order.
+
+A.
+
+import java.util.Scanner;
+
+public class SortNumbers{
+    public static void main(String[] args){
+        int n = args.length-1;
+        int[] arr = new int[n];
+        Scanner sc = new Scanner(System.in);
+        char c;
+        c = args[0].charAt(0);
+        for(int i = 0; i<n; i++){
+            arr[i] = Integer.parseInt(args[i+1]);
+        }
+        System.out.println("Unsorted, it is: ");
+        for(int i = 0; i<n; i++){
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    if(c == 'D'){
+        for(int i  = 0; i<n; i++){
+            for(int j = 0; j<n; j++){
+                if(arr[i] > arr[j] && i!=j){
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        System.out.println("Sorted in descending order its: ");
+        for(int i = 0; i<n; i++){
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+    if(c == 'A'){
+        for(int i  = 0; i<n; i++){
+            for(int j = 0; j<n; j++){
+                if(arr[i] < arr[j] && i!=j){
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        System.out.println("Sorted in ascending order its: ");
+        for(int i = 0; i<n; i++){
+            System.out.print(arr[i] + " ");
+        }
+    }
+        
+    }
+}
+
+Normal for loop:
+
+for(int i = 0; i<arr.length; i++){
+    System.out.println(arr[i]);
+}
+
+Enhanced for loop or for each loop:
+Without all these conditions, a loop.
+no need to initialization, condition, or statement.
+itis an enhanced for loop.
+Means a little advanced loop compared to normal for.
+
+for(int a: arr)
+    System.out.println(a);
+
+The same output as above, but less code.
+Lets understand the inner working of enhanced for.
+
+int [] arr = {10,20,30,40,50};
+
+for(int a: arr){
+    System.out.println(a);
+}
+
+theres a reference arr which points to memory in HEAP,
+
+here, java automatically stored the first val of arr into the
+Array in the HEAP memory.
+Then loop goes
+java automatically again stores the next value into the array in HEAP
+until the length of the array in memory is done,
+no test cond, no increment, no initialization needed.
+
+Syntax of enhanced for loop:
+
+you cannot write datatype varname outside this loop, must be inside.
+for( <datatype> <varname> : <array ref name>){
+    ....
+}
+
+the datatype of varname and array ref name must be the same
+in a normal for loop, it runs on int 
+here it can run with different values as variable type, but must
+be the same as in the array.
+
+1. IMP : This loop is only used for Arrays and Collections.
+2. The control variable needs to be declared in the loop.
+3. always runs from the 0th element to the last element.
+4. we cannot run the loop in reverse
+5. the variable type used in the loop must match with the array type or can be of higher type.
+
+like float variable type and int array type as float <--- int implicit typecasting.
+
+6. you can write if statements inside it, break inside it.
+
+7. VVIMP
+ex: 
+int arr[] {10,20,30,40,50};
+
+for(int i  = 0; i < arr.length; i++){
+    System.out.println(arr[i]);
+    arr[i] = arr[i]*2; //this array is also doubling values of data of array.
+}
+
+for(int i  = 0; i < arr.length; i++){
+    System.out.println(arr[i]); //this shows the new values.
+}
+
+for(int a: arr){
+    System.out.println(a);
+    a = a*2; / this aint gonna change the data inside
+}
+
+for(int a: arr){
+    System.out.println(a); // no values doubled
+}
+
+This enhanced for loop is useful to traverse the array, not to modify the array.
+
+now our previous code modified with enhanced for.
+
+for(String a: args){
+    sum = sum+ Integer.parseInt(a);
+}
+System.out.println("Sum is: " + sum); // works great, awesome. Must use Integer.parseInt() since args is String type...
+
+Array maximum finding can be done with enhanced for
+Array data must be sorted cannot be done with enhanced for
+Array input program, cannot be done with enhanced for
+Summing and displaying is possible with enhanced for
+
+2D Arrays concept in JAVA
+
+DOUBLE DIMENSIONAL ARRAYS IN JAVA
+=================================
+of 2 types
+
+1.Rectangular 2D Array
+In every array, the same number of row lengths.
+
+1,2,3,4
+4,5,6,7
+7,6,4,0
+
+Every row is of the same number of columns.
+
+2.Jagged 2D Arrays
+In this array, we can make every row different lengths.
+1,2,3
+4,5,7,10
+11,3
+
+Each row can have different number of columns.

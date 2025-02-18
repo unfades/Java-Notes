@@ -1,0 +1,16 @@
+
+import java.util.Scanner;
+
+class UseCircle{
+
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the radius: ");
+		int radius = sc.nextInt();
+		Circle myCircle = new Circle();
+		myCircle.setRadius(radius);
+		myCircle.calculateArea();
+		myCircle.calculateCircumference();
+	}
+
+}

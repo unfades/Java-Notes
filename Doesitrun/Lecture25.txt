@@ -1,0 +1,275 @@
+DRAWBACK OF PREVIOUS CODE
+=========================
+
+Although the previous code compiled as well as executed successfully, it is still
+breaking a very important rule/principle of OOP called ENCAPSULATION.
+
+ENCAPSULATION says that the data members of a class SHOULD NEVER BE ACCESSED DIRECTlY 
+FROM OUTSIDE THE CLASS.
+
+This is because if we allow this then illegal values can also be stored in these data members.
+So to keep the data secure we must not allow direct access to them,.
+
+So to make our code proper OOP Code, we must make 3 changes.
+
+1.declare all the data members of the STUDENT class as "private"
+
+2. Define methods/member functions in the STUDENT class to initialize and display the values of these
+data members.
+
+3, From the driver class, instead of directly accessing roll, grade, and per, call the methods
+defined by the student class.
+
+
+//class is defined in the compiler, as a keyword, not user made classes
+//and predefined classes as well
+//not our made classes
+//only variables are declared in java,
+//methods and classes are defined in java.
+
+class Student{
+    //int roll;
+    private int roll;
+    //char grade;
+    private char grade;
+    //double per;
+    private double per;
+
+    //according to OOPs, make 2 methods.
+    //because for every different task, there should be a method.
+
+    //since we dont know difference between public and default, we use public
+    //just cause we know public and private, we will discuss default later.
+    // it will still be accessible if public not set because its default btw remember.
+
+    public void setStudent(){
+        roll = 10;
+        grade = 'A';
+        per = 78.5;
+    }
+
+    public void showStudent(){
+        System.out.println("Roll =" +roll+"\nGrade ="+grade+"\nper ="+per);
+    }
+}
+
+
+
+class UseStudent{
+    public static void main(String[] args){
+        Student S1; //S reference made
+        S1 = new Student();
+
+        S1.setStudent(); //S1 is a object reference to the object that is used to call SetStudent.
+        S1.showStudent(); // what happened? What is the output?
+        //Now lets see example 2
+        S2 = new Student();
+        S1.setStudent();
+        S2.showStudent; // now shows default values for S2. as not initialized.
+
+        S2.setStudent();
+        S2.showStudent(); // great now it is given values and showing data
+        //problem now is everything shows the same data...
+        //how do we fix this? code is object oriented, but we want different values
+        //for each student.
+    }
+}
+
+ACCEPTING INPUT FOR INSTANCE MEMBERS 
+=====================================
+To accept input from the user for instance members of a class we have two approaches:
+
+1. we make a Scanner class object inside setStudent() method of Student class 
+
+2. Create a Scanner object in the main() method, accept input there, and pass these 
+values as arguments to the method setStudent()
+
+import java.util.Scanner;
+
+class Student{
+    private int roll;
+    private char grade;
+    private String name;
+    private double per;
+
+    public void setStudent(){
+        Scanner sc = new Scanner(System.in);
+        roll = sc.nextInt();
+        grade = sc.next().charAt(0);
+        name = sc.next();
+        per = sc.nextDouble();
+    }
+
+    public void showStudent(){
+        System.out.println("Name =" +name+"\nRoll =" +roll+"\nGrade ="+grade+"\nper ="+per);
+    }
+}
+
+
+
+class UseStudent{
+    public static void main(String[] args){
+        Student S1; //S reference made
+        S1 = new Student();
+
+        S1.setStudent(); //Now takes input using scanner defined in the method setStudent(), values of S1.name, S1.per, etc are modified
+        S1.showStudent(); // Now what is the output?
+
+        S2.setStudent(); // Now the variables of this object reference's object are changed as well.
+        S2.showStudent();
+
+        //The problem here is if theres 1000 students, then 1000 objects made
+        //Then the JVM might clean up these whenever it wants lazily,
+        //so its problematic and wastes memory unnecessarily.
+        //so we can takeinput in main instead, just a single scanner instead of 1000 scanner objects.
+    }
+}
+//^never never recommended 
+
+2. taking input from main() method
+
+import java.util.Scanner;
+
+class Student{
+    private int roll;
+    private char grade;
+    private String name;
+    private double per;
+
+    //need to make setStudent() parameterized to take input from main() method.
+    //much better so no memory wastage.
+    public void setStudent(int r, char c, String n, double p){
+        roll = r;
+        grade = c;
+        name = n;
+        per = p;
+    }
+
+    public void showStudent(){
+        System.out.println("Name =" +name+"\nRoll =" +roll+"\nGrade ="+grade+"\nper ="+per);
+    }
+}
+
+
+
+class UseStudent{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter roll no,grade,name, and per:");
+        int rollNumber = sc.nextInt();
+        char grade = sc.next().charAt(0);
+        String name = sc.next();
+        double percentage = sc.nextDouble();
+        Student S = new Student();
+        //only a single scanner does the job more efficiently and fine.
+        //you can loop it to take input 1000 times, but still no memory wasted.
+        S.setStudent(rollNumber, grade, name, percentage);
+        S.showStudent();
+    }
+}
+//^better way^ recommended way Creating Scanner Object inside main method, accepting input
+//and passing it as an argument.
+
+OOP Examples
+=================
+
+import java.util.Scanner;
+
+class Student{
+    private int roll;
+    private char grade;
+    private String name;
+    private double per;
+
+    public void setStudent(int r, char c, String n, double p){
+        roll = r;
+        grade = c;
+        name = n;
+        per = p;
+    }
+
+    public void showStudent(){
+        System.out.println("Name =" +name+"\nRoll =" +roll+"\nGrade ="+grade+"\nper ="+per);
+    }
+}
+
+class UseStudent{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter roll no,grade,name, and per:");
+        int rollNumber = sc.nextInt();
+        char grade = sc.next().charAt(0);
+        String name = sc.next();
+        double percentage = sc.nextDouble();
+        Student S = new Student();
+        
+        S.setStudent(rollNumber, grade, name, percentage);
+        S.showStudent();
+    }
+}
+
+//2 files made. Student.java source file, holds class  Student
+// UseStudent class, UseStudent.java source file
+//UseStudent class and Student class have the same package OOPSexample
+//This is why both classes can access each other,
+//VVIMP if 2 classes in the same package, they can access each other.
+
+
+WAP that is Object Oriented to create an entity class called Circle,
+with an integer data member radius.
+Provice following methods in your class ->
+
+1. setRadius() which should accept an integer as argument and should initialize
+radius with is.
+2. calculateArea() which should calculate and display area of the Circle
+
+3. calculateCircumference() which should calculate and display
+circumference of the circle.
+
+Now design a driver class called UseCircle, which should accept radius from user
+create and initialize Circle object and should display its area and circumference.
+
+
+//in a file I made Circle.java
+
+import java.lang.Math;
+
+class Circle{
+
+	private int radius;
+
+	public void setRadius(int x){
+		radius = x;
+	}
+
+	public void calculateArea(){
+		System.out.println("The area of the Circle is: " + Math.PI*Math.pow(radius,2));		
+	}
+
+	public void calculateCircumference(){
+		System.out.println("The circumference of the Circle is:" + 2*Math.PI*radius);
+	}
+}
+
+//in another file I made UseCircle.java
+
+import java.util.Scanner;
+
+class UseCircle{
+
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the radius: ");
+		int radius = sc.nextInt();
+		Circle myCircle = new Circle();
+		myCircle.setRadius(radius);
+		myCircle.calculateArea();
+		myCircle.calculateCircumference();
+	}
+
+}
+
+H.W. WAP Salary program using OOP
+
+Also before next lecture review just the basics of Constructors, what are they, etc.
+

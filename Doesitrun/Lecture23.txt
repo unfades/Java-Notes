@@ -1,0 +1,176 @@
+Rectangular Array, Jagged Array, Initializing Rectangular Array & Jagged Array
+
+1.
+Declaring Array reference
+
+<datatype> [][] <array reference> //Best Recommended
+OR
+<datatype> <arrayrefname>[][] // That's alright its ok
+OR
+<datatype>[] <arrayrefname>[] //least recommended
+
+2.
+Declaring the actual array
+
+<arrayrefname> = new <datatype>[rowsize][columnsize]
+
+
+Ex:
+int[][]arr;
+How will you pronounce this?
+Ans: 
+arr is a reference to an array of references to an array of integers
+
+Because 
+We pronounce this
+int [] arr 
+as arr is a reference to an array of integer type
+
+first program makes array reference arr
+then arr = new int[3][4];
+
+rowsize is 3
+this array of rowsize 3 is an array of references not integers.
+every member of this array is a reference.
+
+now the column size is 4.
+this array is an array of integers.by default values in cells is 0.
+total memory consumption is
+here
+as
+80 bytes
+ineger array is 16 bytes x 4
+referene array pointing to integer array is 8 bytes x 3
+reference array pointing to ref array is 8 bytes
+
+Guess the output:
+=================
+System.out.println(arr.length); -->3
+System.out.println(arr[0].length); --> 4
+System.out.println(arr[0][0].length); -->syntax error
+just like saying
+int a =10;
+SOP(a.length) is wrong
+SOP(arr[0][0].length) is wrong because those arrays are not pointing to anything, they are
+not references, they are the last ones. So arr[0][0] is a value like a = 10, arr[0][0] = 10 or some value.
+
+INPUT AND OUTPUT IN A RECTANGULAR ARRAY
+========================================
+WAP to create a rectangular 2D array by accepting ROW and COL size from user.
+Accept values from the array from the user and finally display all the elements
+in MATRIX style as wekk as display their SUM and AVG.
+
+int [][]arr;
+Scanner sc = new Scanenr(System.in);
+System.out.println("Enter the rows and columns: );
+
+int r = sc.nextInt();
+int c = sc.nextInt();
+arr = new int[r][c];
+
+for(int i =0; i<r;i++){
+    for(int j = 0; j<c; j++){
+        System.out.println("Enter a number: );
+        arr[i][j] = sc.nextInt();
+    }
+}
+
+int sum = 0;
+
+for(int i =0; i<r;i++){
+    for(int j = 0; j<c; j++){
+        System.out.println(arr[i][j]" + ");
+        sum += arr[i][j];
+    }
+    System.out.println();
+}
+System.out.println("Sum is " + sum);
+System.out.println("Avg is " + (float)sum/(r*c));
+
+INITIALIZING A RECTANGULAR 2D ARRAY
+===================================
+1.
+int[][] arr = new int[3][4];
+2.
+int[][]arr = new int[][]{{10,20,30,40}, {50,60,70,80}}
+
+
+ASSIGNMENTS
+
+WAP to accept marks of 3 students each having 4 subjects and calculate total marks
+obtained by every student
+
+WAP modify the previous code so your program also displays the student number who has
+topped the examination
+
+WAP to create a 2D integer array of 3x3 size, accept values from the user in it, check whether
+it is a unit matrix or not. This means all diagonals are 1 and all non diagonals are 0
+
+WAP in our practice program today, wherever possible, try to replace regular for with enhanced for loop
+
+JAGGED 2D Array
+===============
+
+SYNTAX:
+
+1. Declaring the array reference:
+
+<datatype> [][] <arrayreferencename> = new <datatype>[row][];
+OR
+<datatype> <arrayreferencename>[][] = new <datatype>[row][];
+OR
+<datatype>[] <arrayreferencename>[] = new <datatype>[row][];
+
+Declaring the actual array
+
+<arrayrefname>[rowindex_0] = new <datatype>[colsize];
+<arrayrefname>[rowindex_1] = new <datatype>[colsize];
+<arrayrefname>[rowindex_2] = new <datatype>[colsize];
+....
+....
+etc
+
+
+Examples:
+
+int[][]arr = newint[3][];
+
+arr[0]=new int[5];
+arr[1] = new int[3];
+arr[2] = new int[4];
+
+by default new size is holding null reference, here it is assigned to 5,3,4,
+5 is the index of the first integer array holding the address of arr[0]..
+
+OUTPUT?
+========
+SOP(arr.length) --> 3
+SOP(arr[0].length) --> 3
+SOP(arr[1].length) --> 5
+SOP(arr[2].length) --> 4
+
+ACCESSING JAGGED ARRAY
+======================
+arr[0][0] = 10;
+arr[0][1] = 20;
+
+INITIALIZING A JAGGED ARRAY
+============================
+1. int [][] arr = new int[3][];
+arr[0] = new int[5];
+arr[1] = new int[3];
+arr[2] = new int[4];
+
+2.
+int[][] arr = new int[][]{{10,20,30,40,50},{60,70,80},{90,100,110,120}};
+
+3.
+int[][] arr = {{10,20,30,40,50},{60,70,80},{90,100,110,120}};
+
+4.
+int [][] arr = new int[3][];
+arr[0] = new {10,20,30,40,50};
+arr[1] = new {60,70,80};
+arr[2] = new {90,100,110,120}; // new keyword must be used because reference was declared
+seperately earlier in a line...
+

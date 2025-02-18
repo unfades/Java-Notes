@@ -1,0 +1,149 @@
+import java.lang.Math;
+public class Lecture13{
+    public static void main(String[] args) {
+        int radius  = 5; 
+        System.out.println(Math.PI * Math.pow(radius,2));
+        System.out.println("The circumference is: " + 2 * Math.PI * radius);
+        System.out.println("The circumference is " + 2 * 3.14 * radius);
+        System.out.println(3.14);
+        
+        //13
+        //Lecture 13
+        //When entering values 10.1 and 10.2
+        /*
+        double a, b, c;
+        a = Double.parseDouble(a);
+        b = Double.parseDouble(b);
+        c = a+b;
+        System.out.println(c);
+
+        //Double, Integer, and Character are Wrapper Classes.
+        //More on Wrapper Classes.
+        //Run this program using command on CLI
+        //passing parameters 10.1 and 20.4
+        //like this java Addition 10.1 20.4 into args[0] and args[1]
+
+        //Parse double will also give the numberformatexception if we put in some values it can't handle
+        // like java Addition 10a 20b
+        //Java has 8 wrapper classes for 8 dataTypes that are primitives. VVIMP will be useful in last topic
+
+        //Wrapper Classes in Java are those special classes whicha re available in the package java.lang and
+        are very useful for programmers.
+
+        These classes match with the names of their corresponding dataTypes.
+        for int there is class Integer.
+        similarly for every other primitive dataType we have a Wrapper Class present.
+        Q.What is the use of Wrapper class?
+        A. 2 Uses in  Java for Wrapper Classes.
+        Wrapper Classes in Java are used for 2 purposes:
+        1.To convert String representation of a primitive value to it's actual representation.
+        ex: "25" String converted to 25 int done by the Wrapper class Integer with the help of the method parseInt().
+        There are parse methods like parseInt() for each of the Wrapper classes except for char. See chart
+        q. Does char have a wrapper class? Does it have a parse method?
+        a. yes it has a wrapper class, but it does not have a parse method.
+
+        2. Wrapper Classes can be used to convert variables into objects.
+        //a variable called a of type int is declared and initialized as 10.
+        int a = 10;
+        a is converted into an object, the primitve value a is converted to the object obj which is of the wrapper class Integer.
+        Integer obj = a;
+        //This will be useful in chapter collections.
+        All common operations on data can be done using collections without making methods for it ourself.
+        in java int is different, and Integer Wrapper class are different, this topic is the last topic collections and we see another use
+        for wrapper classes. VVIMP for Java and in Java interviews called Collections.
+        This is because collections allow for us to perform standard operations on a group of
+        data like arrays by just calling simple methods. So for searching sorting, deleting adding data
+        in any array or dataType we can call methods instead of writing our own logic.
+
+        Integer is a top level class meaning it has no classes that hold this class inside it, it is not a child
+
+        Q. can you make an outer class static?
+        A. no you can only make an inner class static never an outer class
+
+        ex:
+        static class A{
+        //code nope doesn't run gives error modifier static not allowed here
+        //outer classes can never be static.
+        }
+        // works
+        class A{
+
+        static class B{
+            }
+        }
+        //works and a class within another is a nested class concept.
+        class A{
+
+        class B{
+            }
+        }
+        Q. where can we use static in java?
+        1.static data
+        2. static method
+        3. static initializer block
+        4. only inner classes as static in java
+
+        Topic
+        A lot of programs in java require String methods
+        to use them we will have to make String objects to use the methods
+
+        Using methods of the String class. (Its not a wrapper class nor dataType, its a class)
+        String has very useful methods for performing basic operations  on strings,
+        maximum methods are nonstatic in this class, some are instance methods,
+        so we will have to make objects.
+
+        Java
+        class Student{
+        int rol;
+        char grade;
+        float per;
+
+        get();
+
+        show();
+
+        }
+        //This is not an object, this is an object reference S variable.
+        //we need the new keyword to make an object of Student class.
+        //The objects in Java are in the Heap area.
+        //Because anything made in runtime, they are stored in heap.
+        //Objects in java are dynamic, they are made in runtime.
+        //need to say S = new Student();
+        Student S;
+        S = new Student();
+
+        S recieves this object, object reference is like a restricted pointer.
+        object reference only holds the address of the object, and the object lives in the heap.
+        object references live in the heap area.
+
+        S is not an object, S is an object reference. 
+        We use . to access the methods of the object and the object reference has the .
+        S gets the address.
+        You can also write Student S = new Student();
+        combined 
+        String is a predefined class so we just make an object of that class.
+
+        Using "String" class
+        =====================
+        classTest{
+        psvm{
+         String s1; //object reference s1
+         s1 = new String("Bhopal"); // to make a new object it needs new keyword and write the String and constructor ()..
+            // THis makes the object inside the heap and allocates space for it there
+
+        String s2 = new String("Bhopal"); // Same happens here but their locations in the heap are different, theyre addresses.
+
+        System.out.println(s1 == s2); //Gives false, because these are object references holding address of objects that say same thing "Bhopal" ,"Bhopal"
+         }
+        1. To initialize String objects we pass string valyes within parenthesis while creating the object/
+        2. Whenever we display a String object reference we do not get address displayed rather we get the contents
+        of the String object pointed by that reference.
+        3. But if we compare 2 String references then Java compares addresses and returns trur or false
+        depending on whether the references are pointing to the same object or not.
+        }
+
+        //references in java occupy 8 bytes. converting 64 bits to bytes its 8 bytes.
+        
+        */
+    }
+}

@@ -1,0 +1,280 @@
+Lecture 14. Methods of String class, decision control statements.
+
+This code generates no errors. 
+
+class Test{
+    public static void main(STring[] args){
+        Integer i = new Integer(10);
+    }
+}
+it was just a suggestion that let's initialize it like this
+class Test{
+    public static void main(STring[] args){
+        Integer i = 10;
+    }
+}
+
+Important String Methods
+prototype means how a method is declared in the class...
+========================
+
+1. length() : It is an INSTANCE METHOD and returns the length of the String
+prototype: public int length()
+
+ex:
+class Test{
+    public static void main(String[] args){
+        String name = new String("Sachin");
+        int x;
+        x = name.length();
+        System.out.println("Len is " + x);
+        //can we avoid this x?
+        // Yeah you can just straight write name.length();
+        System.out.println("Len is " + name.length());
+    }
+}
+2. charAt(): It is an INSTANCE METHOD and it returns the character present at the index
+passed as an argument.
+
+prototype: public char charAt(int );
+
+String name = new String("Sachin");
+System.out.println(name[2]); // SYNTAX Error : Array required but String found
+//correct way is using charAt()
+System.out.println(name.charAt(2)); //we get 'c'
+System.out.println(name.charAt(5)); //we get 'n'
+System.out.println(name.charAt(12)); //we get exception StringIndexOutOfBoundsException
+
+3. equals(): Compares two strings and returns boolean value true if they have the exact same characters at the same
+indexes otherwise it returns false.
+
+prototype: public boolean equals(String)
+
+class Test{
+    public static void main(String[] args){
+        String s1 = new String("Bhopal");
+        String s2 = new String("Bhopal");
+        String s3 = new String("bhopal");
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s3);
+
+        //compares the contents of s1 and s2 and returns true if everything is an exact match, here returns true.
+        System.out.println(s1.equals(s2)); //-> true compared those objects in the heap, not references.
+        //compares s1 and s3 object content, and returns true if everything is the same, here its not, so returns
+        false.
+        System.out.println(s1.equals(s3)); // -> false
+
+    }
+}
+
+4. equalsIgnoreCase(): It is an INSTANCE METHOD and compares 2 Strings but in case insensitive way. Returns true or false.
+
+prototype: public boolean String equalsIgnoreCase(String)
+
+class Test{
+    public static void main(String[] args){
+        String s1 = new String("Bhopal");
+        String s2 = new String("Bhopal");
+        String s3 = new String("bhopal");
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s3);
+
+        //compares the contents of s1 and s2 and returns true if everything is an exact match, here returns true.
+        System.out.println(s1.equalsIgnoreCase(s2)); //-> true compared those objects in the heap, not references.
+        //compares s1 and s3 object content, and returns true if everything is the same, here its not, so returns
+        false.
+        System.out.println(s1.equalsIgnoreCase(s3)); // -> alse true because it doesn't care about lower/uppercase
+
+    }
+}
+
+class Test{
+    public static void main(String[] args){
+        String s1 = new String("Bhopal City");
+        int x = s1.length();
+        System.out.println("String is " + s1);
+        System.out.println("Length of it is " + x);
+    }
+}
+
+class Test{
+    public static void main(String[] args){
+        String city = new String("Bhopal");
+        String city2 = new String("Bhopal");
+        System.out.println(city.charAt(0));
+        System.out.println(city.charAt(5));
+        System.out.println(city.charAt(14)); // Exception StringIndexOutOfBoundsException
+        System.out.println("Length of it is " + x);
+        System.out.println(city == city2); // returns false as these are obj referrences
+        System.out.println(city.equals(city2)); // returns true as these are objects being checked if the same
+    }
+}
+
+class Test{
+    public static void main(String[] args){
+        String city = new String("Bhopal");
+        String city2 = new String("bhopal");
+        System.out.println(city.charAt(0));
+        System.out.println(city.charAt(5));
+        System.out.println(city.charAt(14)); // Exception StringIndexOutOfBoundsException
+        System.out.println("Length of it is " + x);
+        System.out.println(city == city2); // returns false as these are obj referrences
+        System.out.println(city.equals(city2)); // returns false as these are objects being checked if the same
+    }
+}
+
+class Test{
+    public static void main(String[] args){
+        String city = new String("Bhopal");
+        String city2 = new String("bhopal");
+        System.out.println(city.charAt(0));
+        System.out.println(city.charAt(5));
+        System.out.println(city.charAt(14)); // Exception StringIndexOutOfBoundsException
+        System.out.println("Length of it is " + x);
+        System.out.println(city == city2); // returns false as these are obj referrences
+        System.out.println(city.equalsIgnoreCase(city2)); // returns true as these are objects being checked if the same
+    }
+}
+
+class Test{
+    public static void main(String[] args){
+        String city = new String("Bhopal");
+        String city2 = new String("boohopal");
+        System.out.println(city.charAt(0));
+        System.out.println(city.charAt(5));
+        System.out.println(city.charAt(14)); // Exception StringIndexOutOfBoundsException
+        System.out.println("Length of it is " + x);
+        System.out.println(city == city2); // returns false as these are obj referrences
+        System.out.println(city.equalsIgnoreCase(city2)); // returns false even when cases different as these are objects being checked if the same
+    }
+}
+Special note: When making objects of classes in java we must use the new keyword, however...
+Java gave a discount for some classes they can make objects without using the new keyword.
+It applies to 9 classes.
+The 8 Wrapper classes we can do so. and we can also use it for the String class.
+For a beginner String s1 = new String("Bhopal");
+and String s1 = "Bhopal";
+has no difference.
+However we must learn some new important topics in order to learn the differencce.
+VVIMP point:
+At the basic level both the above statements are SAME.
+But technically there is a HUGE DIFFERENCE in the way they operate in RAM and it will be discussed in the chapter STRING HANDLING.
+
+Q. ASSIGNMENT TO ATTEMPT:
+WAP to accept values of p and b using command line arguments and calculate h.
+Using the pythagoras theorem calculate the height from perpendicular and base.
+
+NEW CHAPTER: DECISION CONTROL STATEMENTS
+========================================
+the categories are
+a. if
+b. if else 
+c. if else if else 
+d. nested if 
+
+IMPORTANT interview question: goto is considered a very bad habit, there is the goto keyword,
+but the java compiler has not implemented this!
+Answer: when java was designed people thought we will use goto but then decided
+they will not use goto, that's the reason as to why. This is why it is not used as a keyword anymore,
+this is the same for the const keyword, same story. But we use final instead of const in java for the use.
+
+e. switch (java' switch is more powerful than c)
+
+f. Ternary operator
+
+A. Single if
+if(test_cond){
+    ...
+}
+
+B. if else 
+
+if(test){
+...
+}else{
+...
+}
+
+C. if else if
+
+if(){
+...
+}else if{
+...
+}else{
+...
+}
+
+or
+
+if(){
+...
+}else if{
+...
+}else if{
+...
+}
+
+but you can't write else if after else fyi obv mistake
+
+D. Nested if
+
+if(test){
+    if(test){
+        ...
+    }else{
+        ...
+    }
+}
+
+ASSIGNMENT2:
+WAP to accept an integer using CLI arguments and check if its even or odd.
+WAP to accept an integer from CLI arguments and print its absolute value.
+
+Note use javap java profile for knowing what classes do.
+javap String
+then you get all the methods and their prototypes and you will know
+how the prototypes are there for the input parameter
+
+1line body
+if you have only one line of code body then no need for braces in java for the statements
+
+HW ANSWERS SOLVED BY ME:
+
+public class Assignment2{
+	public static void main(String[] args){
+	int a = Integer.parseInt(args[0]);
+		if(a%2 == 0){
+			System.out.println("Even");
+		}else{
+			System.out.println("Odd");
+		}
+	}
+}
+
+public class Assignment2part2{
+	public static void main(String[] args){
+		int a = Integer.parseInt(args[0]);
+		if(a>0){
+			System.out.println(a);
+		}else{
+			System.out.println(a+2*a);
+		}
+	}
+}
+
+import java.lang.Math;
+
+public class Assignment2part3{
+	public static void main(String[] args){
+		int p = Integer.parseInt(args[0]);
+		int b = Integer.parseInt(args[1]);
+		double h;
+		h = Math.sqrt( Math.pow(p,2) + Math.pow(b,2) );
+		System.out.println(h);
+	}
+
+
+}

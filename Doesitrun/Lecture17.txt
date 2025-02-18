@@ -1,0 +1,184 @@
+Methods of Scanner Class
+=======================
+We are gonna learn how to take input from scanner.
+
+IMPORTANT METHODS OF SCANNER Class
+==================================
+
+1.nextInt(): Accepts an integer fromt he input resource and returns it
+
+prototype(): public int nextInt()
+the return type is int so no need to parse stuff with Integer.parseInt()
+
+2.nextFloat()
+prototype: public float nextFloat()
+
+3.nextDouble()
+prototype: public double nextDouble()
+
+like this we have nextXXX() methods for every data type except char
+
+because for a single char scan you can just use System.in.read() right?? YUH..
+
+For accepting Strings scanner class has 2 methods:
+
+1.public String next()
+2.public String nextLine()
+
+The difference between them is just this ->
+next() takes just the first string excludes the SPACES after takes the first word
+
+nextLine() takes the whole string including spaces to the end of the String
+
+WAP to accept age from the user:
+
+Sample ex:
+Enter your age: 24
+Your age is 24
+
+
+import java.util.Scanner;
+
+class Test{
+
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+        int age;
+        System.out.print("Enter your age: ");
+        age = kb.nextInt();
+        System.out.println("Your age is " + age);
+        //If 24.6 was entered then we get InputMisMatchException!
+    }
+}
+
+//Till now we have studied 6Exceptions
+These 4 revise them
+ArrayIndexOutOfBoundsException --> arrays out of bound of range of array
+NumberFormatException --> Wrappers
+StringIndexOutOfBoundsException -- > String index is out of range, passing wrong range in a method of String
+InputMismatchException -- > when scanning and you get another dataType than was to be scanned
+
+for scanning ints and adding em use nextInt() 
+for scanning float use the method nextFloat()
+for scanning double using method nextDouble()
+with the scanner class 
+
+
+ex:
+Q. difference between these codes?
+class Greetings{
+
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+        String name;
+        System.out.println("Whats your name?");
+        name = kb.next();
+        System.out.println("Your name is " + name);
+    }
+}
+
+class Greetings{
+
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+        String name;
+        System.out.println("Whats your name?");
+        name = kb.nextLine();
+        System.out.println("Your name is " + name);
+    }
+}
+
+A. One next() scans the string up until it sees space and the other nextLine() scans
+until the user hits enter.
+
+nextLine works for multiline input
+next works for single line input
+
+IMPORTANT
+=========
+characters can be accepted with 1. Scanner 2. System.in.read()
+
+import java.util.Scanner;
+//Throws compilation error cannot find symbol, there is no nextChar() method in java
+import java.util.Scanner;
+class Test{
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+        char ch;
+        System.out.println("Enter a character: ");
+        kb.nextChar();
+        System.out.println(ch);
+    }
+}
+//Error because character cannot be String converted like that, Incompatible types
+import java.util.Scanner;
+class Test{
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+        char ch;
+        System.out.println("Enter a character: ");
+        kb.next(); //return String
+        System.out.println(ch);
+    }
+}
+
+//Valid, take string, n put it's first char into ch
+import java.util.Scanner;
+class Test{
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+        char ch;
+        String str;
+        System.out.println("Enter a character: ");
+        str = kb.next();
+        ch = str.charAt(0);
+        System.out.println(ch);
+    }
+}
+
+//shorten it like this
+import java.util.Scanner;
+class Test{
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+        char ch;
+        System.out.println("Enter a character: ");
+        ch = kb.next().charAt(0); //this is called chaining
+        System.out.println(ch);
+    }
+}
+
+2. Using System.in.read()
+========================
+import java.util.Scanner;
+
+class Test{
+    //Whenever using System.in.read, must write throws Exception, will be explaiend in exception handling.
+    //or else we get error io exception
+    //
+    public static void main(String[] args) throws Exception{
+        Scanner kb = new Scanner(System.in);
+        char ch;
+        System.out.println("Enter a character: ");
+        //read has int return type, so must typecast that as (char) or else lossy conversion from int to char error
+        ch = System.in.read();
+        System.out.println(ch);
+    }
+}
+
+Solution:
+
+import java.util.Scanner;
+
+class Test{
+    public static void main(String[] args) throws Exception{
+        Scanner kb = new Scanner(System.in);
+        char ch;
+        System.out.println("Enter a character: ");
+        //read has int return type, so must typecast that as (char) or else lossy conversion from int to char error
+        ch =(char)System.in.read(); //VVIMP even if Sachin was entered, it still takes S alone.
+        System.out.println(ch);
+    }
+}
+
+Next we use Eclipse IDE.

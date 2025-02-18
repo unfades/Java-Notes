@@ -1,0 +1,23 @@
+Java STS versions are short term support.
+Java LTS versions are long term support.
+
+Need Java 8 for netbeans 8.2, even if you have a higher version of Java.
+To run netbeans 8.2 then you have to use Java 8 with it and have it installed.
+Install netbeans 8.2
+
+run netbeans.
+
+when opening a project select Java if you're learning JSE, if you are learning Java EE then choose Java web.
+Now make a folder on your computer where you are gonna store all your netbeans programs.
+
+Make it in a drive other than C, suggested by Sir.
+In name and location paste the path of the folder, you just gotta do it once.
+
+Select a class folder.
+It asks to automatically create a Main class that contains psvm,
+uncheck it, we are gonna do that ourselves.
+
+Project explorer window contains the names of all of our projects.
+
+//Make 10 programs by yourself with outputs yourself that are not in any book you know of
+//Get netbeans 9 and Java 8 and revisit this lecture skipped one

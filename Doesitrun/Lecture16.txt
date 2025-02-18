@@ -1,0 +1,195 @@
+Ternary operator, accepting input using scanner class
+
+//WAP Calculator in this format via command line operand operator operand ex:
+java Calculator 6 + 3
+the arguments are 6,+,3
+
+//My solution also it should have Double.parseDouble() for the division part...
+
+public class Calculator{
+
+	public static void main(String[] args){
+		
+		if(args[1].equals("+")){
+			System.out.println(Integer.parseInt(args[0]) + Integer.parseInt(args[2]));
+		}
+		else if(args[1].equals("-")){
+			System.out.println(Integer.parseInt(args[0]) - Integer.parseInt(args[2]));
+		}
+		else if(args[1].equals("/")){
+			System.out.println(Integer.parseInt(args[0]) / Integer.parseInt(args[2]));
+		}
+		else if(args[1].equals("*")){
+			System.out.println(Integer.parseInt(args[0]) * Integer.parseInt(args[2]));
+		}
+		else if(args[1].equals("%")){
+			System.out.println(Integer.parseInt(args[0]) % Integer.parseInt(args[2]));
+		}else{
+			System.out.println("Wrong format Try again using this method -> operand operator operand");
+		}	
+	}
+}
+//Sir said use switch so again it's this way now.
+//also I added Double.parseDouble()
+//it doesn't work for the condition ("*")
+it didin'ttake in 10 * 20
+nor anything else idk why must find out...
+btw if num small denom big then num%denom is num obviously
+
+ANSWER:
+==========================
+your code will throw a NumberFormatException when you use * as an operator. This happens because of how the command line processes arguments.
+Why?
+When running a Java program from the command line, the * character is interpreted by the shell (especially in Unix-like systems) as a wildcard, expanding to match all files in the current directory. Instead of passing "*" as an argument, the shell replaces it with file names, causing unexpected input.
+For example, if you run:
+java Calculator 5 * 2
+The shell might expand * to match files in the directory, leading to an incorrect argument list like:
+java Calculator 5 file1.txt file2.java file3.class 2
+
+How to Fix? And error basic explanation
+=========================
+The whole list of files in our folder was passed into the command line args
+You need to escape * when running the program:
+java Calculator 5 \* 2
+or wrap it in quotes:
+java Calculator 5 "*" 2
+
+public class Calculator{
+
+	public static void main(String[] args){
+		switch(args[1]){
+		case("+"):
+			System.out.println(Integer.parseInt(args[0]) + Integer.parseInt(args[2]));
+			break;
+		case("-"):
+			System.out.println(Integer.parseInt(args[0]) - Integer.parseInt(args[2]));
+			break;
+		case("/"):
+			System.out.println(Double.parseDouble(args[0]) / Double.parseDouble(args[2]));
+			break;
+		case("*")://the problem is for this one, must find out why though
+			System.out.println(Integer.parseInt(args[0]) * Integer.parseInt(args[2]));
+			break;
+		case("%"):
+			System.out.println(Integer.parseInt(args[0]) % Integer.parseInt(args[2]));
+			break;
+		default:
+			System.out.println("Wrong format Try again using this method -> operand operator operand");
+			break;
+		}	
+	}
+}
+
+
+
+Ternary operator
+================
+Symbol ? :
+
+In C it's:
+    (test_cond) ? (true expression) : (false expression);
+
+In Java it's:
+    varname = (test_cond) ? (true expression) : (false expression);
+
+    Even odd program using Ternary operator...
+
+In C: //lots of people do the same thing in java and they get it wrong
+      //it doesn't even compile.
+      //the error is error:not a statement
+    (a%2==0) ? printf("even no.") : printf("odd no.");
+
+In Java the right way for it would be here:
+    int number = Integer.parseInt(args[0]);
+    String res;
+    res = (number%2==0) ? "Even": "Odd";
+    //or you can just print it straight up
+    System.out.println((number%2==0) ? "Even": "Odd");
+
+In JAva entering through Command Line Arguments sucks because in C we could just scanf
+
+In Java, we now learn about the Scanner Class.
+
+SCANNER Class
+==================
+
+Analysis of System.out.println();
+System is a predefined class.
+out is an object.
+and println is a predefined method.
+When we do System.out.println("Hello");
+We get the output on the console.
+This is because this "out" is connected to the console.
+This is java's way of connecting to the console and displaying to the console.
+Java has a System.in.read() as well just like System.out.println();
+And in that, the System is java's predefined class.
+"in" is an object reference and its connected to the computer's standard input device
+which is the keyboard in general.
+"read()"is a predefined method of java for accepting Input as well.
+So if we have this why are we using Scanner tho?
+
+Learning more about System.in.read()
+===============================
+=====
+Comparing with C:
+The read method takes input sure, but it takes exact input. Like in C.
+like
+scanf("%c",&ch);
+1. This line reads single characters, from "Bhopal it reads B alone.
+2. If a digit is put into the line, it is also scanned as char and returns ascii value.
+If I put 0 and it will assume it's 48 in C.
+The same story for System.in.read() in Java.
+For "Bhopal" it reads 'B'
+For age entered 35
+it will take 51 as the UNICODE for '3'...
+System.in.read() capable for single letter inputs.
+Not every input is single character input though.
+So to handle those inputs other than single characters we have the Scanner Class because it can handle those.
+
+1.The method read() can ONLY READ ONE CHARACTER AT A TIME and it returns its UNICODE value.
+
+2. This means that the method read() in Java is exactly same as the following code in C:
+
+chr ch;
+scanf("%c", &ch);
+
+3. This means that if user will type BHOPAL then this method will read only 'B' and will return 66 as
+UNICODE VALYE of letter B and if the user types 25 then it will return 50 that is the UNICODE of digit 2.
+
+Solution: Scanner Class, Introduced in Java 5
+
+1.The class Scanner is available in the package java.util 
+
+2. As the name indicates, this class is used for SCANNING ie inputting, accepting user inputs
+
+3. All the methods of scanner which we are gonna use are NON STATIC.
+
+This means we must make objects of the Scanner class.
+
+Q.How do we create objects of Scanner class?
+//only 8 wrappers and 9th String can be declared without new, so must use new
+A. Scanner sc = new Scanner(System.in);
+
+Scanner class does not know what device will give the input.
+The tech height of java, it knows you can take input multiple ways, mics, files, etc.
+not just the keyboard, even alexa, internet html pages, etc.
+
+This is why by default scanner is not connected to any device by default.
+
+C projects, scanf is just connected to keyboard.
+
+Scanner class can take input from anywhere, we just have to specify it's the keyboard.
+
+System.in says Connect yourself with the keyboard. That is the object representing the keyboard.
+Scanner sc = new Scanner(System.in);
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^System.in is the keyboard! Predefined in java for the keyboard.
+You can even connect it with other stuff like files, mic, if you know the name of it,
+and just mention it in Scanner sc = new Scanner(SOURCE OF INPUT);
+
+Scanner sc = new Scanner(System.in); //Says connect to the keyboard.
+
+sc is a reference variable whatever name can be taken.
+
+s1 connected to the keyboard 
+paste img on how its doing that. you took it on the phone.
+So in that sense scanner is really powerful.

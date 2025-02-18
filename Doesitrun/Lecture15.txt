@@ -1,0 +1,216 @@
+Topic: Settings path of java, switch statement.
+
+Q. How can we save compile and run our Java programs outside "bin"?
+
+To do this it's 3 Steps:
+
+1. Create a folder where you want to save your Java programs in your computer.
+Tip: You don't need to run as administrator if you are not in the C drive btw.
+
+Navigate to the drive where your folder is like if it's in E:then do 
+
+E: 
+
+in the command prompt
+
+we get an error that javac is not recognized as an internal or external command,
+this is given by the OS.
+
+because javac is still inside the bin folder, that's why, because the OS cannot find javac in the directory, it's in the bin folder
+
+Now what we can do is we have to set a Path.
+
+Path is needed to be set for the bin folder of java.
+It is set into an environment variable.
+The environment variable is called PATH.
+
+Inside the PATH environment variable, then it includes the programming language paths for the language we need to use.
+Q. What is path?
+
+There is one environment variable PATH and another is the location in the computer.
+We are setting the location of java in the PATH environment variable.
+Close the command prompt and then set the path.
+
+Go into properties of ThisPC
+Go into advanced system settings
+Go into environment variables click the button
+See variables Path, and then click New 
+Then paste the location upto the bin of the jdk
+where you installed the jdk, paste the path of that in there upto bin
+
+now before compiling the programming
+
+Right click ThisPC
+click on advanced system settings option 
+click on environment variables button 
+from user variables select PATH and click on EDIT 
+Click on New and paste the PATH to the jdk's bin folder 
+Clik OK and close all the open windows.
+
+Now go to your workspace and compile and run the code using javac and java commands.
+Amongst all these steps we have to perform step 1 and step 3 just once.
+
+If there was no Path variable in the envvariables then just make it btw.
+
+WAP to tell if an employee can get insurance or not based on 3 conditions they get it
+1. married 2. unmarried male above 35 years 3. unmarried female above 30 years 
+
+TIP:
+
+IN CL ARGUMENTS YOU CAN PASS A STRING WITH SPACES USING DOUBLE QUOTES
+
+java Insurance "Sachin Kapoor" then Sachin Kapoor is args[0] as a String args[0] which is Sachin Kapoor inside.
+
+public class GetInsurance{
+	public static void main(String[] args){
+
+	int age = Integer.parseInt(args[0]);
+	boolean isMarried = Boolean.parseBoolean(args[1]);
+	String mf = new String(args[2]);	
+	if(isMarried){
+		System.out.println("You get insurance");
+	}else if(!isMarried && age>35 && mf.equalsIgnoreCase("Male")){
+		System.out.println("You get insurance");
+	}else if(!isMarried && age>30 && mf.equalsIgnoreCase("female")){
+		System.out.println("You get insurance");
+	}else{
+		System.out.println("You don't get insurance");
+	}
+
+	}
+
+}
+answer of mine.
+
+sirs answer is
+
+class Insurance{
+
+    public static void main(String[] args){
+        int age = Integer.parseInt(args[0]);
+        String gender = args[1];
+        String status = args[2];
+        if(args[2].equalsIgnoreCase("married"))
+            System.out.println("Insurance given");
+        else if(gender.equalsIgnoreCase("male") && age>35)
+            System.out.println("Insurance given");
+        else if(gender.equalsIgnoreCase("female") && age > 30)
+            System.out.println("Insurance Given");
+        else
+            System.out.println("Insurance Not Given");
+    }
+}
+
+The switch Statement
+
+In java there's 2 syntaxes for switch
+
+Syntax 1:
+
+switch(varname){ //VVIMP varname can be byte, short, int and char, and String works! String from java 6 works
+    case val1:
+        ...
+        break;
+    case val2:
+        ...
+        break;
+    case val3:
+        ...
+        break;
+    default:
+        ...
+}
+
+Syntax 2:
+
+switch(varname){ //VVIMP varname can be byte, short, int and char, and String works! String from java 6 works
+    case val1: // you can club the cases for cases containing same body
+    case val2:
+        ...
+        break;
+    case val3: // if 3 and 4 had the same code in them you can club them too
+        ...
+        break;
+    case val4:
+        ...
+        break;
+    default:
+        ...
+}
+
+HW WAP to accept a month number from the user via comand line arg and displa the name of the season in which the month falls
+according to the table given below.
+
+switch is faster than if else btw.
+Java switch is more powerful because you can take strings in them.
+without break, switch is gonna run all the cases past the case which ran,
+and wont stop until it saw break.
+
+Ans.
+public class Months{
+
+	public static void main(String[] args){
+
+		String month = new String(args[0]);
+		switch(args[0]){
+			case "february":
+			case "march":
+			case "april":
+			System.out.println("Spring Season");
+			break;
+			case "may":
+			case "june":
+			case "july":
+			System.out.println("Summer Season");
+			break;
+			case "august":
+			case "september":
+			System.out.println("Fall Season");
+			break;
+			
+			case "january":
+			case "october":
+			case "november":
+			case "december":
+			System.out.println("Winter Season");
+			break;
+
+		}
+	}
+}
+
+//Note, no error but I Missed default case!
+//This is also valid syntax as well
+public class Months{
+
+	public static void main(String[] args){
+
+		String month = new String(args[0]);
+		switch(args[0]){
+			case "february": case "march": case "april":
+			System.out.println("Spring Season");
+			break;
+			case "may": case "june": case "july":
+			System.out.println("Summer Season");
+			break;
+			case "august": case "september":
+			System.out.println("Fall Season");
+			break;
+			
+			case "january": case "october": case "november": case "december":
+			System.out.println("Winter Season");
+			break;
+
+            default:
+            System.out.println("Wrong season input Please enter a String value");
+
+		}
+	}
+}
+// You don't need braces for cases in java in switch.
+
+//WAP Calculator in this format via command line operand operator operand ex:
+java Calculator 6 + 3
+the arguments are 6,+,3
+//Switch was introduced Java 6 onwards.
+
