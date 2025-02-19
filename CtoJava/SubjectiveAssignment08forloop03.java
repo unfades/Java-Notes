@@ -75,5 +75,56 @@ public class Main
             }
             //System.out.println();
         }
+        
+        //5 Fibonacci series upto n terms using loops
+        System.out.println("Enter a number you want the fibonacci series up to: ");
+        num = sc.nextInt();
+        int num1 = 0;
+        int num2 = 1;
+        for(int i = 0; num1+num2<num; i++){
+            System.out.print(num1 + " " + num2 + " ");
+            num1 = num1+num2;
+            num2 = num1+num2;
+        }
+        
+        System.out.println("Enter a the number of terms you want fibonacci up to: ");
+        num = sc.nextInt();
+        int i = 0;
+        int j = 1;
+        for(i = 0; i<num; ){
+            if(num == 0){
+                break;
+            }
+            if(num == 1){
+                System.out.print("0");
+                break;
+            }
+            if(num > 2){
+                System.out.print(i + " " + j + " ");
+                i+=j;
+                j+=i;
+            }
+        }
+        //Both these loops are wrong for the expected input/output 
+        //so let's redo its with a fresh mind
+        
+        // 0 1 1 2 3 5 8 13
+        
+        int first = 0;
+        int second = 1;
+        System.out.println("Enter number you want upto fibonacci: ");
+        num = sc.nextInt();
+        while(num>0){
+            System.out.print(first + " ");
+            if(num>2){
+                System.out.print(second + " ");
+                num-=2; 
+            }else{ 
+                num--; 
+            }
+            first = first+second;
+            second = second+first;
+        }
+        //done bingobamboom
 	}
 }
