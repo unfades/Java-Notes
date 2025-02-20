@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main
+public class SubjectiveAssignment08forloop03
 {
 	public static void main(String[] args) {
 	    //1 wap check if a number is perfect or not
