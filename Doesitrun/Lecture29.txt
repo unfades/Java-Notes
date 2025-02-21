@@ -1,0 +1,249 @@
+ARGUMENT PASSING IN JAVA
+========================
+//Only 1 style of Argument passing, and its pass by value
+//However, this is regarding passing of arguments.
+
+In Java, whenever we will pass argument to a method, we can only pass 2 things:
+1. Passing variables/values
+2. Passing references (Array reference, Object reference) // Pass reference by value, not pass BY REFERENCE.
+
+//Passing variables says variables can be passed.
+//The variables are passed via the mechanism PASS BY VALUE.
+
+Passing variables
+=================
+1.When we pass a variable as argument to a method, Java will always pass its value.
+
+2.This value is then received by formal argument declared in the method's argument list
+
+3. Now both actual and formal arguments will have the same value, but both will have different addresses.
+
+4.So if we make any change in the formal argument, then it is not going to alter the actual argument.
+
+5. So, the conclusion is that variables are passed using PASS BY VALUE.
+
+class Demo{
+    public void increment(int i, int j){ // these i, j are increment's local variables
+        i++; //local variable of i changed to 11
+        j++; //local variable of j changed to 21
+    }
+}
+
+class UseDemo{
+    public static void main(String[] args){
+        Demo obj=new Demo();
+        int i = 10, j = 20; //these are i j of the main method.
+        //in memory there are 2 pairs of i,js, the address of both i's and both j's is different
+        System.out.println("Before calling increment: , i ="+i+" j = "+j);
+        obj.increment(i,j);
+        System.out.println("After calling increment: , i ="+i+" j = "+j);
+    }
+}
+
+//Output is Before Calling it's 10,20 and again After calling it's 10,20 because we learned for variables.
+//Java is pass by value always. Get it?
+//We passed the VALUE of i,j, not passing i, j
+//Reference is passed, but it is ALSO PASSED BY VALUE
+
+PASSING REFERENCES (NOT pass by reference)
+like gulab jamun and gulab aur jamun lol
+==================
+in Java, theres references of 2 things, Arrays or Objects.
+
+1. Whenever we pass any reference as argument to a method, then Java passes the address of the
+Array or Object pointed by that reference.
+
+2. This address is then received by a formal reference declared in the method's arg list.
+
+3. So now, both the actual and formal reference are pointing to the same object.
+
+4.VVIMP: Thus, if we make ANY CHANGE in the OBJECT'S VALUE(value of data member of the object) via formal reference,
+then this change will be reflected in the original object.
+
+5. And this might give us an impression that it is pass by reference.
+
+6. But this is not true, because if we make any change in the formal reference itself
+(ex: making the formal reference point to a new object)
+Then it will have no effect on the original object or the actual reference passed as an argument.
+
+7.Thus we can say in Java, even REFERENCES ARE PASSED using PASS BY VALUE.
+
+Meaning B3 and P are pointing to the same object, however they are not related to one another at all.
+Like 2 humans both can see the moon, however, if the moon was reachable, and we smashed it,
+then the moon smashed is visible by both humans,
+however if a human is hurt, then the other human does not know the other is hurt.
+
+From an object's view it is pass by reference //Never say this in an interview,
+//just for your understanding.
+//Nothing in Java can be passed using pass by reference
+//Whenever anything is passed, it is pass by value.
+
+But from the view of reference, it is not pass by reference, it is pass by value.
+
+CODE
+====
+
+PASSING OBJECT REFERENCES
+=========================
+class Data{
+    private int a, b;
+    public void setData(int i, int j){
+        a = i;
+        b = j;
+    }
+    public void showData(){
+        System.out.println("A is: "+a+"B is: "+b);
+    }
+    public void Increment(Data P){
+        P.a = P.a+1;
+        P.b = P.b+1;
+    }
+}
+//Through P's reference, the objects were changed.
+
+class UseData{
+    public static void main(String[] args){
+        Data D = new Data();
+        D.setData(10,20);
+        System.out.println("Before Incrementing: ");
+        D.showData();
+        Data temp = new Data();
+        Temp.increment(D); //It takes D as an argument, otherwise it would look weird 
+        //if we did D.increment(D)
+        //it wouldn't have errors but it's better to show as Temp for formalities
+        //Now Temp.increment(passed D)
+        //Java sent address of D
+        //Now P and D both point to address of D, say 2000, both point to it.
+        //now P.a = P.a+1
+        //now P.b = P.b+1
+        //means the value was altered in that object that both are pointing to
+        //we changed P.a not P
+        //We made changes to P.a not to P...
+        //Same for P.b so P.band D.b both would be 21 and P.a and D.a would be 11 get it?
+        System.out.println("After Incrementing: ");
+        D.showData(); 
+    }
+}
+===========================================
+
+class Data{
+    private int a, b;
+    public void setData(int i, int j){
+        a = i;
+        b = j;
+    }
+    public void showData(){
+        System.out.println("A is: "+a+"B is: "+b);
+    }
+    public void Increment(Data P){
+        P = new Data();
+        P.a = P.a+1;
+        P.b = P.b+1;
+    }
+}
+//Through P's reference, the objects were changed.
+
+class UseData{
+    public static void main(String[] args){
+        Data D = new Data();
+        D.setData(10,20);
+        System.out.println("Before Incrementing: ");
+        D.showData();
+        Data temp = new Data();
+        Temp.increment(D); //It takes D as an argument, otherwise it would look weird 
+        System.out.println("After Incrementing: ");
+        D.showData(); 
+    }
+}
+//Now before incrementing 10, 20, and also after incrementing, 10,20
+Because we initialized a new object at the increment method,
+that gave a new object in the Heap, and those changes were made to
+P.a and P.b which are the instance variables of P's OBJECT IN MEMORY 
+P is pointing to a new object in memory now and the changes are there,
+The new object had default values 0 and 0 in there...
+D.a and D.b are not changed at all. Got it.
+So P.a = P.a+1 is 1 and P.b = P.b +1 is 1
+And D.a is still 10 and D.b is still 20 got it.
+No effects wer on D, but were on P as we did P = new Data();
+D is handled as if nothing happened
+So it's not pass by Reference, it's pass by value.
+
+============================================================
+Popular program for Argument passing in Java 
+
+Create a class called Num having the following data members:
+
+1. int a: An instance variable
+
+2. int b: Another instane variable
+
+3. setNum(): This method should accept 2 arguments and should initialize a and b with them
+
+4. showNum(): This method displays a and b
+
+5. swap(): This method should accept 2 object references of num class as argument and swaps 
+the values of their corresponding members
+
+6. finally design the driver class called UseNum, having the method main(), then create 2 object
+references of Num class called N1 and N2. Initialize them with proper values and ultimately swap 
+them by calling the method swap().
+
+
+class Num{
+    private int a;
+    private int b;
+
+    public void setNum(int i, int j){
+        a = i;
+        b = j;
+    }
+    public void showNum(){
+        System.out.println("Val of a,b: "+a+","+b);
+    }
+
+    public void swap(Num A, Num B){
+        int temp = A.a;
+        A.a = B.a;
+        B.a = temp;
+        temp = A.b;
+        A.b = B.b;
+        B.b = temp;
+    }
+}
+
+class UseNum{
+    public static void main(String[] args){
+        Num N1 = new Num();
+        Num N2 = new Num();
+        N1.setNum(10,20);
+        N2.setNum(90,100);
+        System.out.println("Before swapping N1 and N2: ");
+        N1.showNum();
+        N2.showNum();
+        Num Temp = new Num();
+        Temp.swap(N1, N2);
+        System.out.println("After swapping N1 and N2: ");
+        N1.showNum();
+        N2.showNum();
+    }
+}
+
+//Will this swap?
+/* 
+public void swap(){
+    Num X;
+    X = P;
+    P = Q;
+    Q = X;
+}
+*/
+
+//No it will not swap the values of Data members a and b,
+//neither will it swap N1 and N2
+
+//It will just swap P and Q, and this change will have 
+//no effect on N1 and N2.
+
+
+
+

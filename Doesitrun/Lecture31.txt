@@ -1,0 +1,201 @@
+USING THE KEYWORD "static" IN  JAVA
+=================================
+/we have seen this in front of main
+
+Q1. What is "static" in Java?
+A1. "static" is a keyword which is also called NON ACCESS MODIFIER 
+
+Q2. Where can we use "static" keyword in Java?
+A2. In Java, the keyword "static" can be used at 3 places:
+
+a. We can have "static" data members in a class.
+b. We can have "static" methods in a class.
+c. We can have "static initializer blocks".
+
+SPECIAL POINT: Unlike C/C++, In Java we are not allowed to use static with local variables.
+
+STATIC DATA IN JAVA, understand through example
+===================
+
+class Demo{
+    //1;then a and b willbe in RAM and get allocated space.
+    //A. a and b are instance variables.
+    //2.when do a and b get space in memory?
+    //A. when an object is made for Demo class.
+    //3. How many copies of a and b in memory?
+    //A. However many objects of Demo are made.
+    //if 0 objects of memory then these are never used.
+    //if 1000 objects, then memory will use 1000 a's and b's as instance variables.
+    //if 1 object of Demo class, then a and b will have just 1 copy created.
+    //if 4 objects of Demo class, then a and b will have 4 copies created.
+    //and so on.
+    //Another name for Object is called Instance.
+    //This is why they are called Instance variables!
+    //When the Garbage Collector lazily destroys objects that have no reference variables pointing
+    //to them, then these instance variables are also destroyed along with the objects.
+    int a;
+    int b;
+}
+
+class Demo{
+    int a;
+    static int b;
+}
+Q. What is a and b called now?
+1. 'a' will still be called as an instance variable but b will be called as static variable
+or shared variable, or class level variable.
+
+Q. When will a and b come into memory?
+2. The static variable b will be loaded in RAM as soon as the program starts execution.
+Before we used to think whenever an object is made, the object's instance variables get memory first.
+Now our answer has changed to if there are static variables, then memory is given to static variables.
+
+Q. How much space in RAM for static variable b?
+3. The static variable b is given memory only once, it will only be there for all the objects ever made of Demo class.
+For N objects of Demo class, a is made N times. However, b is made 1 time and is shared across all of those objects.
+
+Q. Does static variable get allocated space in the stack or heap?
+4. Neither, it is space allocated in a special area of memory called Method Area or Perm GEN Area
+JVM divided memory into heap, stack, and method area or perm gen area. we learned.
+
+perm means permanent and gen means generation, permanent generation.
+
+class UseDemo{
+    public static void main(String[] args){
+        //as soon as the program runs, the memory is given to static variable b.
+        //even if no objects were made, still b would get memory! IMPORTANT.
+        //As soon as the program started. Even if 0 objects were made, or 1000 were made
+        //it doesn't matter.
+        //Now Java makes objects in Heap area for Demo class.
+        //1 instance variable a for obj1, 2nd instance variable a for obj2, another iv for obj3.
+        //and b is shared across all 3 objects.
+
+        Demo obj1 = new Demo();
+        Demo obj2 = new Demo();
+        Demo obj3 = new Demo();
+
+        //now  a program to prove it.
+    }
+}
+
+//ask sir exactly when does static get space in memory?
+
+class Demo{
+    public int a;
+    public static int b; //setting them public means we can directly access them in main()
+}
+
+class UseDemo{
+    public static void main(String[] args){
+
+        /*
+        In memory for a there's a's for every object of different addresses.
+        In memory for b there's b with the same address for all 3 objects.
+        //There's method area, Heap area, and stack area.
+        Stack holds addresses of objects in references.
+        Heap holds the Objects.
+        Method area holds static int b.
+        */
+        Demo D1 = new Demo();
+        Demo D2 = new Demo();
+        Demo D3 = new Demo();
+
+        D1.a = 10;
+        D2.a = 20;
+        D3.a = 30;
+
+        System.out.println(D1.a); //->10
+        System.out.println(D2.a); //->20
+        System.out.println(D3.a); //->30
+
+        D1.b = 10; //soon as the program starts
+        D2.b = 20;
+        D3.b = 30;
+
+        //This output clearly indicates theres only 1 copy of b in memory.sss
+        System.out.println(D1.a); //->30
+        System.out.println(D2.a); //->30
+        System.out.println(D3.a); //->30
+    }
+}
+===============================================================================
+How is b accessed if references are only pointing to their a's and
+there is no address for b.
+
+A. static variables are accessed like this -> <classname>.<staticvariable>
+
+The java compiler automatically converts D1,D2,D3, as Demo.
+If the programmer wrote D1.b then the compiler autocorrects it to Demo.b ! IMPORTANT
+You can write D1.b but it's still not right to write that way.
+You should access static members with class name. For example:
+
+Ex: Math.PI <--- <classname>.<staticvariable>
+Demo.b <----- <classname>.<staticvariable>
+
+class DemoStatic{
+    public int a;
+    public static int b;
+}
+
+class UseDemoStatic{
+    public static void main(String[] args){
+        Demo D1 = new Demo();
+        Demo D2 = new Demo();
+        Demo D3 = new Demo();
+        D1.a = 10;
+        D2.a = 20;
+        D3.a = 30;
+        System.out.println("D1.a is " + D1.a);
+        System.out.println("D2.a is " + D2.a);
+        System.out.println("D3.a is " + D3.a);
+
+        D1.b = 10; //runs fine
+        D2.b = 20; //However it says the static field DemoStatic.b should be accessed
+        D3.b = 30; //in a static way because all these are wrongly written... suggestion
+        //netbeans also says replace with class reference, removes the yellow warning.
+        //like this.
+        DemoStatic.b = 30; //no warning here
+        //In reality, above, all of them are DemoStatic.b
+
+        System.out.println("D1.b is " + D1.b);
+        System.out.println("D2.b is " + D2.b);
+        System.out.println("D3.b is " + D3.b); // All values are 30 because that was last assigned there
+    }
+}
+==============================================================
+Assignments Assignments that were pending:
+
+Argument Passing assignment:
+WAP to create a class called Counter having a method called count(). This method should
+receive an integer array and an integer x as argument and should count and return how 
+many numbers in the array are greater than x, how many numbers are smaller than x,
+and how many numbers are equal to x. Finally it should return this count to the method main().
+
+In the main() method create an integer array of size 10, accept values from user into the array.
+And again ask the user to input another number. Now pass this array and the number given by the user
+to the method count() of Counter class and print back the result.
+
+Assignment related to static keyword:
+
+WAP to create a class calle Emp with the following members:
+1. ename(String): Stores employee's name.
+2. age(int): Stores the age of the employee.
+3. id(int): Stores the id of the employee.
+
+Methods:
+
+1. Parameterized constructor: Should accept 2 arguments and should initialize name and age with it.
+2. show(): Should display employee id, age, name.
+3. showNextId(): should display the id of the next employee to be recruited.
+So now how will id be initialized? That is the twist.
+
+Points to remember:
+1. id must be generated automatically.
+2. id generation must start from 1.
+3. means the id of subsequent employees must be incremented by 1.
+4.No gaps should be there in id.
+5. id must be unique for every employee.
+//there is no static keyword usage being used here it seems.
+//its given 3 data, we need to keep 4 data elements
+//the 4th element must be static, it's current value should go into id.**** important
+//4th element is counter, or nextId and should count nextId ****important

@@ -1,0 +1,277 @@
+PASSING ARRAY AS ARGUMENT 
+=========================
+
+Syntax:
+<accessmodifier> <return type> <method name>(<arrayreference'sdatatype>[] <arrayreferencename>);
+
+WAP to create a class called Demo, having a method called doubler().
+This method must accept an array of integers as argument and should double every
+value of that array.
+
+class Demo{
+    public void doubler(int[] brr){
+        for(int i = 0; i<brr.length; i++){
+            brr[i] = 2*brr[i];
+        }
+    }
+}
+
+class UseDemo{
+    public static void main(String [] args){
+        int[] arr = {10,20,30,40,50};
+        System.out.println("Before doubling:");
+        for(int i: arr){
+            System.out.println(i);
+        }
+        Demo obj = new Demo();
+        obj.doubler(arr);
+        System.out.println("After doubling:");
+        for(int i: arr){
+            System.out.println(i);
+        }
+    }
+}
+//Challenge WAP to create a class called ArraySum, having a method called
+//sum, This method should accept an integer array as argument.
+//and should return the sum of all the elements of that array.
+//Then define the driver class called as UseArraySum, containing method main()
+//WIthin the main() method create an integer array of size 5 taking user input in the array elements
+//using the method sum() calculate the sum of all the array elements and display it
+=========================================================================================
+
+class ArraySum{
+    private int summer;
+    public void sum(int[] brr){
+        for(int i = 0; i<brr.length; i++){
+            summer+=brr[i];
+        }
+        System.out.println(summer);
+    }
+}
+
+class UseArraySum{
+    public static void main(String[] args){
+        int[] arr = {1,2,3,4};
+        ArraySum obj = new ArraySum();
+        obj.sum(arr);
+    }
+}
+
+======================================================================
+class ArraySum{
+    private int summer;
+    public void sum(int[] brr){
+        for(int i = 0; i<brr.length; i++){
+            summer+=brr[i];
+        }
+        System.out.println("The sum of all elements is:" + summer);
+    }
+}
+/*
+Sir's method
+class ArraySum{
+    public int sum(int[] brr){
+        int total = 0;
+        for(int x:brr){
+        total+=x;
+        }
+        return total;
+    }
+}
+ */
+
+class UseArraySum{
+    public static void main(String[] args){
+        int[] arr = {1,2,3,4,5};
+        ArraySum obj = new ArraySum();
+        obj.sum(arr);
+    }
+}
+
+/*
+Sir's UseArraySum
+import java.util.Scanner;
+class UseArraySum{
+    public static void main(String[] args){
+        int[] arr = new int[5];
+        ArraySum obj = new ArraySum();
+        for(int i = 0; i<arr.length; i++){
+            arr[i] = sc.nextInt();
+        }
+        obj.sum(arr);
+    }
+}
+ */
+
+//Modify the previous code so that thefunction returns both Sum and Average rename the method
+//to calcSumAndAverage()
+//How will the calcSumAndAverage return 2 things at once? No idea?
+//Solution, we can return an array from our method calcSumAndAverage()
+//and the array will return Sum and Average
+
+GENERAL SYNTAX OF RETURNING AN ARRAY
+====================================
+
+//you can have [] in square brackets in Java tosignify returning array 
+
+<access modifier> <datatype> [] <methodname>(listofarguments){
+    //method body
+
+    //-->return <array_referece> or return null;
+}
+===========================================================
+
+import java.util.Scanner;
+
+class ArraySum{
+    public int[] calcSumAndAverage(int[] brr){
+        int[] sumAvg = new int[2];
+        int total = 0;
+        for(int x:brr){
+        total+=x;
+        }
+        float avg = (float)total/brr.length;
+        sumAvg[0] = total;
+        sumAvg[1] = avg;
+        
+        return sumAvg;
+    }
+}
+
+class UseArraySum{
+    public static void main(String[] args){
+        int[] arr = new int[5];
+        ArraySum obj = new ArraySum();
+        for(int i = 0; i<arr.length; i++){
+            arr[i] = sc.nextInt();
+        }
+        obj.calcSumAvg(arr);
+    }
+}
+
+=======================================================
+import java.util.Scanner;
+
+class ArraySum{
+    public float[] calcSumAndAverage(int[] brr){
+        float[] sumAvg = new float[2];
+        int total = 0;
+        for(int x:brr){
+        total+=x;
+        }
+        float avg = (float)total/brr.length;
+        sumAvg[0] = total;
+        sumAvg[1] = avg;
+        
+        return sumAvg;
+    }
+}
+/*Sir's version
+
+class ArraySum{
+    public double[] calculate(int[] brr){
+        double [] ans = new double[2];
+        int sum = 0;
+        for(int x: brr){
+        sum+=x;}
+        }
+        ans[0] = sum;
+        ans[1] = (double)sum/brr.length;
+        return ans;
+    }
+}
+//SMART CHECK IT^
+ */
+class UseArraySum{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int[] arr = new int[5];
+        ArraySum obj = new ArraySum();
+        for(int i = 0; i<arr.length; i++){
+            arr[i] = sc.nextInt();
+        }
+        //sir's 
+        //obj.calculate(arr);
+        float[] result;
+        //need to go into result
+        result = obj.calcSumAndAverage(arr);
+        //obj.calcSumAndAverage(arr);
+
+        System.out.println("Sum is " + result[0]);
+        System.out.println("Average is " + result[1]);
+        
+    }
+}
+
+=========================================================
+//Challenge:
+Modify the previous code so that if the array contains even a single negative number,
+then the method should reurn null instead of sum and average.
+Also modify the code in the main method.
+
+class ArrSum{
+
+    public double[] calculate(int[] brr){
+        double[] sumAvg = new double[2];
+        int sum = 0;
+        for(int i = 0; i<brr.length; i++){
+            if(brr[i]<0){
+                return null;
+                //it is important to write null, not just plain return
+                //or else there would be a syntax error. not exeption.
+                //because for return type array reference, it's null or array being returned
+            }
+            sum+=brr[i];
+        }
+        sumAvg[0] = sum;
+        sumAvg[1] = (double)sum/brr.length;
+        return sumAvg;
+    }
+}
+
+class UserArrSum{
+    public static void main(String[] args){
+        double[] result;
+        int[] arr = {1,2,-3,4};
+        ArrSum obj = new ArrSum();
+        obj.calculate(arr);
+        if(result == null){
+            System.out.println("It's null");
+        }else{
+            System.out.println("Sum is " + result[0]);
+            System.out.println("Average is " + result[1]);
+        }
+    }
+}
+//If there was no if else here
+//The exception would be nullPointerException
+====================================================
+//will compile and run and shows 6
+class Test{
+    public static void main(String[] args){
+        String city = "Bhopal";
+        System.out.println(city.length);
+    }
+}
+//compiles successfully, but will throw exception at runtime.
+//there is no problem in printing city, the problem is printing city.length get it?
+//because there is no length. it's null. NullPointerException
+class Test{
+    public static void main(String[] args){
+        String city = null;
+        System.out.println(city.length);
+    }
+}
+=======================================================
+//short is returnable because it can be implicitly converted to int.
+//if it were a bigger value like long then explicitly convert stuff.
+
+public int m1(){
+    short a = 1;
+    return a;
+}
+
+//if in a method the return type is array, then return an array or return null lol! HAHAHAH
+
+
+
