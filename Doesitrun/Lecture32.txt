@@ -1,0 +1,261 @@
+USING THE KEYWORD STATIC
+========================
+In a company, there are interns too. So for the Emp class, let's think about interns too.
+Guess the Output for Intern modifications.
+
+class Emp{
+    private String ename;
+    private int age;
+    private int id;
+    private static int nextId = 1;
+    Emp(int x, String y){
+        age = x;
+        ename = y;
+        id = nextId++; //smart 
+    }
+    public static void showNextId(){
+        System.out.println("The id of the next employee to be recruited is: " + nextId);
+    }
+    public void show(){
+        System.out.println("Employee name: " + ename);
+        System.out.println("Employee  age: " + age);
+        System.out.println("Employee   id: " + id);
+    }
+}
+
+class UseEmp{
+    public static void main(String[] args){
+        Emp e = new Emp(64, "Larson");
+        Emp f = new Emp(80, "Haiden");
+        Emp g = new Emp(20, "Hailey");
+
+        e.show();
+        f.show();
+        g.show();
+        
+        //interns
+        {
+            Emp x = new Emp(22, "Deepak");
+            Emp y = new Emp(20, "Jyoti");
+            x.show();
+            y.show();
+            x.showNextId();
+        }
+        //now the objects are not pointed at and become garbage blocks
+        //however the showNextId is still 6, but should be 4 because interns were temporary
+        Emp.showNextId();
+    }
+}
+=======================================================================
+//same code^^ however below let's think about interns..
+//see sir's diagram for better understanding
+=======================================================================
+//Java has no destructors. Java has finalize METHOD.
+//which will help us solve the problem.
+
+class Emp{
+    private String ename;
+    private int age;
+    private int id;
+    private static int nextId = 1;
+    Emp(int x, String y){
+        age = x;
+        ename = y;
+        id = nextId++; //smart 
+    }
+    public static void showNextId(){
+        System.out.println("The id of the next employee to be recruited is: " + nextId);
+    }
+    public void show(){
+        System.out.println("Employee name: " + ename);
+        System.out.println("Employee  age: " + age);
+        System.out.println("Employee   id: " + id);
+    }
+
+    //finalize will be called when garbage collector comes to destroy objects.
+    //1st the garbage collector will call finalize() method, then it will destroy objects.
+    //because now the nextId will be minused for each object that was made for interns.
+    //finalize() will be called twice, because there were 2 objects.
+    //1 for deepak, 1 for jyoti.
+    //however many objects are to be destroyed, finalize() will be called before.
+    protected void finalize(){
+        --nextId;
+    }
+}
+
+class UseEmp{
+    public static void main(String[] args){
+        Emp e = new Emp(64, "Larson");
+        Emp f = new Emp(80, "Haiden");
+        Emp g = new Emp(20, "Hailey");
+
+        e.show();
+        f.show();
+        g.show();
+        
+        //interns
+        {
+            Emp x = new Emp(22, "Deepak");
+            Emp y = new Emp(20, "Jyoti");
+            x.show();
+            y.show();
+            x.showNextId(); //-->shows 6
+        }
+        //now the objects are not pointed at and become garbage blocks
+        //however the showNextId is still 6, but should be 4 because interns were temporary
+        Emp.showNextId(); // --> IT STILL SHOWS 6, why??
+        //because finalize is called when the garbage collector comes to collect garbage blocks
+        //and the garbage collector is LAZY, it gets called when the JVM wants more memory
+        //its not imperative that it be called immediately right away because GC is lazy.
+        //WE MUST REQUEST THE JVM to do GARBAGE COLLECTION, like GC come do your job.
+        //My work depends on the garbage collector. garbage collector come collect...
+        //therefore there's 3 steps to signal the garbage collector to come collect...
+
+        a. Set the references to null explicitly
+        b. Call the static method called gc() //<-- belongs to the System class btw.
+        c. Call the static method runFinalization() // <-- also belongs to the System class.
+        runFinalization tells the garbage collector hey don't just collect garbage and leave,
+        run the finalize() method as well! Do not just be lazy and leave after collecting garbage.
+        LOL.
+
+    }
+}
+
+Version 4:
+========================================================================
+
+class Emp{
+    private String ename;
+    private int age;
+    private int id;
+    private static int nextId = 1;
+    Emp(int x, String y){
+        age = x;
+        ename = y;
+        id = nextId++;
+    }
+    public static void showNextId(){
+        System.out.println("The id of the next employee to be recruited is: " + nextId);
+    }
+    public void show(){
+        System.out.println("Employee name: " + ename);
+        System.out.println("Employee  age: " + age);
+        System.out.println("Employee   id: " + id);
+    }
+    protected void finalize(){
+        --nextId;
+    }
+}
+
+class UseEmp{
+    public static void main(String[] args){
+        Emp e = new Emp(64, "Larson");
+        Emp f = new Emp(80, "Haiden");
+        Emp g = new Emp(20, "Hailey");
+
+        e.show();
+        f.show();
+        g.show();
+        
+        //interns
+        {
+            Emp x = new Emp(22, "Deepak");
+            Emp y = new Emp(20, "Jyoti");
+            x.show();
+            y.show();
+            x.showNextId(); //-->shows 6
+            //step1:
+            //this line explicitly set the references to null
+            //without doing this gc will not come
+            x = y = null;
+            //step2:
+            //we are requesting via System.gc(), we are suggesting the JVM
+            //to activate the garbage collector.
+            //so that it cleans up memory. collects the garbage blocks.
+            System.gc();
+            //step3:
+            //this method is requesting the JVM to execute or call the method finalize()
+            //after the objects have been destroyed by the garbage block
+            //reminding the JVM to call finalize() after the garbage collectors job.
+            System.runFinalization();
+        }
+        Emp.showNextId();
+    }
+}
+
+===========================================================================================
+
+Practical:
+
+class Emp{
+    private String ename;
+    private int age;
+    private int id;
+    private static int nextId = 1;
+    Emp(int x, String y){
+        age = x;
+        ename = y;
+        id = nextId++;
+    }
+    public static void showNextId(){
+        System.out.println("The id of the next employee to be recruited is: " + nextId);
+    }
+    public void show(){
+        System.out.println("Employee name: " + ename);
+        System.out.println("Employee  age: " + age);
+        System.out.println("Employee   id: " + id);
+    }
+    protected void finalize(){
+        --nextId;
+    }
+}
+
+class UseEmp{
+    public static void main(String[] args){
+        Emp e = new Emp(64, "Larson");
+        Emp f = new Emp(80, "Haiden");
+        Emp g = new Emp(20, "Hailey");
+
+        e.show();
+        f.show();
+        g.show();
+        
+        //interns
+        {
+            System.out.println("Internship Begins");
+            Emp x = new Emp(22, "Deepak");
+            Emp y = new Emp(20, "Jyoti");
+            x.show();
+            y.show();
+            x.showNextId(); //-->shows 6
+            System.out.println("Internship Ends");
+            //now the 3 things are done... for finalize()
+            //99.9% chance that our request is made 
+            //0.1% chance that our request is not made if the JVM is so busy doing other stuff.
+            //LOL
+            x = y = null;
+            System.gc();
+            System.runFinalization();
+        }
+        Emp.showNextId();
+    }
+}
+
+//The reason we do not call finalize ourselves is because
+//if by chance JVM decided to call finalize via gc to go on and go clean
+//and we also called it ourselves as well 
+//so if we did it ourselves and it did it too then finalize is called twice lol
+//that would mess the whole program up.
+//so request the jvm to do it, and don't mess with the JVM's tasks.
+//we do not tell JVM to clean memory, the JVM does it itself.
+//so if you call finalize, the JVM ain't sending the gc, it ain't cleaning anything lol.
+//better to request the JVM than to try and force it.
+//See it practically, for 1million users, call finalize 1million times? Insane.
+//So ask the JVM to do that, instead of looping a milli. via gc better.
+//You can set the references to null for the 1 million objects that's fine.
+//however calling finalize 1million times is messed up gonna be super hectic if 
+//the JVM calls the gc and then finalize and then you also called finalize and messed
+//everything up.
+
+//next lecture the reason behind protected access modifier before finalize()
+
