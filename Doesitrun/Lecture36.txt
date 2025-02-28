@@ -1,0 +1,301 @@
+INHERITANCE, SUPER KEYWORD, APPLICATION OF SUPER
+================================================
+
+INHERITANCE 
+===========
+
+Q. WHat does the word inheritance mean in programming?
+A. In the world of programming, inheritance means to inherit the properties/features of an existing class
+within a class.
+
+Inheritance means EXTENDING the PROPERTIES(data members) and BEHAVIORS(methods) of an existing class into
+a newly created class.
+
+example:
+
+class Fruit{
+    //data
+    //methods
+}
+//since Mango is a Fruit, it should inherit Fruit
+//now the data and methods of Fruit are in Mango.
+
+class Mango extends Fruit{
+    //data of Fruit + methods of Fruit
+    //data of Mango + methods of Mango
+}
+
+As per OOP, the class Mango must inherit the class Fruit
+because all the properties which are present in fruit are also
+useful for Mango
+
+Inheritance should be used whenever IS A relationship applies.
+Mango IS A Fruit, so Mango inherits Fruit.
+Ferrari IS A Car, so Ferrari inherits Car.
+Car IS A Vehicle, so Car inherits Vehicle.
+
+Benefits of Inheritance.
+=======================
+Can programs be made without inheritance?
+Yeah programs can be made without inheritance.
+But you're gonna be rewriting a lot of code.
+Instead, you can inherit and stop wasting time.
+
+1.Reusability: The child class programmer will not have to
+rewrite those members again which already have been coded by
+the parent class programmer.
+
+2. Maintainability: Easy to Make Changes in Code.
+
+Terminologies Used In Inheritance:
+==================================
+//In Java, Python, and Javascript, Parent class is called SUPER CLASS
+1. The class which gets inherited is called as SUPER CLASS or BASE CLASS(in CPP) or PARENT CLASS(in OOP).
+
+2. The class which inherits is called as SUB CLASS, DERIVED CLASS(in CPP), or CHILD CLASS(in OOP).
+
+Types of Inheritance in OOP
+===========================
+5 Types
+
+1. Single 2. Multilevel 3. Multiple 4. Hierarchial 5. Hybrid
+
+But Java supports only 3 of them:
+
+1.Single
+2. Multilevel
+3. Hierarchial
+
+Java does NOT SUPPORT MULTIPLE INHERITANCE and HYBRID INHERITANCE.
+
+SYNTAX OF INHERITANCE:
+=====================
+Whenever a class of ours inherits nothing,
+it inherits the build in class Object in secret. every class besides Object extends Object.
+
+//In the world of Java, this is a SUPER CLASS
+class <parentclassname>{
+    //class body
+}
+//In JAVA This is a SUBCLASS
+//Every SUBCLASS has 1 SUPER CLASS
+//extends is the special keyword for inheritance
+class <childclassname> extends <parentclassname>{
+    //class body
+}
+
+Special note:
+
+In Java, we DON'T HAVE ANY MODE OF INHERITANCE.
+
+class Employee{
+    private String name;
+    private double salary;
+    
+    //setData is a setter method.
+    //usually I would make 2 setters.
+    //called setName() and setSalary()
+    //I clubbed it and made it that way.
+    //best practices is 2 setters also.
+    //recall the circle class setRadius() we made a setter there.
+
+    public void setData(String name, double salary){
+        this.name = name;
+        this.salary = salary;
+    }
+    //getter method for private instance variable name
+    //whenever a method returns the value of instance variable
+    //its called a getter in Java that is a best practice in Java
+    //also getters should be named like this. get followed by the instance variable accessed
+    //for name, getName() and for salary getSalary()
+
+    public String getName(){
+        return name;
+    }
+    public double getSalary(){
+        return salary;
+    }
+}
+//now Manager has both name and salary inside it.
+//we put another instance variable bonus only applicable for managers of the company.
+class Manager extends Employee{
+    private double bonus;
+    //setter
+    publiv void setBonus(double bonus){
+        this.bonus = bonus;
+    }
+    //getter
+    public double getIncome(){
+        //getSalary is callable because Manager extends Employee
+        //We normally cannot call a class Method without . like x.getSalary() is valid.
+        //this getSalary() is called from getIncome() and the object of Manager is calling 
+        //getIncome(), then Java is assuming the same object is calling getSalary()
+
+        double amt = bonys+getSalary();
+        return amt;
+    }
+}
+
+class UseManager{
+    public static void main(String[] args){
+        Manager boss;
+        boss = new Manager();
+        boss.setData("Ashish", 50000.0);
+        boss.setBonus(20000.0);
+        System.out.println("boss's name and income is: ");
+        System.out.println(boss.getName() + " " + boss.getIncome());
+    }
+}
+
+//In class UseManager, Manager boss made a reference.
+// boss = new Manager()  a new object for this reference is made.
+//in this line, the Employee class had 2 instance variables for the object,
+//in Manager, it inherited employee, so the child class object also will 
+//inherit the parent instance variables.
+//so now the child Manager gets 3 instance variables. name, salary, and bonus.
+
+//Whenever we make child objects in Java, does java make 2 different objects?
+//No. It points to the object which is holding all these values.
+
+//boss.setData("Ashish", 50000.0) the method was not in the child class,
+so it went into the parent class and found it.
+//then it put the values in that object based on the method found in the parent class. 
+
+
+IMPORTANT
+//Whenever you call a method in java in a child class, and the method is not in child,
+it will go and search for the method in the parent class, if not found,
+it will go and search for the method in the parents parent class, Object,
+if not found, then there is an error.
+
+The parents keep on getting searched until the method is found or else there is an error.
+
+//in the getIncome method bonus is available in the Manager class so accessed right there,
+then getSalary() is accessed for the manager object's getSalary() from the Employee class.
+So boss called getSalary is understood by Java, it goes into the Employee class(parent) and
+in the bonus+getSalary() the getSalary() is returned for the boss and added and then into amt 
+then that amt is returned to the main
+
+USING THE SUPER KEYWORD
+=======================
+
+In Java, the keyword super is used by a child class to EXPLICITLY refer the members of its
+Parentclass/Superclass.
+
+getSalary() is getting called from Employee class, and there is no dot.
+if you wanna use dot, then you can say super.getSalary()
+super indicates the parent class(aka superclass)
+
+Q. getSalary() works without dot, so why are we using the dot?
+A. what if we also had a getSalary() method in the Manager class.
+So the getSalary would be used for the Manager class.
+And if it was calling itself, then it would become recursion and then would
+hang the program and throw an exception.
+
+ex:
+case 1:
+
+//IMPLICITLY called because wasnt in child class 
+class A{
+    public void show(){
+
+    }
+}
+
+class B extends A{
+    public void display(){
+
+    }
+}
+
+Q.can I call show from inside display?
+A. yes, it would go to the show from child to parent
+
+case 2: 
+class A{
+    public void show(){
+
+    }
+}
+
+class B extends A{
+    public void show(){
+        show();
+    }
+}
+
+This exception gives stack overflow error.
+StackOverflowError
+We get this exception because both are named show, and not going to parent's show
+
+If we want to use the parent's show() 
+you can use super keyword 
+
+//EXPLICIT calling via super
+class A{
+    public void show(){
+
+    }
+}
+
+class B extends A{
+    public void show(){
+        super.show();
+    }
+}
+
+//METHOD OVERRIDING 
+//parent class method overrided the child class method
+//We know OVerriding we saw it in the finalize() method
+==================================
+
+Using "super" becomes compulsory in 2 situations:
+
+1. For calling parent class constructor from the child class 
+
+2. For resolving Method Overriding.
+
+
+CONSTRUCTOR and SUPER 
+=====================
+
+First Use Of "SUPER"
+==================
+
+We have constructors in both parent and child class imagine,
+when we make an object of the child class,
+then Java automatically calls constructors of the parent class,
+then it runs the constructors of the child class.
+This is a fixed rule of Java.
+
+First the parent constructor is ran, then the child constructor is ran.
+
+Imagine both constructors are nonparameterized.
+
+Then java does not expect any help, then Java handles the calls itself.
+
+But if you parameterize the parent constructor...
+Then Java asks 2 things of the child class programmer.
+The child class programmer must make 1 constructor in it's class,
+and the body of that constructor must call the parent class constructor
+and it must be called with super.
+
+If we use super, then from the child constructor it will call the parent constructor.
+Points:
+1. In Java, whenever we created an object of a child class, then Java first executes
+the constructor of parent class, and immediately after it Java executes the constructor of child class.
+
+2.Now if the constructor of parent class is NON PARAMETERIZED, then Java automatically calls these constructors,
+parent constructor first, then child constructor, and requires no support from the Programmer.
+
+3. But if the constructor of the parent class is PARAMETERIZEDs, then Java forces the child class programmer to do
+2 things:
+
+a. The programmer must definer a constructor in the child class.
+b. From the child class constructor, the programmer must call parent class constructor.
+And using the keyword "super".
+
+Moreover, the statement for calling parent class constructor must be the First Statement in the body of child class
+constructor.
+
+In the next lecture we will code this concept.
