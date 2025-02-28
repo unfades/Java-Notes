@@ -1,7 +1,4 @@
-USING THE KEYWORD STATIC
-========================
-In a company, there are interns too. So for the Emp class, let's think about interns too.
-Guess the Output for Intern modifications.
+//creating objects of arrays in memory bonus
 
 class Emp{
     private String ename;
@@ -13,7 +10,68 @@ class Emp{
         ename = y;
         id = nextId++; //smart 
     }
-    public static void showNextId(){
+    public void showNextId(){
+        System.out.println("The id of the next employee to be recruited is: " + nextId);
+    }
+    public void show(){
+        System.out.println("Employee name: " + ename);
+        System.out.println("Employee  age: " + age);
+        System.out.println("Employee   id: " + id);
+    }
+}
+
+class UseEmp{
+    public static void main(String[] args){
+
+        Emp[] employees = new Emp[3];
+        for(int i = 0; i employees.length; i++){
+            employees[i] = new Emp(64, "Larson");
+            employees[i].show();
+        }
+        
+        //interns
+        {
+            Emp x = new Emp(22, "Deepak");
+            Emp y = new Emp(20, "Jyoti");
+            x.show();
+            y.show();
+            x.showNextId();
+        }
+        //now the objects are not pointed at and become garbage blocks
+        //however the showNextId is still 6, but should be 4 because interns were temporary
+        employees[employees.length-1].showNextId();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+USING THE KEYWORD STATIC
+========================
+In a company, there are interns too. So for the Emp class, let's think about interns too.
+Guess the Output for Intern modifications.
+
+
+class Emp{
+    private String ename;
+    private int age;
+    private int id;
+    private static int nextId = 1;
+    Emp(int x, String y){
+        age = x;
+        ename = y;
+        id = nextId++; //smart 
+    }
+    public void showNextId(){
         System.out.println("The id of the next employee to be recruited is: " + nextId);
     }
     public void show(){
@@ -43,7 +101,7 @@ class UseEmp{
         }
         //now the objects are not pointed at and become garbage blocks
         //however the showNextId is still 6, but should be 4 because interns were temporary
-        Emp.showNextId();
+        g.showNextId();
     }
 }
 =======================================================================
@@ -63,7 +121,7 @@ class Emp{
         ename = y;
         id = nextId++; //smart 
     }
-    public static void showNextId(){
+    public void showNextId(){
         System.out.println("The id of the next employee to be recruited is: " + nextId);
     }
     public void show(){
@@ -103,7 +161,7 @@ class UseEmp{
         }
         //now the objects are not pointed at and become garbage blocks
         //however the showNextId is still 6, but should be 4 because interns were temporary
-        Emp.showNextId(); // --> IT STILL SHOWS 6, why??
+        g.showNextId(); // --> IT STILL SHOWS 6, why??
         //because finalize is called when the garbage collector comes to collect garbage blocks
         //and the garbage collector is LAZY, it gets called when the JVM wants more memory
         //its not imperative that it be called immediately right away because GC is lazy.
@@ -134,7 +192,7 @@ class Emp{
         ename = y;
         id = nextId++;
     }
-    public static void showNextId(){
+    public void showNextId(){
         System.out.println("The id of the next employee to be recruited is: " + nextId);
     }
     public void show(){
@@ -179,7 +237,7 @@ class UseEmp{
             //reminding the JVM to call finalize() after the garbage collectors job.
             System.runFinalization();
         }
-        Emp.showNextId();
+        g.showNextId();
     }
 }
 
@@ -197,7 +255,7 @@ class Emp{
         ename = y;
         id = nextId++;
     }
-    public static void showNextId(){
+    public void showNextId(){
         System.out.println("The id of the next employee to be recruited is: " + nextId);
     }
     public void show(){
@@ -237,7 +295,7 @@ class UseEmp{
             System.gc();
             System.runFinalization();
         }
-        Emp.showNextId();
+        g.showNextId();
     }
 }
 

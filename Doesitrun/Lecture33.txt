@@ -1,0 +1,346 @@
+STATIC METHOD, OVERRIDE FINALIZE METHOD 
+=======================================
+Q. Why do we write keyword protected before finalize? Why is the protected part important?
+
+class Emp{
+    private String ename;
+    private int age;
+    private int id;
+    private static int nextId = 1;
+    Emp(int x, String y){
+        age = x;
+        ename = y;
+        id = nextId++;
+    }
+    public void showNextId(){
+        System.out.println("The id of the next employee to be recruited is: " + nextId);
+    }
+    public void show(){
+        System.out.println("Employee name: " + ename);
+        System.out.println("Employee  age: " + age);
+        System.out.println("Employee   id: " + id);
+    }
+    protected void finalize(){
+        --nextId;
+    }
+}
+
+class UseEmp{
+    public static void main(String[] args){
+        Emp e = new Emp(64, "Larson");
+        Emp f = new Emp(80, "Haiden");
+        Emp g = new Emp(20, "Hailey");
+
+        e.show();
+        f.show();
+        g.show();
+        
+        //interns
+        {
+            System.out.println("Internship Begins");
+            Emp x = new Emp(22, "Deepak");
+            Emp y = new Emp(20, "Jyoti");
+            x.show();
+            y.show();
+            x.showNextId(); //-->shows 6
+            System.out.println("Internship Ends");
+            //now the 3 things are done... for finalize()
+            //99.9% chance that our request is made 
+            //0.1% chance that our request is not made if the JVM is so busy doing other stuff.
+            //LOL
+            x = y = null;
+            System.gc();
+            System.runFinalization();
+        }
+        g.showNextId();
+    }
+}
+
+=============================================================
+A.
+if the protected is removed, then we get an error.
+it is due to INHERITANCE.
+
+INHERITANCE
+
+ex:
+
+In Java:
+
+Whenever a programmer makes a class and no class is inherited.
+Then the Java compiler automatically applies INHERITANCE via extends invisibly
+to it's special class called Object.
+when you write:
+class A{
+
+}
+it is actually this via the compiler of Java
+class A extends Object{
+
+}
+
+in Java there's object and Object
+
+Object is a predefined class in java.lang.
+
+object is an object of a class that is made and connected to an object reference.
+
+We have made many classes and objects, so for those, Java automatically added them
+as extends Object.
+
+Java says whenever a programmer creates a class, some data and functions that are important 
+for Java to handle it. Including constructors and more. Like this inheritance.
+So extends Object also is part of this.
+
+If we have to do that ourselves, then our work is doubled. So Java does it for us. 
+
+the Object class has 11 methods.
+
+Remember the Circle class?
+
+In the Circle class, we only made 3 methods.
+However, when we do obj.__ then we get a lot of methods in the list.
+These methods are the ones inherited from the Object class.
+it wrote
+
+class Circle extends Object{
+
+}
+
+if we inherited a class in Java, then Object is also inherited by that class.
+meaning class A extends class B means
+class A extends class B and class B extends class Object
+Object is a superdaddy class in Java.
+it's the daddy of daddies in Java.
+Even for Java classes too.
+String's parent class is Object.
+System's parent class is Object.
+All Wrapper class's parent class is Object.
+It is a rule that applies to all Java, SE, EE, even Android Java has Object as the parent class.
+
+SUPERDADDY class Object.
+
+
+finalize() is a method of the object class.
+finalize() has a blank body in Java. Just like a default constructor has.
+
+it's prototype is protected void finalize()
+
+Q. then if the Object class has finalize() then what is the finalize() method in your class doing?
+finalize() is already in Object, then what does finalize() in Emp do?
+
+A. Overriding.
+
+Overriding - The base class function is redefined in the derived class.
+However Java says that the prototype must be the same.
+So in the Object class it is protected, then in our class it is also protected.
+
+Q.Why protected? We will learn in the chapter packages.
+
+it is due to Object always being the superdaddy, it is automatically inheriting Object,
+so that's why protected is used for finalize() since it's finalize() method is also
+with the access modifier protected.
+
+Q1. Why have we declared finalize() as protected?
+
+A. 1. In Java there is a special class called Object, available in the package java.lang.
+
+2. Whenever we design a class in Java which explicitly does not inherit any special class,
+then the Java compiler automatically inherits our class from the class Object.
+
+3. In simple words we can say that EVERY CLASS (programmer defined and predefined both) always
+directly or indirectly inherits from the Object class.
+The ONLY CLASS that doesn't inherit Object is Object.
+
+4. The class Object has a set of 11 predefined methods and since every class in Java inherits 
+the Object class so it also inherits these 11 methods.
+
+5. Amongst these 11 methods, there is a method called as finalize() whose prototype in Object class
+is protected void finalize()
+
+6. This method has a blank body and it is automatically called by the Garbage Collector whenever
+it destroys any object.
+
+7. Now if at the time of object destruction, we want some statements to be executed then we must override
+the method finalize() in our class. 
+
+8. But while overriding, we must respect the prototype as defined in the Object class 
+Thus we mention the keyword protected while overriding the finalize() method in our class.
+
+
+USING STATIC METHODS 
+==================
+
+1. Like how we can make class data static in Java, we can also make methods static in Java.
+
+2. There are 2 reasons when Java says methods should be static.
+ex:
+    nextId comes into memory before objects are made.
+    and when objects are destroyed it is still there.
+    it goes away when the program ends.
+
+class Emp{
+    private String ename;
+    private int age;
+    private int id;
+    private static int nextId = 1;
+    Emp(int x, String y){
+        age = x;
+        ename = y;
+        id = nextId++;
+    }
+    public static void showNextId(){
+        System.out.println("The id of the next employee to be recruited is: " + nextId);
+    }
+    public void show(){
+        System.out.println("Employee name: " + ename);
+        System.out.println("Employee  age: " + age);
+        System.out.println("Employee   id: " + id);
+    }
+    protected void finalize(){
+        --nextId;
+    }
+}
+
+class UseEmp{
+    public static void main(String[] args){
+
+        Emp.showNextId(); --> proper way to write static method
+        //so that you don't need an object to access it.
+
+        Emp e = new Emp(64, "Larson");
+        Emp f = new Emp(80, "Haiden");
+        Emp g = new Emp(20, "Hailey");
+
+        e.show();
+        f.show();
+        g.show();
+        
+        //interns
+        {
+            System.out.println("Internship Begins");
+            Emp x = new Emp(22, "Deepak");
+            Emp y = new Emp(20, "Jyoti");
+            x.show();
+            y.show();
+            Emp.showNextId(); //-->shows 6
+            System.out.println("Internship Ends");
+            x = y = null;
+            System.gc();
+            System.runFinalization();
+        }
+        Emp.showNextId(); -->proper way to use showNextId() as static method, no need to make an object
+        //since it is not using any object instance variables inside so yea.
+        //static methods only access static data, can't access non static data.
+    }
+}
+
+static methods ONLY ACCESS static data.
+
+There are 2 programming situations when we must declare a method of our class "static" and they are:
+
+1. if the method is only accessing static data of the class and is not accessing any instance members
+of the class in its body... Then we MUST DECLARE that method as static.
+The benefit is we don't need any objects to call that method.
+We can simly call it using class name.
+
+In the previous code, the method showNextId() must be declared as a static method because itis only 
+accessing the static data nextId in it's body.
+
+public static void showNextId(){
+    System.out.println("Next id of employee is : " + nextId);
+}
+
+SPECIAL POINT: 
+
+When we declare a method as static then we CANNOT ACCESS INSTANCE MEMBERS/NON STATIC MEMBERS in the class
+in the body of that static  method IMPLICITLY.
+However we CAN ACCESS THE INSTANCE MEMBERS/NONSTATIC MEMBERS EXPLICITLY that is
+by making objects of that class containing them.
+
+ex:
+
+class Test{
+    int a = 10;
+    public static void main(String[] args){
+        System.out.println("a is: "+a); //Error because a is nonstatic..
+        //Solution? There are 2.
+    }
+}
+
+Solution 1: make a static as static int a = 10;
+
+class Test{
+    static int a = 10;
+    public static void main(String[] args){
+        System.out.println("a is: "+a); //fine because a is static..
+        //Solution? There are 2.
+    }
+}
+Solution 2: .operator with making an object of Test
+this is called explicit access.
+
+class Test{
+    int a = 10;
+    public static void main(String[] args){
+        Test obj =  new Test();
+        System.out.println("a is: "+obj.a); //fine because obj is an object of Test, obj.a is 
+        the instance variable of that object..
+    }
+}
+
+=============================================
+
+ex:
+
+class MyMath{
+    public int add(int a, int b){
+        return a+b;
+    }
+
+}
+//in order to call this add method, we need a reference to MyMath as object 
+then new MyMath then m.add(10,20) etc etc..
+
+class UseMyMath{
+
+    Mymath m = new MyMath();
+    m.add(10,20);
+}
+
+//This method add is not accessing any instance variables of the MyMath class.
+//Then it is better if we made the method static along with public.
+
+now the method works as is just using class name.
+
+
+class MyMath{
+    public static int add(int a, int b){ //this method is static because it is not accessing
+    //any instance members in its body.
+        return a+b;
+    }
+}
+
+class UseMyMath{
+    Mymath m = new MyMath();
+    MyMath.add(10,20);
+}
+
+//with classname much easier and no need to make object.
+
+Q. Make the array doubler method this way, with the right concept of static
+doubler(arr) method should double all the values of the array
+for class ArrayDoubling using static method as the right implementation.
+
+
+2. Whenever we define a method in the class which only works upon its arguments and does not use/access
+any non static data of the class then also the method must be declared as a static method.
+
+before making a static method,
+check if the method is using any non static data 
+if the data is all static that is accessed, then you can make it static.
+
+This is why Math.PI, Math.sqrt(), you access all the methods just by saying Math
+that is the class name. ALL its methods are static. that's why.
+
+This is a special fact about the Math class of Java..

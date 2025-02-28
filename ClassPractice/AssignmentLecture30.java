@@ -113,10 +113,10 @@ class UseEmp{
             age = sc.nextInt();
             System.out.println("Employee " + (i+1) +" enter your name: ");
             name = sc.next();
-            Emp myEmployee = new Emp(age, name);
+            //Emp myEmployee = new Emp(age, name);
         }
-        */
-        Emp myEmployee = new Emp(64, "Larson");
+        
+        Emp myEmployee = new Emp[](64, "Larson");
         Emp myEmployee2 = new Emp(80, "Haiden");
 
         myEmployee.show();
