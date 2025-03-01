@@ -1,0 +1,764 @@
+CALLING OF NON PARAMETERIZED CONSTRUCTOR IN INHERITANCE
+=======================================================
+CODE1:
+class A{
+    public A(){
+        System.out.println("constructor of A called...");
+    }
+}
+
+class B extends A{
+    public B(){
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+OUTPUT:
+=======
+Constructor of A called...
+Constructor of B called...
+
+This happened automatically in Java.. Due to the parent class constructor then the child class constructor called.
+
+And if the parent class Constructor is parameterized? Then?
+=================================================================
+CODE2:
+the parent class constructor is now parameterized.
+class A{
+    public A(int n){
+        System.out.println("constructor of A called...");
+    }
+}
+
+class B extends A{
+    public B(){
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+This code doesn not compile.
+Syntax error.
+If the base class constructor is parameterized, then in the child class constructor it needs super keyword.
+
+Then java says to use the super keyword to call the constructor. In B's constructor we have to write super(24)
+24 is an int type thats why we put 24 it can be any integer...
+Because the parent class constructor is parameterized.
+
+==========================================
+class A{
+    public A(int n){
+        System.out.println("constructor of A called...");
+    }
+}
+
+class B extends A{
+    public B(){
+        super(24);
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+OUTPUT?: 
+Constructor of A called...
+Constructor of B called... 
+
+Now it is fixed, cause the child class constructor needed super due to the parent class constructor being parameterized.
+
+Q.Why does the parent class constructor get called first?
+A. Because if private instance variables are initialized in the parent constructors of parent class then the 
+chil class can use them, if they are not and the child constructor is ran first and then they don't get initialized
+then they will have errors.
+
+When the program is run then memory is given to the parent class variables first.
+Then we also need the parent class constructor to run first.
+
+CODE1:
+class A{
+    public A(){
+        System.out.println("constructor of A called...");
+    }
+}
+
+class B extends A{
+    public B(){
+        //super(); <--writteninvisibly
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+OUTPUT:
+=======
+Constructor of A called...
+Constructor of B called...
+
+In CODE1, without telling us, the compiler put super() inside constructor of B invisibly!
+
+Q. Interview question:
+
+Programmers written code:
+
+class Student{
+
+
+}
+
+What does the compiler of Java automatically add in here invisibly without the programmer knowing?
+
+A. The compiler makes 3 changes to this and the compiled code looks like this:
+
+//1. imports java.lang package
+import java.lang.*;
+//2. puts parent class Object
+class Student extends Object{
+//3. makes a consrructor as no user defined constructor present.
+public Student(){
+    super(); //invisibly also puts super for constructors of parent class Object. Non parameterized super.
+}
+}
+
+=================================================
+Q. Why does this give error when super is invisibly written by the compiler by default for the parent class?
+
+CODE2:
+the parent class constructor is now parameterized.
+class A{
+    public A(int n){
+        System.out.println("constructor of A called...");
+    }
+}
+
+class B extends A{
+    public B(){
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+A. Because super is written invisibly, however the super() is non parameterized,
+thats why if in the parent class, the constructor is parameterized, we have to write super() with those
+same parameters for the super() to apply to that parent class. VVIMP
+
+CODE2:
+the parent class constructor is now parameterized.
+class A{
+    public A(int n){
+        System.out.println("constructor of A called...");
+    }
+}
+
+class B extends A{
+    public B(){
+        //super(); // WRONG this is invisibly written and gives the error since no parameter is passed for the parent constructor.
+        //gotta write super(24) or super(5) or any int inside it for it to be valid.
+        super(2); //This is correct because we EXPLICITLY wrote super() with the parameters expected in the parent class.
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+===========================================
+Q.
+class A{
+
+}
+class B extends A{
+
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+A. What happened in the following code? How many constructors ran?
+
+In this code, 3 constructors were ran.
+
+class B's constructor B() was ran
+class A's constructor A() was ran 
+class Object's constructor was also ran 
+
+as class A extends Object as well so the Object constructor as well
+
+===================================================================
+
+class A{
+    public A(){
+        System.out.println("Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+OUTPUT:
+COnstructor of A called...
+Constructor of B called...
+
+in the output above super() was prewritten for you, you can write it yourself too like this.
+
+class A{
+    public A(){
+        System.out.println("Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        super();
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+Now if you did this:
+
+class A{
+    public A(int a){
+        System.out.println("Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        super(3);
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+We gotta write super(3) as the parent constructor expects int as an argument.
+That is why you gotta write it yourself.
+
+Because if you wrote nothing, super() was hidden, now if you add a parameter in the parent class constructor,
+you have to EXPLICITLY define super with the expected parameters that go inside it. To understand here look again.
+
+================================================================
+
+class A{
+    public A(int a){
+        System.out.println(" Parameterized Constructor of A called...");
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        //nothing written by you
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+Output:
+Nonparameterized constructor of A called...
+Constructor of B called... 
+
+Every child class constructor has super() invisibly inside it if you wrote nothing,
+you can also write super(), no difference.
+And if the parent class constructor was parameterized, then you would write this:
+super(parameter) in the child class for the parent class constructor parameter which would go in there.
+
+=============================================================================
+
+Q. WHat is the output of this code?
+
+class A{
+    public A(int a){
+        this();
+        System.out.println(" Parameterized Constructor of A called...");
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        super(25);
+        System.out.println("Constructor of B called...");
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+A. The output of this code is 
+
+Parameterized constructor of A called...
+Nonparameterized constructor of A called...
+Constructor of B called...
+
+remember constructor chaining..
+super(25); calls Parameterized constructor of A
+this() since parenthesis have no parameters will call the constructor of A without any parameters that is --> A()
+then it will also this() is written in the first line of the constructor btw remember.
+Then non parameterized constructor of A called
+then non parameterized constructor of B called.
+
+
+============================================================================
+Q. Predict the output:
+
+class A{
+    public A(int a){
+        this();
+        System.out.println(" Parameterized Constructor of A called...");
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        System.out.println("Non parameterized Constructor of B called...");
+    }
+    public B(int x){
+        System.out.println("Parameterized constructor of B called..." + x);
+    }
+    public B(String str){
+        System.out.println("Parameterized constructor of B called..." + str);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+Output:
+Nonparameterized constructor of A called...
+Nonparameterized constructor of B called...
+
+Q. Predict the Output:
+
+class A{
+    public A(int a){
+        this();
+        System.out.println(" Parameterized Constructor of A called...");
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        System.out.println("Non parameterized Constructor of B called...");
+    }
+    public B(int x){
+        System.out.println("Parameterized constructor of B called..." + x);
+    }
+    public B(String str){
+        System.out.println("Parameterized constructor of B called..." + str);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B(100);
+    }
+}
+
+Output:
+Nonparameterized constructor of A called...
+Parameterized constructor of B called ... 100
+//because super() was invisibly there inside the B constructor of B(int a) it had empty super()
+//so called A's non parameterized constructor
+
+Q. Predict the output:
+
+class A{
+    public A(int a){
+        this();
+        System.out.println(" Parameterized Constructor of A called... " + a);
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        System.out.println("Non parameterized Constructor of B called...");
+    }
+    public B(int x){
+        super(x);
+        System.out.println("Parameterized constructor of B called..." + x);
+    }
+    public B(String str){
+        System.out.println("Parameterized constructor of B called..." + str);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+Output:
+Parameterized constructor of A called ... 100
+Parameterized constructor of B called ... 100
+
+=====================================================
+
+Q. Predict the output:
+
+class A{
+    public A(int a){
+        this();
+        System.out.println(" Parameterized Constructor of A called... " + a);
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        System.out.println("Non parameterized Constructor of B called...");
+    }
+    public B(int x){
+        this("Hav");
+        System.out.println("Parameterized constructor of B called..." + x);
+    }
+    public B(String str){
+        this(25);
+        System.out.println("Parameterized constructor of B called..." + str);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B(100);
+    }
+}
+
+Output:
+Recursive constructor invocation 
+because this(25) and this("Hav")
+keep calling each other and everything recurses
+
+Q. Predict the output:
+
+class A{
+    public A(int a){
+        this();
+        System.out.println(" Parameterized Constructor of A called... " + a);
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    public B(){
+        System.out.println("Non parameterized Constructor of B called...");
+    }
+    public B(int x){
+        this("Hav");
+        System.out.println("Parameterized constructor of B called..." + x);
+    }
+    public B(String str){
+        System.out.println("Parameterized constructor of B called..." + str);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B(100);
+    }
+}
+
+Output:
+Nonparameterized consrructor of A called... //because inside 100 super() was written invisibly inside public B(string str)
+Parameterized constructor of B called... Hav
+parameterized constructor of B called... 100
+
+Everytime the parent class constructor is called no matter what is what we learned, and some Tests to 
+predict output that strengthened our understanding.
+
+if they all had static blocks, then whats the output?
+
+Q. Predict the output:
+
+class A{
+
+    static{
+        System.out.println("Static block of A called...");
+    }
+    public A(int a){
+        this();
+        System.out.println(" Parameterized Constructor of A called... " + a);
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    static{
+        System.out.println("Static block of B called...");
+    }
+    public B(){
+        System.out.println("Non parameterized Constructor of B called...");
+    }
+    public B(int x){
+        this("Hav");
+        System.out.println("Parameterized constructor of B called..." + x);
+    }
+    public B(String str){
+        System.out.println("Parameterized constructor of B called..." + str);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B(100);
+    }
+}
+
+Output:
+Static block of A called...
+Static block of B called...
+Nonparameterized consrructor of A called... 
+Parameterized constructor of B called... Hav
+parameterized constructor of B called... 100
+
+Q. Predict the output:
+
+class A{
+
+    static{
+        System.out.println("Static block of A called...");
+    }
+    public A(int a){
+        this();
+        System.out.println(" Parameterized Constructor of A called... " + a);
+    }
+
+    public A(){
+        System.out.println("Non parameterized Constructor of A called...");
+    }
+}
+class B extends A{
+    static{
+        System.out.println("Static block of B called...");
+    }
+    public B(){
+        System.out.println("Non parameterized Constructor of B called...");
+    }
+    public B(int x){
+        this("Hav");
+        System.out.println("Parameterized constructor of B called..." + x);
+    }
+    public B(String str){
+        System.out.println("Parameterized constructor of B called..." + str);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B(100);
+        B obj2 = new B(200);
+    }
+}
+
+Output:
+
+Static block of A called...
+Static block of B called...
+Nonparameterized consrructor of A called... 
+Parameterized constructor of B called... Hav
+parameterized constructor of B called... 100
+Nonparameterized consrructor of A called... 
+Parameterized constructor of B called... Hav
+parameterized constructor of B called... 100
+
+because static blocks run only once, and they run first keeping that in mind... from static block chapter
+
+=========================================================================================================
+Q.What is the 2nd Use of super keyword?
+A. For Method Overriding.
+
+Whenever a child class has a method defined in its body with the exact same prototype as the method 
+inherited from the parent class, then we say that the method of the child class is overriding the 
+method of the parent class.
+
+class A{
+    public void show(){
+        //code
+    }
+}
+
+class B extends A{
+    public void show(){
+        //code
+    }
+}
+
+the show method of B and A are the same prototype and name.
+in OOP language, the show() of class B overrides show() of class A.
+
+For overriding, the prototype is THE EXACT SAME.
+ex:
+
+class A{
+    public void show(){
+        //code
+    }
+}
+
+class B extends A{
+    public void show(int a){
+        //code
+    }
+}
+
+This is not overriding... This is overloading, because parameters are different then it is overloaded
+and the prototype wasnt the exact same.
+
+For overriding in programming we do it when
+
+the parent class method logic is not what the programmer of the child class wants
+then you can override
+
+ex:
+
+class Emp{
+    public void salaryHike(){
+        //logic of hike on the basis of salary
+    }
+}
+
+class Manager extends Emp{
+    //code
+}
+
+class UseManager{
+    public static void main(String[] args){
+        Emp e = new Emp();
+        e.salaryHike();
+
+        Manager m = new Manager();
+        m.salaryHike(); //the same logic for employee... what if we want manager hike for other parameters
+        //other criterias? In this case this ain't right.
+        //instead of changing the employee logic, we will write new hike logic in Manager class
+        //through OVERRIDING
+        //At times we need to override like this case. Overriding is VVIMP
+    }
+}
+
+//overriding method protypes are the same just the logic is different.
+
+class Manager extends Emp{
+    //code
+
+    publiv void salaryHike(){
+        //logic based on managerial skills. This is overriding.
+    }
+}
+
+Q. Why do we do overriding of a method of parent class in a child class?
+A. Sometimes it happens that the functionality of a method defined in the parent class
+is not suitable for the needs of the child class.
+
+For ex: the logic of salaryHike() in Emp class may not be suitable for the 
+child class Manager because salaryHike of a manager can be based on multiple factors. 
+So in this case the programmer of Manager class must compulsorily OVERRIDE the method 
+salaryHike() inherited from Emp class and write the logic of giving hike in salary according to
+the manager's functionalities.
+
+So we can say that we OVERRIDE a method of PARENT CLASS in CHILD CLASS when we want to change the
+implementation logic of that according to the child class.
+
+Method Overriding and Method overloading differences
+
+Method Overriding:
+1. The prototype of the method in child class must be exactly same as the prototype of the method 
+in parent class.
+Method overloading:
+1. The arguments of the method in child class must be different than the arguments of the method
+in the parent class.
+Method overriding:
+2. Requires inheritance. Without inheritance that is in a SINGLE CLASS we cannot perform overriding.
+Method overloading:
+2. Can be done without inheritance also. That is the method of a single class can overload another method
+of the same class. 
+
+==============================================================================================================
+What role does "super" play in overriding?
+
+If we did overriding in the child class from the parent class and for some reason we want to call 
+the parent class version of the method also, then from the child class method,
+we can use the super keyword in order to call the parent class method from the child class method.
+
+SYNTAX:
+=======
+
+//This is written in a child class and is used to use the method of the parent class.ss
+super.<methodname>(<arg>);
