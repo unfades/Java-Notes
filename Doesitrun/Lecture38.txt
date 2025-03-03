@@ -1,0 +1,282 @@
+RELATION BETWEEN SUPER CLASS REFERENCE & CHILD CLASS OBJECT 
+===========================================================
+How super helps us to call overridden method of parent class:
+
+imagine 
+
+class A{
+    public void show(){
+
+    }
+}
+
+class B extends A{
+    public void show(int x){
+
+    }
+}
+
+We want to call A's show from B, so write super.show(x); as int needs be passed..
+
+class A{
+    public void show(){
+
+    }
+}
+
+class B extends A{
+    public void show(int x){
+        super.show(x);
+    }
+}
+
+=====================================================
+example 2: 
+
+class A{
+    public void show(){
+
+    }
+    public void display(){
+
+    }
+}
+
+class B extends A{
+    public void show(int x){
+        super.show(x);
+    }
+}
+
+class C extends B{
+    public void show(int n){
+        super.show(n);
+        super.display(); //can also be display() because no overriding.
+    }
+}
+
+In this example, super.show(n) in class C calls show from class B, question is how do we call the
+show from A within C, as super only calls the parent class's show, what about the parent of the 
+parent class?
+
+super.display() in class C calls the display from A as B has no display nor C, and super in 
+super.display() is optional as no overriding is needed there is no other method called display in it 
+so can also write just display()
+
+=====================================================================
+
+
+class A{
+    public void show( int n){
+        System.out.println("In show of A with int" + n);
+    }
+    public void show(String str){
+        System.out.println("In show of A with string" + str);
+    }
+}
+
+class B extends A{
+    public void show(int n){
+        System.out.println("In show of B with int" + n);
+    }
+    public void show(double n){
+        System.out.println("In show of B with double" + n);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+        obj.show("Hi");
+        obj.show(1.5);
+        obj.show(25);
+
+    }
+}
+This is overloading and overriding both in this example. No use of super here.
+Predict the output.
+
+OUTPUT:
+In show of A with string Hi
+In show of B with double 1.5 
+In show of B with int 25
+
+Since B extends A and has a show that takes in a string, then that was run 
+B already has doubles and ints as well, so those run in B.
+
+Q.How can we change the previous code so that show(int) of class A also gets run as well?
+A. by using super.
+
+==========================================================================================
+
+class A{
+    public void show( int n){
+        System.out.println("In show of A with int" + n);
+    }
+    public void show(String str){
+        System.out.println("In show of A with string" + str);
+    }
+}
+
+class B extends A{
+    public void show(int n){
+        super.show(n);
+        System.out.println("In show of B with int" + n);
+        //what if super.show(n) was on this line instead whats the output then?
+    }
+    public void show(double n){
+        System.out.println("In show of B with double" + n);
+    }
+}
+
+class UseB{
+    public static void main(String[] args){
+        B obj = new B();
+        obj.show("Hi");
+        obj.show(1.5);
+        obj.show(25);
+
+    }
+}
+This is overloading and overriding both in this example. No use of super here.
+Predict the output.
+
+OUTPUT:
+In show of A with string Hi
+In show of B with double 1.5
+In show of A with int 25
+In show of B with int 25
+
+============================================================================================
+
+class Circle{
+    private int radius;
+
+    public Circle(int radius){
+        this.radius = radius;
+    }
+    public double area(){
+        return 3.14156*radius*radius;
+    }
+    public int getRadius(){
+        return radius;
+    }
+}
+
+class Cylinder extends Circle{
+    private int height;
+
+    public Cylinder(int radius, int height){
+        super(radius); // this calls the constructor of Circle for radius
+        this.height = height;
+    }
+    public double area(){
+         return 2*super(radius)+2*Math.PI*super.getRadius()*height; 
+    }
+    public double volume(){
+        return 2*super.area()*height; //its important to write super.area() because we want area of Circle
+        //not area of cylinder
+    }
+}
+
+class UseCylinder{
+    public static void main(String[] args){
+        Cylinder obj = new Cylinder(10,20);
+        System.out.println("Are of the cylinder:" + obj.area());
+        System.out.println("Volume of the cylinder:" + obj.volume());
+    }
+}
+
+===============================================================================================
+
+Relationship Between "super" class Reference and "child" class Object
+
+class Person{
+
+
+}
+
+class Student extends Person{
+
+
+}
+
+You can say in Java
+Student s = new Student(); //valid statement
+Person p = new Student(); //valid statement
+
+In the Java world, the reference of Parent class is allowed 
+to store the address of objects of its direct as well as indirect child class.
+
+Student inherits Person, so it's okay for Person to point to student.
+
+ex:
+
+class Fruit{
+
+
+}
+
+class Mango extends Fruit{
+
+
+}
+
+Fruit f = new Mango(); // Fine 
+
+Because it's fine to say Mango is a Fruit in english.
+It's also fine to say Student is a Person. The same logic applies.
+
+Mango m = new Fruit(); //Error
+
+Java says super class reference will call to child, and inherits the methods that are from the super inside child
+but not the childs own added methods.
+
+ex:
+
+class Emp{
+
+    private double sal;
+    public void setSal(double sal){
+        this.sal = sal;
+    }
+}
+
+class Manager{
+    private double bonus;
+    public void setBonus(double bonus){
+        this.bonus = bonus;
+    }
+}
+
+class UseManager{
+    public static void main(String[] args){
+        Emp e = new Manager(); // OK fine
+
+        e.setSal(50000.0); // OK 
+        e.setBonus(20000.0); //OK
+    }
+}
+
+We could have also seperately made Manager e = new Manager which can access both it's methods 
+and also of Emp, what's the benefit then?
+We will see the benefits of this in Polymorphism lecture.
+
+1. In Java there is a special rule regarding super class reference and its child class object.
+
+2. The rule is that a parent class reference can always point to its child class object that is if
+Emp is the parent/super class of Manager, then the following is valid:
+
+Emp e = new Manager();
+
+3. However the reverse is not true. A child class reference can NEver point to the parent class 
+object. So the following won't compile even:
+
+Manager m = new Emp();
+
+4. But if the parent class reference is pointing to a child class object then there is another rule
+we must remember.
+
+5. The rule is that the parent class reference while pointing to a child class object can only call those
+methods which have been inherited by the child class, but not those methods which have been newly
+added by the child class.

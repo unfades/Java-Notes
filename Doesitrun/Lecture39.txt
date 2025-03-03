@@ -1,0 +1,262 @@
+POLYMORPHISM, BINDING, EARLY BINDING, LATE BINDING
+==================================================
+//on the basis of lecture 38, last topic should be clear the parent class ref can point to child objects
+//but not to the new methods made in the child class. Should be clear before this one.
+
+POLYMORPHISM
+
+(RUN TIME POLYMORPHISM / DYNAMIC METHOD DISPATCH)
+Q.
+Imagine you have a class called Circle in your program, and in it a method called area()
+defined on the basis of Circle's area.
+
+And in the same program you have 2 more classes. Named Rectangle and Triangle.
+Their methods are also called area() which are defined as their shapes Rectangle/Triangle Area.
+These classes do not inherit each other.
+
+The challenge and question is that 
+we call the area() methods of all 3 of these classes.
+How will you call all 3 methods of all 3 classes.
+
+A. We will make references and objects of all 3, 3 references and 3 objects.
+
+Circle c = new Circle();
+c.area();
+Rectangle r = new Rectangle();
+r.area();
+Triangle t = new Triangle();
+t.area();
+
+This is what we would do with our current knowledge.
+This is the worst answer to the question.
+For 15 classes, would you make 15 references??
+It's madness.
+
+I reference is 8 bytes, so 3 references is 24 bytes.
+Not right to consume memory references to references.
+
+This solution is very inefficient.
+
+We will make 1 reference, and make it a common parent class.
+A super class Shape and inherit all of them.
+This is polymorphism. But how will we call area?
+Through BINDING
+
+
+BINDING
+=======
+
+The word "binding" in the world of programming languages refers to the MECHANISM which the compilers
+of languages follow to decide that on which function call and which function body needs to be executed.
+
+Compiler converts Source code to byte code.
+Compiler also does BINDING.
+Binding means TO JOIN.
+
+whenever there is a method call in the program, the compiler sees the call and decides which body to
+call for the method if it is overloaded or overidden?
+
+That mechanism is called BINDING. It already was happening, but we learn it now.
+
+BINDING is of 2 types:
+1. Early BINDING /Compile Time Binding/ Static Binding
+2. Late BINDING /Run Time Binding/ Dynamic Binding
+
+THIS IS IMPORTANT ITS GONNA BE EVERYWHERE
+
+EARLY BINDING
+=============
+References are made at compile time.
+
+If the method being called is a STATIC METHOD, then Java will select that version of the method which
+matches with the type of reference and not the type of object.
+
+ex: Suppose we have a parent and child class and both classes have the same prototype and name static method 
+in their bodies.
+
+Now suppose we create a reference of parent class and connect it with the object of the child class,
+and call the static method using that reference.
+
+In this situation, Java will run the version of the method present in the PARENT CLASS.
+
+WHY? 
+
+Because for static methods Java chooses the method by looking at the TYPE OF REFERENCE and this example
+has the reference as parent class.
+
+Static methods never do polymorpism, for polymorphism methods have to be nonstatic.
+
+This is called Early/Static/Compile Time Binding.
+
+
+LATE BINDING
+============
+
+if taste() method is not static then... if:
+
+Fruit f = null;
+switch(choice){
+    case 'A':
+        f = new Apple();
+        break;
+    case 'B':
+        f = new Banana();
+        break;
+    case 'O':
+        f = new Orange();
+        break;
+    case 'M':
+        f = new Mango();
+        break;
+}
+f.taste();
+
+this is polymorphism only if taste() is nonstatic because Fruit reference f points to 
+Objects of all these difference classes, and they have the same method taste() inside them,
+so taste() is gonna be showing different things based on what the user chose.
+
+This is called runtime polymorphism as
+Objects are made at runtime.
+Also called dyamic method dispatch.
+
+LATE BINDING CONTINUED
+======================
+
+If the method being called is a NONSTATIC METHOD or INSTANCE METHOD, then Java selects
+the version of the method to be called by looking at the type of object pointed by the reference.
+
+This means that if we have an instance method present in both PARENT and CHILD classes, and we have 
+declared a reference of type PARENT and make it point  to an object of type CHILD.
+
+Then when we call that INSTANCE METHOD using the PARENT CLASS reference, Java will execute the 
+CHILD CLASS version of that method.
+
+WHY?
+
+Because for NONSTATIC METHODs Java uses the type of object to decide which version of the method 
+should run.
+
+Moreover since this type of binding is based upon object and we know that objects in Java are created
+at RUNTIME so this binding is also called as LATE BINDING or RUN TIME BINDING or DYNAMIC BINDING.
+
+When we are able to call diff versions of the SAME METHOD defined by diff classes using the SUPER class 
+reference then we can say that we have achieved RUN TIME POLYMORPHISM.
+
+Sensible way to solve the question now.
+
+For class Circle, Rectangle, Triangle area() needing run.
+Let's make a parent class Shape and they all inherit shape.
+It is called Hierarchial inheritance.
+
+Shape also has area().
+
+Now make an object reference of Shape()
+and call their area() methods from it 
+
+Shape S;
+
+S = new Circle();
+S.area(); //area of a circle
+S = new Rectangle();
+S.area(); //area of a rect
+S = new Triangle();
+S.area(); //are of Triangle
+
+just 1 reference.
+It is runtime polymorphism as
+S.area() method is the same,
+but they are calling areas of
+difference Objects of Classes.
+
+This is called RUNTIME POLYMORPHISM or DYNAMIC METHOD DISPATCH.
+
+Q. Looking at the following call, can you tell which method will run?
+
+x.f1();
+
+A. cannot tell.
+
+Q.2 what if f1() is a static method? Then which method will run?
+
+A. then f1() method of the class to which x belongs will run.
+
+Q3. what if f1() is a nonstatic method/instance method? which method will run?
+
+In this case f1() method of that class will run whose object is pointed by the reference x.
+
+========================================================================================
+small example:
+
+class A{
+    public void show(){
+        System.out.println("In show of A");
+    }
+    public static void display(){
+        System.out.println("In display of A");
+    }
+}
+
+class B extends A{
+    public void show(){
+        System.out.println("In show of B");
+    }
+    public static void display(){
+        System.out.println("In display of B");
+    }
+}
+
+class PolyDemo{
+    public static void main(String[] args){
+        A ref;
+
+        ref = new A();
+        ref.show();
+        ref.display();
+
+        ref = new B();
+        ref.show();
+        ref.display();
+    }
+}
+
+OUTPUT?:
+In show of A 
+In display of A 
+In show of B 
+In display of A 
+
+In show of A because it was Object of A, ref = new A();
+In display of A because it was REFERENCE of A, A ref; and the method was STATIC
+In show of B because it was Object of B, ref = new B();
+In display of A because it was REFERENCE of A, A ref; and the method was STATIC
+
+ref.show() is polymorphism because reference was only 1 but multiple versions.
+
+Between the show() of A and B, it is method overriding.
+
+Between the display of A and B, don't say called overriding, it is called Method Hiding
+Because the methods are static. that's Java vocabulary.
+
+1. If a method in the parent class is non static, then we cannot make it static while overriding 
+the child class.
+
+Means in class A show() is nonstatic, that means in B it also HAS TO BE nonstatic TOO.
+
+2. Similarly if a method is STATIC in a parent class, then while HIDING it in the child class, we 
+cannot make it a nonstatic/instance method.
+
+Java would give an error.
+
+Wherever there is Method overriding, there is runtime polymorphism.
+You cannot achieve runtime polymorphism without overriding,
+Like where there is smoke there is fire.
+Fire cannot happen without smoke.
+The same way
+Runtime polymorphism cannot happen without overriding.
+
+Method Hiding is the same prototype and name for a method and static for the methods.
+
+
+MEANS if its got the same prototype and name, if its static in the parent its gotta be static 
+in children and if its nonstatic in the parent then its gotta be nonstatic in the children.
+
