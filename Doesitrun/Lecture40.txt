@@ -1,0 +1,252 @@
+DYNAMIC METHOD DISPATCH, ABSTRACT METHODS, ABSTRACT CLASSES AND APPLICATIONS
+============================================================================
+
+
+PRACTICAL USE OF RUNTIME POLYMORPHISM/DYNAMIC METHOD DISPATCH
+=============================================================
+
+class Language{
+    public void greetings(){
+
+    }
+}
+
+class English extends Language{
+    public void greetings(){
+        System.out.println("Good Morning");
+    }
+}
+
+class Hindi extends Language{
+    public void greetings(){
+        System.out.println("Suprabhat");
+    }
+}
+
+class French extends Language{
+    public void greetings(){
+        System.out.println("Bonjour");
+    }
+}
+
+class UseLanguage{
+    public static void main(String[] args){
+        Language lg = new English();
+        lg.greetings();
+
+        lg = new Hindi();
+        lg.greetings();
+
+        lg = new French();
+        lg.greetings();
+    }
+}
+
+//Every call from lg.greetings() exhibits runtime polymorphism / dynamic method dispatch.
+=========================================================================================
+
+We defined greetings() in Language method.
+The greeting body was empty in Language.
+So can we remove greeting() from Language?
+
+No. Because we need it for overriding and to apply polymorphism.
+That greeting() in Langauge is an Abstract Method.
+
+==========================================================================================
+
+ABSTRACT METHODS & ABSTRACT CLASSES
+
+Q. What is an abstract method?
+A. Any method for which we do not want to give any body/definition in the parent class 
+can be called as abstract method.
+
+Q. How do we declare a method as abstract?
+A. To declare an abstract method, we will have to prefix it with the keyword "abstract".
+For ex: The greetings method in the Language class can be declared as "abstract"
+
+public abstract void greetings();
+
+Q. When should we declare a method as abstract?
+A. There are situations when we have a method in the parent class which cannot be implemented
+properly due to lack of information in the parent class. But we require this method to be 
+in the parent class so that child classes can override it and for runtime polymorphism to be achieved.
+We must declare the method as abstract.
+
+Ex: 
+Q.Suppose we have a class called Shape and the class has a method called area. What should be the 
+body of the method in the Shape class?
+Suppose we have a class called Animal and the class Animal has a method called eat(). What should be the 
+body of this method in Animal class?
+
+A.The answer to both the questions is same. We cannot Properly implement area() in Shape as well as 
+eat() in Animal unless we know their specific types. 
+In this situation Java strongly recommends that these methods must be declared as ABSTRACT.
+
+
+Syntax:
+
+<access mod> abstract <returntype> <methodname> (listofargs);
+OR 
+abstract <access mod> <returntype> <methodname> (listofargs);
+
+for example:
+
+public abstract void greetings();
+OR
+abstract public void greetings();
+==========================================================================
+SOME IMPORTANT POINTS TO REMEMBER IF WE ARE DECLARING A METHOD AS ABSTRACT:
+
+1. to make abstract method we must write the keyword abstract in the method prototype in the 
+parent class.
+
+2. An "abstract" method should never be given any definition where it has been declared as "abstract"
+
+3. If a method is declared as abstract in a class then it is compulsory to declare the class as 
+abstract as well. Meaning abstract 2 times, for class and for the method.
+
+Or else there will be a syntax error.
+
+Ex:
+
+class Animal{
+    public abstract void eat();
+}
+
+The code won't even compile. Both need to be abstract.
+
+4. If a class has been declared as abstract then it is not compulsory that it should have
+an abstract method. By all means this is valid.
+
+Ex:
+
+abstract class Animal{
+    public void eat(){
+
+    }
+}
+
+Yes. This is perfectly valid.
+
+5. If a class has been declared as abstract then we are not allowed to create its objects.
+Although we can create its references. But Just not objects.
+
+Ex: 
+
+Animal a;
+//valid
+a = new Animal();
+//invalid as Animal is abstract.
+
+//The reference can stil be useful to use eat() of Cow, Goat, Lion, and more classes that are
+//Child of animal.
+Reference of Animal is still able to be made for that reason.
+
+6. abstract classes can have constructors, methods, instance members, etc.
+Because of this reason as well, the children of Animal can use all of the methods,
+instance members, etc. of Animal even if it is abstract.
+
+abstract class can contain CONSTRUCTORS, instance members, as well as instance methods.
+Constructors can be made by us or Java will automatically make a default constructor as well.
+This is because if we inherit the abstract class in the child class then all these will be 
+usable by the child class's Objects.
+
+Just cannot make Objects of abstract class.
+
+7. If a class is a child of an abstract class, then 1. it is compulsory to override all the methods
+in the parent class, or else 2. you need to make the child class abstract.
+
+a. Either it must override EVERY abstract method inherited from the parent class.
+
+b. If the child class does not override abstract method then it should itself be prefixed with the 
+keyword abstract then we will not be allowed to create its objects also.
+
+ex:
+
+abstract class Fruit{
+
+    public abstract void taste();
+    public abstract void color();
+    public void show(){
+
+    }
+}
+
+class Orange extends Fruit{
+
+    public void taste(){
+        System.out.println("Citrous");
+    }
+    public void color(){
+        System.out.println("Orange");
+    }
+}
+
+abstract class Mango extends Fruit{
+
+    public void taste(){
+        System.out.println("Citrous, Sweet");
+    }
+    //mango has different colors if its Alphonso(Bright Yellow), Dasheri(yellowish), Langda(green)
+    //so we made Mango abstract as well.
+}
+
+class Langda extends Mango{
+    public void color(){
+        System.out.println("color is green");
+    }
+}
+//no need to overwrite taste in Langda if the taste tastes the same.
+/Langda inherited taste from parent Mango.
+
+According to the rules, we can only make objects of 2 classes, Langda and Orange.
+
+Q. Based on these classes, what is ok to write?
+
+Fruit f; // OK to write
+
+f = new Fruit(); // ERROR 
+
+f = new Mango(); // ERROR
+
+f = new Orange(); //OK 
+f.taste(); //Orange class's taste() runs
+f.color(); //Orange's color runs
+f = new Langda(); //OK 
+f.taste(); // Mango class's taste runs as Langda doesn't have it but inherits it
+f.color(); // Langda's color runs.
+
+//All according to the rules discussed.
+
+Java vocabulary wise:
+Mango and Fruit are both abstract classes. // objects cannot be made of these
+Orange and Langda are called concrete classes. //objects of these can be made
+
+
+=============================================================================================
+Q. can we make object of Main class?
+Is it concrete?
+
+recall from static keyword...
+Main class is also Concrete...
+You can make Objects of Main also...
+Here, Test is Main...
+class Test{
+    int a = 10;
+    public static void main(String[] args){
+        Test T = new Test();
+        System.out.println("a = " + T.a);//valid
+        System.out.println(a); //Invalid 
+        //Because main() method is static, pSvm
+        //cannot access non static data in a static method without 
+        //making objects first. Recall in static methods lecture.
+    }
+}
+
+//replace Test with Main and it all makes sense. Main is also concrete.
+
+
+Q. Which methods in our class can NEVER be declared as abstract?
+A. explore yourself and bring the answer with reasons.
+
+Constructor, Static methods
