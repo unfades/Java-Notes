@@ -1,0 +1,334 @@
+IMPORTANT POINTS RELATED TO ABSTRACT, THE FINAL KEYWORD.
+
+Q.Which methods in a class can never be declared as abstract?
+A. There are 4 methods.
+
+A. Constructor 
+
+child constructors and parent constructors names are different like Fruit and Mango,
+so they can't be abstract that's why.
+
+B. Static Methods
+if they are abstract, even if we made a child object but it will want the parent first, 
+and that is abstract then it can't run.
+
+C. Private Methods
+They can't be accessed by child classes so they can't be abstract as well.
+
+D. Final methods
+
+In java,
+
+public, private, protected are access modifiers.
+abstract, static, final are non access modifiers.
+
+
+Q. Why can't we make static methods abstract?
+ex:
+
+class Fruit{
+
+    public static abstract void taste();
+
+}
+
+class Mango extends Fruit{
+
+    public static abstract void taste(){
+        System.out.println("mango mango");
+    }
+
+}
+//for static methods java does EARLY BINDING remember last lectures and revise a lot.
+//for late binding java sees references.
+//So how can static method can be called when the body is empty in Fruit.
+//parent class Fruit has no body.
+//This is why abstract and static are total polar opposites.
+//if it is static it can't be abstract and if abstract cannot be static.
+class UseMango{
+    public static void main(String[] args){
+        Fruit f = new Mango();
+        f.taste();
+    }
+}
+
+ex2 why constructors can't be abstract:
+
+abstract class Fruit{
+    public abstract Fruit();
+}
+
+class Mango extends Fruit{
+    public Fruit(){
+        //invalid as Constructor of Mango must be class name that is Mango()
+    }
+}
+
+abstract class Fruit{
+    public abstract Fruit();
+}
+
+class Mango extends Fruit{
+    public void Fruit(){
+        //invalid as now its a method and not a constructor anymore with return type void.
+    }
+}
+
+=====================================================================================
+What are the errors?
+
+abstract class Fruit{
+    public abstract void taste();
+}
+
+A. the above compiles but does not run,
+
+
+abstract class Fruit{
+    public static abstract void taste();
+}
+
+A. the above code will give error illegal combination abstract and static.
+
+abstract class Fruit{
+    public abstract Fruit();
+}
+
+A. modifer abstract not allowed here.
+
+==================================================================================
+
+In java,
+
+public, private, protected are access modifiers.
+abstract, static, final are non access modifiers.
+==================================================================================
+
+Using the "final" modifier 
+==========================
+
+What does an access modifier control?
+
+It is used for controlling visibility of members of a class.
+
+What do non access modifiers control?
+
+It is used for controlling behaviors/properties of members of a class.
+
+
+======================================================================================
+
+In Java, the "final" modifier/keyword can be used in 3 places:
+
+1. we can have final data members in a class. Both local variables and instance variables.
+2. We can have "final" methods in a class.
+3. We also can have "final" classes.
+
+Are data and variables different?
+Yes. data is in a class bodies and variables are in methods bodies.
+
+
+What are final data members/variables?
+
+class Circle{
+    private int rad;
+    private double pi = 3.14;
+
+    public Circle(int r){
+        rad = r;
+    }
+
+    public void area(){
+        double ar;
+        ar=++pi*rad*rad;
+        System.out.prinln("Area:"+ar);
+    }
+}
+
+Although the code is mathematically wrong,
+but still the java compiler will compile the code
+without giving any errors because for the compiler
+pi is just a normal data member.
+
+SOLUTION:
+=========
+
+If you want the compiler to stop you everytime pi is changed then 
+make it final.
+
+final data members are those whose value can never be changed once it
+has been initialized.
+
+In other words, once we have initialized a "final" member, then Java
+will not allow us to change its value at any cost.
+
+Then the line ++ar*rad*rad; will generate a syntax error when
+pi is made final.
+
+=======================================================================
+
+Points to remember about final data members:
+
+class Circle{
+    private int rad;
+    private final double pi; // new does not initialize final members 
+}
+
+1. If a data member has been declared as "final" then it is the programmers responsibility
+to initialize that data member.
+
+2. You can initialize it in 2 ways.
+a. At the declaration point.
+b. Inside the body of EVERY CONSTRUCTOR of the class.//because java doesnt know which constructor 
+will be called.
+
+Irrespective of if the constructor is used or not.
+
+
+class Circle{
+
+    private int rad;
+    private double pi;
+}
+
+This code compiles fine.
+
+class Circle{
+
+    private int rad;
+    private final double pi;
+}
+
+This code tells to initialize pi.
+
+class Circle{
+
+    private int rad;
+    private final double pi = 3.14;
+}
+
+This code compiles fine.
+
+class Circle{
+
+    private int rad;
+    private final double pi = 3.14;
+
+    public Circle(){
+        rad = 0;
+        pi = 3.14;
+    }
+}
+
+This code gives error. Because either at initialization or in EVERY CONSTRUCTOR. EITHER OR 
+cannot assign a value to final variable pi
+
+class Circle{
+
+    private int rad;
+    private final double pi;
+
+    public Circle(){
+        rad = 0;
+        pi = 3.14;
+    }
+}
+
+This code runs fine.
+
+class Circle{
+
+    private int rad;
+    private final double pi;
+
+    public Circle(){
+        rad = 0;
+        pi = 3.14;
+    }
+
+    public Circle(int rad){
+        this.rad = rad;
+    }
+}
+
+This code gives error as EVERY CONSTRUCTOR NEEDS pi initialized if not initialized at declaration.
+
+Need to do either a. AT INITIALIZATIONsss or do b. EVERY CONSTRUCTOR
+
+class Circle{
+
+    private int rad;
+    private final double pi;
+
+    public Circle(){
+        rad = 0;
+        pi = 3.14;
+    }
+
+    public Circle(int rad){
+        this.rad = rad;
+        pi = 3.14
+    }
+}
+
+This code runs fine. In ALL CONSTRUCTORS, pi MUST be INITIALIZED.
+
+THIS MEANS AFTER SAYING FINAL THE VALUE NEVER ALTERED AFTER INITIALIZATION.
+
+class Product{
+
+    private String pname;
+    private final double price;
+
+    public Product(){
+        pname = "pendrive";
+        price = 2500;
+    }
+    public product(String pname, double price){
+        this.pname = pname;
+        this.price = price;
+    }
+}
+
+Can we declare a static data member as final?
+
+Yes we can do that when we want 2 things:
+
+a. Only SINGLE COPY should be created(static)
+b. Once iniialized it should not be changed(final)
+
+class Student{
+    private final int roll; // roll numbers never gonna change now once set
+    private String name; 
+    private int marks; //marks can change after re evaluating
+    private final static int MAX_MARKS = 100; // Max marks are always 100
+    //and stativ variable is gonna be shared among all of them then
+    //IF a data member of a class is both STATIC and FINAL 
+    //then declare it in capital letters, ex: Math.PI 
+    //Integer.MAX_VALUE;
+
+    public Student(int r, String n, int m){
+        roll = r;
+        name = n;
+        marks = m;
+    }
+}
+
+class Student{
+    private final int roll;
+    private String name; 
+    private int marks;
+    private final static int MAX_MARKS;
+
+    public Student(int r, String n, int m){
+        roll = r;
+        name = n;
+        marks = m;
+    }
+
+    static{
+        MAX_MARKS = 100; //also valid to initialize in a static block
+    }
+}
+
+STATIC FINAL CAN BE INITIALIZED IN 2 PARTS. EITHER AT DECLARATION OR AT THE STATIC BLOCK BODY
