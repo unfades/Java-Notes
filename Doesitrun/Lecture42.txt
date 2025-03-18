@@ -1,0 +1,231 @@
+FINAL METHOD, FINAL CLASS, AND INTERFACE IN JAVA
+================================================
+
+How many uses of final in Java? 
+There are 3 uses of final in Java.
+
+"final" methods
+===============
+Whenever a class is inherited in Java, the child class can override methods of the parent class.
+As a parent class developer, we don't want any overriding of it in child classes,
+then we can put the keyword final to disallow any overriding.
+
+In Java, the "final" keyword when used with methods PREVENTS ITS OVERRIDING.
+
+In other words, a child class can never override a final method inherited from its super class.
+
+class A{
+    public void show(){
+
+    }
+    public final void display(){
+
+    }
+}
+
+//both show and display inherited in B from A, show can be overridden. display cannot.
+class B extends A{
+    public void show(){ //valid
+
+    }
+    public void display(){ //syntax error
+        //cannot override final method
+
+    }
+}
+
+class A{
+    public void show(){
+
+    }
+    public final void display(){
+
+    }
+}
+
+class B extends A{
+    public void show(){
+        display(); //this is allowed because we are just calling the method, not overriding
+    }
+}
+
+SPECIAL NOTE:
+There is no inline keyword in Java,
+if you made a method final in Java, then there is a guarantee
+that the programer will never be able to change the method.
+So indirectly, this behaves like inline methods of C++
+The Java compiler will go and make the body of the method 
+wherever it is called the same as its final,
+
+In other words if a method has been declared as "final"
+there is a possibility that the Java compiler might make it inline also.
+As a side effect. It's a recommendation if the Compiler wants, then it can be inline in Java.
+You can't see proof of this but yeah it is there. Just keep it in your head that this happens.
+
+
+
+What is a "final" class?
+========================
+
+When we don't want our class to be inherited by other programmers,
+meaning we don't want any children of the class, then we can make the class final.
+
+Java allows us to declare a class as "final" and if we do this then Java doesn't 
+allow us to inherit that class in any child class.
+
+That means final classes can NEVER become super class, that is they cannot be further inherited.
+
+final class A{
+
+
+}
+
+class B extands A{ //as soon as you write extends A its a syntax error...
+
+}
+
+
+SPECIAL POINT: Many popular classes in Java have been declared as "final" classes.
+Like Math, String, Wrapper, they are all final.
+You cannot further inherit them.
+
+You cannot inherit them, but you CAN USE THEM by making objects of them.
+
+How can you force someone to use your class and override to use it?
+By making the class abstract meaning it must be inherited and overridden
+by children to make use of it since its abstract.
+
+And final cannot be inherited that means no children of it can be made.
+That's why final and abstract are opposites and cannot go together.
+
+SPECIAL POINTS:
+
+1. Many popular classes in Java are final.
+
+2. "final" and "abstract" are opposite in nature. An "abstract" class is always designed to be inherited.
+And an "abstract method" is always designed for getting overridden.
+
+On the other hand, a "final" class is always designed for prohibiting inheritance. And a "final method" is 
+always designed for prohibiting overriding.
+
+Thus we cannot make a class or a method "abstract"as well as "final" at the same time.
+
+ex:
+
+abstract class Vehicle{
+
+    public final void speed(){
+
+    }
+    public abstract void average();
+
+    public void reverse(){
+
+    }
+}
+This is all valid code.
+
+abstract class Vehicle{
+
+    public final abstract void speed(){ //invalid and wrong
+
+    }
+    public abstract final void average(); //invalid and wrong
+
+    public void reverse(){
+
+    }
+}
+
+This codes functions with abstract and final cannot go together. It is error inducing.
+======================================================================================
+
+Why make a class final?
+
+ex:
+
+class Login{
+
+    public void checkPassword(String pwd){
+
+    }
+}
+
+class MyLogin extends Login{
+
+    public void checkPassword(String pwd){
+        // a hacker can easily break into the system by overriding the checkPassword method.
+    }
+}
+
+So making the class final or the method final, then you can prevent it.
+It enables security.
+
+final class can inherit other classes, but it cannot be inherited keep this in mind.
+
+super class of Integer is Number.
+Integer is final, however it still inherits Number.
+
+abstract classes cannot have objects thats it. Number is also abstract.
+But it can be inherited.
+
+
+CONCEPT OF INTERFACE
+====================
+
+(the next chapters interface, exception handling, and collections are important for JAVA)
+
+Imagine we have 3 classes in a program
+
+Circle, Rectangle, and Triangle.
+In each class, we have the method area()
+There is no relation between them, no parent of each.
+
+I want all area to run, we can either make references of each.
+Or we can do runtime polymorphism by a single reference, making 
+a class shape that is parent of all 3 and then area() of all can play
+using a single reference.
+
+making area abstract and shape abstract 
+
+What if circle is already inheriting a class called Point.
+Then can Circle inherit Shape then?
+No as Java doesnt have multiple inheritance.
+
+Then instead of making Shape a class, make Shape an interface.
+
+Interface is a brother of abstract classes in Java.
+
+We can make the Shape class not an abstract class, an Interface.
+
+By default all methods of Interface are abstract.
+
+a class can inherit a class, then a class can also inherit an interface.
+
+Runtime polymorphism is then achieved through interface.
+
+Like instead of making an abstract class Language for Hindi, English, French,
+we can make an Interface Language instead.
+
+in an abstract class we can put non abstract methods.
+But by default EVERY method of Interface is abstract before Java 8.
+Java 8 relaxed this restriction.
+
+Interface is for polymorphism. 
+It simulates multiple inheritance. There isn't multiple inheritance in Java.
+Java can inherit multiple interfaces, so we can achieve runtime polymorphism.
+And we can achieve the effects of multiple inheritance. 
+
+If every method of a class is abstract, then make it an Interface.
+If you are using constructors, etc. then make it an abstract class.
+In some cases instead of abstract classes you can make Interface.
+Like sometimes instead of if else you can use switch.
+
+Why is Number class not Interface in Java?
+As Number has a constructor in there.
+You can't have a constructor.
+Some methods have bodies.
+So better to make Numbers an abstract class.
+
+Some Interfaces in Java are ActionListener and Runnable.
+Every method in them is abstract.s

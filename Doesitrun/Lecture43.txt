@@ -1,0 +1,352 @@
+INTERFACE, INHERITING AN INTERFACE, EXCEPTION HANDLING
+======================================================
+
+What is an Interface?
+=====================
+1. An interface in Java is just like a 100% pure abstract class.
+
+2. Just like an ABSTRACT CLASS, an interface can also have data members.
+All declared data members are public, static, final without your saying so in an Interface automatically.
+You cannot alter these. Whether you write it or not, its gonna be public static and final also.
+
+3. Just like an ABstract class, an interface can also have methods declared in its body but every 
+method declared inside an interface prior to Java 8 is automatically declared as public and abstract.
+
+4. From Java 8 onwards we are allowed to define two more types of methods in an interface called as 
+"default" methods and "static" methods. Both these methods will have bodies/definitions inside the interface.
+
+5. Just like an abstract class, an interface also can be inherited by child classes but the keyword used for
+inheriting an Interface is IMPLEMENTS.
+
+6. although a class can inherit only 1 class, but it can inherit multiple interfaces.
+We can then say that to a certain extent, interfaces provide us support to simulate multiple inheritance.
+
+7. Just like an ABSTRACT cannot be instantiated similarly an interfacce also cannot be instantiated.
+
+8. But we can declare a reference of an INterface and using that Reference we can point to child class
+object and we also can call those methodsof the interface which have been overridden by the child class.
+
+9. If a class inherits an interface, then it is compulsory for that class to override every abstract method inherited
+from the interface. Otherwise the derived class will also have to be prefixed with the keyword abstract and 
+then it also cannot be instantiated(instantiated means making an object.)
+
+
+INSTANTIATED MEANS YOU CAN MAKE AN OBJECT.
+
+SYNTAX OF DECLARING AN INTERFACE
+================================
+
+Syntax to declare an interface:
+
+interface <interface_name>{
+
+    <datatype> <varname> = <value>;
+    .
+    .
+    .
+    <returntype> <methodname> (<args>);
+    .
+    .
+    .
+}
+
+A CLASS INHERITING THE INTERFACE
+================================
+
+class <classname> implements <interfacename>{
+
+    //override methods of interface to use them as theyre abstract
+    //otherwise java will ask to make the class abstract
+}
+
+A CLASS INHERITING A CLASS AND ALSO AN INTERFACE 
+================================================
+
+class <classname> extends <superclass> implements <interfacename>{
+    //override abstract methods of interface to use them
+}
+
+(you can put many interface names with a comma to implement multiple interfaces)
+
+WAP to create an interface called shape having 2 methods called as:
+1.getName(): this returns shape name, if circle then return circle, if rectangle return rectangle.
+2.area(): this returns area of the shape, for circle area of a circle for rect area of rect.
+
+Now create 2 child classes of SHAPE interface called as Circle and Rectangle, these classes must 
+properly override interfacce methods and using runtime polymorphism call these methods.
+
+//your code
+interface Shape{
+    String getName();
+    double area();
+}
+
+/*
+this is what the compiler adds after you write your code by itself, see the above notes
+this is the compiler's code after your code 
+
+abstract interface Shape{
+    public abstract String getName();
+    public abstract double area();
+}
+*/
+
+/child class Circle of that interface Shape 
+//now Circle MUST override all methods of interface Shape 
+class Circle implements Shape{
+
+    private int rad;
+
+    Circle(int rad){
+        this.rad = rad;
+    }
+
+    public String getName(){ //if you made it not public it'd be default, need to make it public to have the same prototype
+        return "circle";
+    }
+    public double area(){
+        System.out.println(Math.Pi * Math.pow(rad,2)); 
+    }
+}
+
+class Rectangle implements Shape{
+
+    private int length, width;
+
+    Rectangle(int length, int width){
+        this.length = length;
+        this.width = width;
+    }
+
+    public String getName(){ //if you made it not public it'd be default, need to make it public to have the same prototype
+        return "rectangle";  // or else there would be a syntax error for overriding, not the same prototype.
+    }
+    public double area(){
+        System.out.println(length * width);
+    }
+}
+
+//this is an example of hierarchial inheritance.
+
+class UseShape{
+
+    public static void main(String[] args){
+        Shape s;
+        //s = new Shape(); //ERRRORRRR
+        s = new Circle(2); //oK 
+
+        //this is runtime polymorphism
+        System.out.println("Shape is a " + s.getName()); // CIRCLE
+        System.out.println("its area is " + s.area()); //This is runtime polymorphism
+
+        s = new Rectangle(2,3);
+        //this is runtime polymorphism
+        System.out.println("Shape is a " + s.getName()); // RECTANGLE
+        System.out.println("its area is " + s.area()); // These are runtime polymorphism
+    }
+}
+
+
+INHERITING ONE INTERFACE INTO ANOTHER
+=====================================
+
+interface X{
+    ...
+    ...
+}
+
+interface Y extends X{
+    ...
+    ...
+}
+
+interfaces cannot inherit classes.
+classes can inherit interfaces.
+
+a class implementing Y would need to override both Y and X methods.
+
+
+ex:
+
+interface X{
+    ...
+}
+
+interface Y{
+    ...
+}
+
+interface Z extends X,Y{
+    ...
+}
+
+Challenge:
+
+2 readymade interfaces cannot access their source code.
+How can you get runtime polymorphism now?
+
+interface Shape{
+    String getName();
+}
+
+interface Figure{
+    double area();
+}
+
+interface MyShape extends Shape, Figure{
+    //now getName() and area() are in MyShape 
+}
+
+Now you can say 
+
+class Circle implements MyShape{
+
+}
+
+class Rectangle implements MyShape{
+
+}
+
+Now the classes can use both getName() and area() for Circle and Rectangle
+via MyShape interface. 
+
+
+
+
+
+Exception handling
+==================
+
+Q1. What is the meaning of the word exception?
+
+A1. The word exception means RUNTIME ERROR 
+
+Q2. What does Java do by default whenever an exception arises in the code?
+
+A2. If our code generates an exception, then by default Java takes 2 actions:
+
+a. It immediately kills the program at the line the exception arises at.
+
+b. It displays the reason of the exception but the message is very technical.
+
+
+Both of a and b might be good for the SYSTEM but not good for the USER.
+
+
+This is NOT USER FRIENDLY AT ALL. 
+For example if in a music player the volume dial doesn't work should the whole 
+player stop?
+Not really.
+If a site doesn't open, then the whole browser stops is not right as well.
+
+Maybe due to user messing with the music player. The software should not technically
+display the technical message, just simply say "file not present".
+
+We want the user to know by default in an easy manner what the problem is.
+
+Q. We want to enter 2 integers from the user, print the division of both integers,
+and print the sum of both the integers.
+
+import java.util.Scanner;
+
+class DivideAndSum{
+
+    public static void main(String [] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter 2 integers: ");
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c= a/b;
+        int d = a+b;
+        System.out.println("Div is " + c);
+        System.out.println("Sum is " + d);
+    }
+}
+
+if you set b to 0 then there is an exception divide by 0
+but the user doesn't understand all that.
+if it was b as double still itd be inputmismatchexception,
+user still doesnt understand that
+
+EXCEPTION HANDLING KEYWORDS
+===========================
+
+1.try 
+2.catch
+
+3.throw
+4.throws
+5.finally
+
+try and catch go together always for now.
+
+Syntax of try-catch
+===================
+
+Whenever you think some lines will cause problems, then enclose them in a try block
+
+...
+...
+try{
+    ...
+    ...
+}
+
+You will know that from experience by viewing the program to know where to put try blocks
+
+The lines which depend on the code that may be problematic go inside try 
+and the ones that have no issue based on the try, go outside the try
+
+In Java, exeption classes always end with the word Exception ex:
+ArrayOutOfBoundsException
+
+1
+Whenever there is an exception in try block then it creates an object of corresponding
+exception class.
+
+2
+Moves out of the try block, and then runs the code of the rest of the content outside the try block
+
+try has sequential execution
+whenever it encounters an exception then it exits the try block
+
+in catch the exception class reference goes then its reference 
+
+catch(<exeptionclassname> <reference>){
+    ....
+}
+
+if try has no exceptions everything runs fine then catch will not run 
+
+
+if there is an exception, then catch runs
+
+see if there is matching catch 
+it wont immediately kill the program
+
+it will not display some technical message,
+
+it will display our code instead for user friendly error messages.
+
+Normally the catch purpose is to show error for the user.
+
+There can be multiple catches, if one doesnt match another might.
+
+If no catch catches at an exception then it will show the default behavior
+a and b. 
+
+try does not get returned to after the catch.
+
+like you can't write an else inside an if
+
+you can'twrite a catch inside a try
+
+there can be multiple try catches in a program
+
+you must at least have a catch block after a try.
+
+like try then catch
+
+like try catch catch 
+
+but never try try catch
