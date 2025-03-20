@@ -228,4 +228,7 @@ Some methods have bodies.
 So better to make Numbers an abstract class.
 
 Some Interfaces in Java are ActionListener and Runnable.
-Every method in them is abstract.s
+Every method in them is abstract. Java automatically makes it abstract.
+If you want you can write it.
+Like setting an instance variable int to 0, by default its 0, but you can also 
+= it to 0.

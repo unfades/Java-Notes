@@ -1,0 +1,400 @@
+EXCEPTION HEIRARCHY, HANDLING MULTIPLE EXCEPTIONS
+
+class DivideAndSum{
+
+    public static void main(String [] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter 2 integers: ");
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c= a/b;
+        int d = a+b;
+        System.out.println("Div is " + c);
+        System.out.println("Sum is " + d);
+    }
+}
+
+Where to put try and where to put catch etc.
+
+class DivideAndSum{
+
+    public static void main(String [] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter 2 integers: ");
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        try{
+        int c= a/b;
+        int d = a+b;
+        }
+        
+        System.out.println("Div is " + c);
+        System.out.println("Sum is " + d);
+    }
+}
+
+//MY try
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+class DivideAndSum{
+
+    public static void main(String [] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter 2 integers: ");
+        int a = 0;
+        int b = 0;
+        try{
+        a = sc.nextInt();
+        b = sc.nextInt();
+        }catch(InputMismatchException e){
+            System.out.println("Hey, you entered a wrong type, it's gotta be an int type");
+            System.out.println("Now enter that in integer form, no decimals: ");
+            //b = sc.nextInt();
+        }
+        //System.out.println(b);
+        int c = 5050;
+        int d = 6004;
+        try{
+        c= a/b;
+        d = a+b;
+        }catch(ArithmeticException e){
+            System.out.println("Hey, you can't divide by zero, choose an interger other than 0");
+            //System.exit(0); // in case I want to end the program here.
+        }catch(InputMismatchException e){
+            System.out.println("So you entered a wrong type, it's gotta be an int type");
+        }
+        
+        System.out.println("Div is " + c);
+        try{
+        System.out.println(a + "/" + b + "=" + a/b);
+        }catch(ArithmeticException e){
+            try{
+                System.out.println("before the val of b: " + b);
+                b = sc.nextInt();
+                System.out.println("After the val of b: " + b);
+            }catch(InputMismatchException f){
+                System.out.println("Invalid types");
+            }catch(ArithmeticException g){
+                System.out.println("cannot divide by zero");
+            }
+        }
+        System.out.println("Sum is " + d);
+    }
+}
+
+//Sir's one he just focused on explaining the concept of it, its just one exception not tryharding like I did
+
+class DivideAndSum2{
+    public static void main(String [] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter 2 integers: ");
+        int a = 0;
+        int b = 0;
+        try{
+            a = sc.nextInt();
+            b = sc.nextInt();
+            int c= a/b;
+            System.out.println("Div is " + c);
+        }catch(ArithmeticException e){
+            System.out.println("Denominator should not be 0");
+        }catch(InputMismatchException e){
+            System.out.println("The value entered must be integer");
+        }
+        int d = a+b;
+        System.out.println("Sum is " + a + "+" + b + "=" + d);
+    }
+}
+
+
+EXCEPTION HIERARCHY 
+===================
+
+Every classes parent is Object class.
+Exception classes top level parent class is Throwable.
+Throwable is also a child of Object. Every class is a child of Object.
+
+
+Every Exception class is connected directly or indirectly to Throwable.
+
+Throwable
+=========
+
+There are 2 children of Throwable that are directly children of that class 
+
+Error and Exception class.
+
+Error class
+===========
+
+Error is the parent of the exceptions that the programmer cannot handle.
+Either the JVM or the Operating System handles Error class Exceptions.
+The programmer is not capable of handling them.
+The JVM or the Operating System can handle them.
+
+The class represents those exceptions which occur due to 
+system failure or JVM failure.
+Thus they are beyond the scope of the programmer to be handled.
+Some of them are:
+a. OutOfMemoryError
+b. LinkageError 
+
+This is why After today we won't talk about the Error class. Because it's out of our league,
+it's for the JVM or the Operating System to handle.
+The programmer should stay away from these.
+
+
+Exception class
+===============
+
+This class is the derived class of Throwable and it represents those exceptions which are meant
+to be handled by the programmer in his code.
+
+The classes we have heard of and are going to hear of are children of the class Exception.
+
+Some important child classes of Exception
+=========================================
+
+java.lang.
+Exception
+=========
+SQLException
+============
+(learn SQL Queries for Database Connectivity and also Interviews)
+
+
+
+IOException 
+===========
+children->
+    FileNotFoundException
+    EOFException
+
+java.lang.
+RuntimeException
+================
+All exceptions we have dealt with are children of RuntimeException.
+children->
+    java.lang.
+    ArithmeticExcepton
+
+    IndexOutOfBoundsException
+    children->    ArrayIndexOutOfBoundsException
+                  StringIndexOutOfBoundsException
+    
+    NoSuchElementException
+    children->    InputMismatchException
+
+    NumberFormatException
+
+    NullPointerException
+
+
+ex:
+
+class Test{
+
+    public static void main(String[] args){
+
+        String name = "Pawan";
+        System.out.println(name.length()); //gets 5
+        String name2 = null;
+        System.out.println(name2.length()); //NullPointerException
+        System.out.println(name.charAt(10)); //NullPointerException due to the above Line
+    }
+}
+
+ex:
+
+class Test{
+
+    public static void main(String[] args){
+
+        String name = "Pawan";
+        System.out.println(name.length()); //gets 5
+        System.out.println(name.charAt(10)); //IndexOutOfBoundsException now
+}
+
+In flow of execution the first exception alone appears, no matter the mistakes.
+
+You will need to put catch for each exception. Cause there can be many exceptions.
+
+How to handle multiple exceptions Syntax:
+
+try{
+    ...
+    ...
+    ...
+
+}catch(<ExceptionName> <ref>){
+    //error message
+}catch(<SomeOtherException> <ref>){
+    //error message
+}
+
+JAVA's RULE ON MULTIPLE CATCH 
+=============================
+
+Java has a very strict rule while using multiple catch for a try block.
+
+The rule is that a parent class catch of exception hierarchy cannot come before its child class catch.
+
+In short, child class catches before. Parent class catches after.
+
+ex:
+
+This is not going to compile.
+Because the parent catch is before the child catch.
+
+try{
+    ...
+    ...
+}catch(IOException e){
+    ...
+    ...
+}catch(FileNotFoundException f){
+    ...
+    ...
+}
+
+=================================
+
+//Valid valid valid child before parent.
+
+try{
+    ...
+    ...
+}catch(FileNotFoundException f){
+    ...
+    ...
+}catch(IOException e){
+    ...
+    ...
+}
+
+Unreachable statements are the reasoning for the rule.
+
+like code written after return; 
+code written after break;
+that is causing unreachable statements.
+
+After an exception is caught, the try block will not run,
+so if a parent exception is caught, the child exception is not gonna run.
+unreachable statement.
+
+now understand try catch for unreachable statements 
+
+
+ex:
+
+class Test{
+
+    public static void main(String[] args){
+
+        try{
+            String name = "Sachin";
+            System.out.println(name.charAt(10));
+        }catch(StringIndexOutOfBoundsException ex){
+            System.out.println("String index not in range.");
+        }catch(IndexOutOfBoundsException ex){
+            System.out.println("Index not in range");
+        }
+    }
+}
+
+This is synctactically correct.
+Runs fine since StringIndexOutOfBoundsException is the child of IndexOutOfBoundsException.
+
+ex:
+
+class Test{
+
+    public static void main(String[] args){
+
+        try{
+            String name = "Sachin";
+            System.out.println(name.charAt(10));
+        }catch(IndexOutOfBoundsException ex){
+            System.out.println("Index not in range");
+        }catch(StringIndexOutOfBoundsException ex){
+            System.out.println("String index not in range.");
+        }
+    }
+}
+
+This is problematic and won't compile because the catch of StringIndexOutOfBoundsException
+is useless. The parent Object can point to child, and the parent referenceis capable to 
+point to the child.
+
+So IndexOutOfBoundsException is gonna point of the StringIndexOutOfBoundsException automatically.
+You will get the message of the parent Exception not of the child exception.
+like this 
+
+ex:
+
+class Test{
+
+    public static void main(String[] args){
+
+        try{
+            String name = "Sachin";
+            System.out.println(name.charAt(10));
+        }catch(IndexOutOfBoundsException ex){
+            System.out.println("Index not in range");
+        }
+    }
+}
+
+But the message is gonna be obscure. Because its the same error message for all the catches 
+of children so the specific reason why is not gonna be mentioned. This is why it's important to
+put child catches first.
+Then parent catches later.
+And not to just put parent catches because it's obscure for different exceptions.
+The children would catch those exceptions and give better messages to the reasoning
+as to why it occurred.
+
+
+ExerciseProblem:
+
+WAP to accept 2 integers from user and display the result of their division and sum.
+Your program should behave in the following way -
+
+1. if both the inputs are integers and are valid then the program should display 
+the result of their division and sum.
+
+2. If denominator is 0 then program should display relevant error messag3 but 
+should display the sum still.
+
+3. If input value is not an integer then the program should display relevant message and neither 
+division nor sum should be displayed.
+
+This is homework.
+
+The solution is here:
+
+Answer:
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+class Answer44{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a = 0;
+        int b = 0;
+        System.out.println("Enter 2 numbers: ");
+        try{
+            a = sc.nextInt();
+            b = sc.nextInt();
+            System.out.println("Division of " + a + "/" + b + "=" + (a/b));
+        }catch(ArithmeticException e){
+            System.out.println("Cannot divide by zero");
+        }catch(InputMismatchException e){
+            System.out.println("Please input integers only");
+            System.exit(0);
+        }
+        System.out.println("Sum of " + a + "+" + b + "=" + (a+b));
+    }
+}
