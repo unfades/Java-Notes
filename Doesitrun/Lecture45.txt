@@ -1,0 +1,469 @@
+OBTAINING DETAILS ABOUT EXCEPTIONS
+==================================
+
+Yesterday's code:
+
+public class DivideAndSum{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter 2 int:");
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+
+        try{
+            int c = a/b;
+            System.out.println("Div is " + c);
+        }catch(ArithmeticException e){
+            System.out.println("Denominator should not be 0");
+        }
+        int d = a+b;
+        System.out.println("Sum is " + a+b);
+    }
+}
+
+
+ExerciseProblem:
+
+WAP to accept 2 integers from user and display the result of their division and sum.
+Your program should behave in the following way -
+
+1. if both the inputs are integers and are valid then the program should display 
+the result of their division and sum.
+
+2. If denominator is 0 then program should display relevant error messag3 but 
+should display the sum still.
+
+3. If input value is not an integer then the program should display relevant message and neither 
+division nor sum should be displayed.
+
+Sir's solution for it. And explanation.
+DivideAndSum3 lets make that.
+
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+
+Sir's explanation:
+
+
+public class DivideAndSum3{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        //The real reason is the compiler is SCARED.
+        //whenever a variable is non local to try,
+        //then initialize them if used in try.
+        //get it?
+
+        int a=0,b=0; //important to declare outside of try
+        //otherwise they would be local variables of try
+        //and unable to be accessed at the line int d=a+b;
+        //also important to put values inside, because 
+        //it will say it may have not been initialized.
+        //it's not usually important to initialize when declaring but,
+        //important to put a value there because what if an exception
+        //occurred at the a = sc.nextInt() or b = sc.nextInt();
+
+        //then the values are going to be not there, 
+        //so that is why a = 0, b = 0;
+        try{
+            System.out.println("Enter 2 int:");
+            a = sc.nextInt();
+            b = sc.nextInt();
+            int c = a/b;
+            System.out.println("Div is " + c);
+        }catch(ArithmeticException e){
+            System.out.println("Denominator showuld not be 0, don't divide by zero);
+        }catch(InputMismatchException e){
+            System.out.println("Enter only integer values");
+            System.exit(0); //important as the program should stop.
+        }
+        //hardly matters which catch to write first since their classes 
+        //are not parent/children of one another
+        int d = a+b;
+        System.out.println("Sum is " + d);
+    }
+}
+
+
+public class DivideAndSum3{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a,b;
+        try{
+            a = 10;
+            b = 3; //STILL NEED TO INITIALIZE a and b
+            //THE COMPILER IS STILL SCARED.
+            //WHENEVER YOU HAVE VARIABLES USED IN A TRY block
+            //THEY BETTER HAVE BEEN INITIALIZED PRIOR TO THEIR 
+            //USAGE IN THE TRY BLOCK 
+            //OR ELSE THE CODE WONT COMPILE EVEN.
+            int c = a/b;
+            System.out.println("Div is " + c);
+        }catch(ArithmeticException e){
+            System.out.println("Denominator showuld not be 0, don't divide by zero);
+        }catch(InputMismatchException e){
+            System.out.println("Enter only integer values");
+            System.exit(0); //important as the program should stop.
+        }
+        int d = a+b;
+        System.out.println("Sum is " + d);
+    }
+}
+
+POINTS TO REMEMBER:
+==================
+
+1.if we are using a variable/ref/array outside the try BLOCK
+then we must declare it above the try block so that it becomes
+accessible out of the try block. If this is not done then the variable 
+will become local to the try block and will not be accessible outside
+the try block.
+
+2. If we are initializing a variable(not declaring) a variable inside
+the try block but we have declared it above the try block so that we
+can access it outside the try block,then we must initialize it with some value So that the compiler 
+is assured that even if not a single line runs in the try block still 
+the variable has some value that can be used in the operations done 
+out of the try block
+
+examples:
+
+public class DivideAndSum3{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a,b;
+        try{
+            a = sc.nextInt();
+            b = sc.nextInt();
+
+            int c = a/b;
+            System.out.println("Div is " + c);
+        }catch(ArithmeticException e){
+            System.out.println("Denominator showuld not be 0, don't divide by zero);
+        }catch(InputMismatchException e){
+            System.out.println("Enter only integer values");
+            System.exit(0); //important as the program should stop.
+        }
+        //int d = a+b;
+        //System.out.println("Sum is " + d);
+        //not used outside the try block, so now its fine and
+        //a and b are then local to the try block
+        //valid code
+    }
+}
+
+ex:
+
+public class DivideAndSum3{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a = 0, b = 0; //needed to be done since line int d = a+b; needs value for a and b.
+        //due to the rule.
+        try{
+            a = 10;
+            b = 3; //still needed to be done above.
+            int c = a/b;
+            System.out.println("Div is " + c);
+        }catch(ArithmeticException e){
+            System.out.println("Denominator showuld not be 0, don't divide by zero);
+        }catch(InputMismatchException e){
+            System.out.println("Enter only integer values");
+            System.exit(0); //important as the program should stop.
+        }
+        int d = a+b;
+        System.out.println("Sum is " + d);
+    }
+}
+
+OBTAINING DETAILS ABOUT EXCEPTIONS 
+==================================
+
+1.WHenever an exception occurs in the try block then Java automatically creates an object 
+of the corresponding exception class and stores some important details about the 
+Exception inside that object.
+
+So if as a developer we are DEBUGGING/TRACING our code these details are very useful for us
+for getting exact reason of the Exception, the piece of code where the exception was generated
+as well as the name of the exception.
+
+Now to access these details we have to call CERTAIN PREDEFINED METHODS 
+in our code using the Exception reference declared in the catch block
+
+ex:
+catch(Exception r) r is the Exception reference understand
+
+These important methods are:
+
+a. getMessage():
+
+    1. THis method belongs to the class Throwable and thus is inherited by 
+    EVERY Exception class.
+
+    2. The prototype of the method is:
+        public String getMessage()
+
+    3. This method returns a string containing the actual reason of the Exception.4
+
+
+
+
+ex on notepad:
+
+class Lecture45Division{
+	public static void main(String[] args){
+		
+		try{
+			int a = Integer.parseInt(args[0]); //NumberFormatException, ArithmeticException, ArrayIndexOutOfBoundsException
+			int b = Integer.parseInt(args[1]);
+			int c = a/b;
+			System.out.println("Div is " +c);
+		}catch(Exception e){
+			System.out.println("Exception occurred"); //the problem is the parent class can catch all the exceptions,
+			//but it's too obscure a message to say "Exception occurred" isn't it...
+			//Need to know the reasoning of the error message, so we are gonna use the predefined methods that come
+			//with the Exception object made.
+			//e.getMessage(); as the prototype is public String getMessage()
+		}
+	}
+}
+
+now we can get a better message by applying the knowledge:
+
+class Lecture45Division{
+	public static void main(String[] args){
+		
+		try{
+			int a = Integer.parseInt(args[0]); //NumberFormatException, ArithmeticException, ArrayIndexOutOfBoundsException
+			int b = Integer.parseInt(args[1]);
+			int c = a/b;
+			System.out.println("Div is " +c);
+		}catch(Exception e){
+			System.out.println("Exception occurred: "+e.getMessage());
+		}
+	}
+}
+
+the method getMessage() is good for debugging for programmers.
+It is a method of Throwable
+
+ANOTHER VERY IMPORTANT METHOD
+=============================
+
+b. toString():
+==============
+    a. This method belongs to the class Object.
+
+    b. This method has the following prototype:
+        public String toString()
+
+    c. By default this method returns a String which represents a special value
+    called as the hashcode of the object.
+
+    a hashcode is like a special code to identify the objects.
+
+    d. Java automatically calls this method WHENEVER we try to print 
+    any object reference via the System.out.println() method.
+
+    e. Java strongly recommends whenever we design a class, we must always override this toString() 
+    method properly so that insted of returning the hashcode value, it returns String represenation
+    of the object's data members.
+
+    f. Similary every exception class has also overridden the toString() which returns:
+    1. Exception lass name.
+    2. Reason for the exception.
+
+
+
+ex:
+//EVERY CLASS HAS toString() method of class Object 
+//as Person extends Object as well, it has toString()
+
+
+class Person{
+
+    private int age;
+    private String name;
+
+    public Person(int age, String name){
+        this.age = age;
+        this.name = name;
+    }
+}
+
+class Lecture45UsePerson{
+
+    public static void main(String[] args){
+        Person p = new Person(25, "Havi");
+        System.out.println(p); //address of p is 6000
+        String p2 = new String("Sachin");
+        System.out.println(p2);
+    }
+}
+
+default return type of toString() is the hashcode
+
+<classname>@<alphanumericstringrepresentingtheclass>
+
+ex:
+Person@7852e922 for p 
+and 
+Sachin for p2
+
+why Sachin for p2?
+
+because, String class overrides toString() 
+and returns the string value 
+which is 
+Sachin
+
+Every predefined class in Java has overridden toString();
+
+from package java.util.Date;
+
+Date d = new Date();
+System.out.println(d);
+
+it also does d.toString() and it has overridden toString() also
+
+this is why class Person shows the hashcode and the others do not.
+
+
+class Person{
+
+    private int age;
+    private String name;
+
+    public Person(int age, String name){
+        this.age = age;
+        this.name = name;
+    }
+
+    public String toString(){
+        return age+ "," + name;
+    }
+}
+
+class Lecture45UsePerson{
+
+    public static void main(String[] args){
+        System.out.println();
+        //recommended to override toString() of object
+        //in our user defined classes
+        //now its fixed
+        Person p = new Person(25, "Havi");
+        System.out.println(p); //address of p is 6000
+        String p2 = new String("Sachin");
+        System.out.println(p2);
+    }
+}
+
+Just like this, all exception classes in java have overrridden toString()
+
+so when you type System.out.println(e);
+
+it is System.out.println(e.toString()); automatically
+
+and overridden
+
+it shows 
+
+1. ExceptionName
+
+2. Reason for it.
+
+toString() is better than getMessage therefore.
+
+ex:
+
+class Lecture45Division{
+	public static void main(String[] args){
+		
+		try{
+			int a = Integer.parseInt(args[0]); //NumberFormatException, ArithmeticException, ArrayIndexOutOfBoundsException
+			int b = Integer.parseInt(args[1]);
+			int c = a/b;
+			System.out.println("Div is " +c);
+		}catch(Exception e){
+			System.out.println(e); //automatically converts to e.toString()
+            //and e.toString() is overridden in every class.
+            //it will show the exception name, and reason.
+            //better than e.getMessage() therfore.
+            //THis will tell you the exception and reason why. For you.
+            //You stil need to write try catch for users.
+		}
+	}
+}
+
+for HashMap, HashSet, the hashcode is important to understand them.
+
+
+LINE NUMBER 
+===========
+
+C. printStackTrace()
+====================
+
+1.This method also belongs to the class Throwable 
+
+Then exception classes have it available as they are children of Throwable.
+
+2. The following is it's prototype:
+
+    public void printStackTrace()
+
+3.It has a System.out.println() inside its body and 
+it displays the following information on the console:
+
+ i. name of the Exeption class.
+ ii. name of the source code file where the exception got generated.
+ iii. name of the method where the exception got generated.
+ iv. error message related to the exception. like e.getMessage() e.toString().
+ v. line number where the exception was generated.
+
+ class Lecture45Division{
+	public static void main(String[] args){
+		
+		try{
+			int a = Integer.parseInt(args[0]); //NumberFormatException, ArithmeticException, ArrayIndexOutOfBoundsException
+			int b = Integer.parseInt(args[1]);
+			int c = a/b;
+			System.out.println("Div is " +c);
+		}catch(Exception e){
+			System.out.println(e.printStackTrace());
+            /*most powerful method for debugging for us gives: 
+              name of Exception class
+              reason for Exception
+              Name of the method where Exception generated
+              Error message related to the exception
+              THe line number where Exception occurred
+            */
+		}
+	}
+}
+
+
+So we learned these methods:
+
+
+class Lecture45Division{
+	public static void main(String[] args){
+		
+		try{
+			int a = Integer.parseInt(args[0]); //NumberFormatException, ArithmeticException, ArrayIndexOutOfBoundsException
+			int b = Integer.parseInt(args[1]);
+			int c = a/b;
+			System.out.println("Div is " +c);
+		}catch(Exception e){
+            System.out.println(e.getMessage()); //1
+			System.out.println(e); //2
+            e.printStackTrace(); //3
+		}
+	}
+}
+
