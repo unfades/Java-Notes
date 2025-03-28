@@ -1,0 +1,179 @@
+THE COLLECTIONS FRAMEWORK
+=========================
+
+If we want to make a program that I want to store 1 integer alone.
+
+Normally we would declare 1 integer variablein our program.
+
+And for 2 integers, 2 integer variables.
+
+How will we do 50 integer variables?
+
+To handle them would be hard would it not?
+
+To do so, you can use COLLECTION.
+
+Whenever you want to use a group of data items, you can use COLLECTION.
+forget arrays for a second. We are using collections right now.
+And we will compare them later.
+
+
+Q. What is collections?
+
+A. A collection is a group of OBJECTS which can be represented as a Single Object
+and allows us to store, manipulate, acces these Objects in an efficient way.
+
+For ex: We want to store records of multiple Customers, or we want to store records
+of multiple Employees etc. Then in such cases we can make use of COLLECTIONS.
+
+Q. However as a programmer you might feel that if we already have Arrays which allows
+us to store multiple elements then why should we learn collections?
+
+A. To understand the answer to the previous Question, we must first recall the major
+drawbacks associated with an ARRAY:
+
+DRAWBACKS OF AN ARRAY 
+=====================
+
+1. Array requires size at the time of the creation of the array.
+ For ex:
+ This gives an error:
+ int[] arr = new int[]; //size cannot be left blank.
+
+2. Arrays are of fixed size. You cannot increase nor decrease the size of the Array.
+
+3. Arrays can only store the same type of data.
+
+4. No support in the form of predefined methods whichcan help a programmer perform
+most basic operations on the array like INSERTING, DELETING, SEARCHING, SORTING, etc.
+
+//Because the Java team have more experience and the inbuilt logic works better than
+//the logic we would write most times.
+
+The ONE STOP SOLUTION to all the above problems are COLLECTIONS.
+
+ADVANTAGES OF COLLECTIONS
+=========================
+
+1. COllections do not require size to be mentioned beforehand.
+
+2. Collections are growable/shrinkable by nature.
+Like they will increase and decrease based on the data coming and going.
+
+3. Collections can store different data types.
+
+4. Collections have a huge set of PREDEFINED METHODS for performing core 
+operations like INSERTION, DELETION, SEARCHING, SORTING, COMPARISON, etc.
+
+
+COMPARING COLLECTIONS TO ARRAYS.
+
+1. Arrays have a fixed size.
+
+1. Collections have a growable size.
+
+2. Can store only the same datatypes.
+
+2. Can store different datatypes also in addition to same datatypes.
+
+3. No support of any predefined methods.
+
+3. Very good support inthe form of predefined methods for
+common operations like INSERTING, DELETING, SEARCHING, SORTING, etc.
+
+4. We can create an array of primitives and also an array of objects/object references.
+
+4. Collections allow only objects to be stored into them.
+Instead of int, Integer. for ex.
+
+But Integer is a class and objects made of it.
+So how can we store int? By AUTOBOXING.
+Through AUTOBOXING, we can convert int to Integer.
+
+We can store PRIMITIVES into a COLLECTION with Autoboxing.
+
+WHAT IS AUTOBOXING.
+
+Comparison between int and Integer.
+
+1. int is a datatype.
+
+1. Integer is a predefined class.
+
+2. We create variables of int type.
+
+2. We create objects of Integer class.
+
+3. int n = 10; //valid to create an int variable in Java.
+
+3. Gotta make an object of Integer.
+
+Integer obj = new Integer(10);
+
+OR
+Since wrapper classes don't need new keyword recall.
+
+Integer obj = 10; //is fine.
+//This will convert into the above code itself. This behavior is called Autoboxing.
+
+//Autoboxing only happens between Primitives and Wrapper classes.
+
+//Student s = 25; is not allowed as its not there for our classes.
+
+Integer obj = 25; is allowed. because 25 will convert into object automatically.
+//Integer obj = new Integer(25); this happens automatically.
+It will autobox.
+
+Character obj = 'A'; //valid
+
+Character obj = new Character('A'); // This is what happens.
+
+//Autoboxing came after Java 5.
+
+
+10 is a value, obj is the reference holding the address of 10.
+
+Q. Do we have some other way of writing the following statement?
+
+Integer obj = new Integer(10);
+
+A. Yes from Java 5 on we can write the above statement in a much shorter way
+
+as 
+
+Integer obj = 5;
+
+//We have given primitive value into object.
+This is called Autoboxing.
+
+Q. Can we write the following statement?
+
+Integer obj = 25;
+
+int x = obj; // object stored in variable. will this run?
+
+Surprisingly this line will also run and Java will automatically 
+
+convert the object holding 25 into an int value recieved by the variable x.
+
+How?
+
+Every Wrapper class has a predefined method called xxxValue() where xxx is replaced
+with the name of primitive type.
+
+The actual Wrapper methods are intValue(), floatValue(), charValue() etc.
+
+
+So actually the line 
+
+x = obj;
+
+is converted into 
+
+x = obj.intValue(); 
+
+COnverting a wrapper object into primitve.
+This in Java is called UNBOXING.
+Converting a primtive to a wrapper object is called AUTOBOXING.
+Understand?
+

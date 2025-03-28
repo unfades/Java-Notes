@@ -7,9 +7,9 @@ class Lecture45Division{
 			int c = a/b;
 			System.out.println("Div is " +c);
 		}catch(Exception e){
-            System.out.println(e.getMessage());
-			System.out.println(e); 
-            e.printStackTrace();
+            System.out.println(e.getMessage()); //1
+			System.out.println(e); //2
+            e.printStackTrace(); //3
 		}
 	}
 }

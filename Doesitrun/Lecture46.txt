@@ -1,0 +1,168 @@
+THROW KEYWORD AND THROWS KEYWORD IN JAVA
+========================================
+
+
+USING "throw" Keyword
+
+suppose 
+
+try{
+    ...
+    ...
+    ...
+}
+
+in the try block whenever a Java rule is violated, there is an exception.
+Whenever you do something Java doesn't agree with, Java gives an exception.
+
+Sometimes we want an excception to arise on our conditions, forcing Java to 
+throw exceptions. Then throws is used.
+
+Like you want to stop a loop, break keyword.
+Just like that then if
+Like you want an exception to arise, throw keyword.
+
+1. The "throw" keyword in Java is used by programmers to explicitly generate Exception.
+
+2. The general syntax of using "throw" is:
+
+try{
+    ...
+    ...
+    ...
+    if(test_cond){
+        //you must create the Exception class Object yourself as it's by you.
+        <SomeExceptionClassName> <obj_ref> = new <SomeExceptionClassName>("message");
+        throw <obj_ref>;
+    }
+    ...//these lines will not run if throw runs.
+    ...
+}
+catch(<SomeExceptionClassName> <obj_ref>){
+    System.out.println(obj_ref.getMessage());
+}
+
+WAP to accept 2 integers. If the denominator entered is 0 then show java's exception message and 
+if the numerator entered is 0 then generate your own exception displayed "Numerator must be positive".
+
+import java.util.Scanner;
+
+public class Lecture46_UserException {
+    
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter two integers: ");
+        int one = 0;
+        int two = 0;
+        try{
+            one = sc.nextInt();
+            two = sc.nextInt();
+            if(one <= 0){
+                ArithmeticException e = new ArithmeticException("Numerator should be positive");
+                throw e;
+            }
+            if(two==0){
+            System.out.println(one/two);
+            }
+        }catch(ArithmeticException e){
+            System.out.println("Exception generated: "+e.getMessage());
+            System.exit(0);
+        }
+        System.out.println(one/two);
+    }
+}
+
+//Using throw keyword.
+
+
+USING "throws" keyword
+======================
+
+Types Of Exception
+==================
+Exceptions are of 2 categories broadly speaking.
+
+1. Unchecked Exceptions 
+2. Checked Exceptions 
+
+In Java unchecked Exceptions for which Java never forces a programmer to write try catch block.
+In other words if there is a possibility of these Exceptions arising by our program and we 
+have not handled them, still the Java compiler compiles the code.
+
+The classes "RuntimeException","Error" as well as their child classes are in this category.
+
+
+3. Checked Exception 
+
+At checked Exceptions arising, Java will not let you off easy. You will either HAVE to handle
+it using try catch, or you will have to use "throws" keyword with Exception at the right side
+of the method protype
+
+Scanner class takes input, InputMismatchException arises at this as it's a child of RuntimeException.
+It's an Unchecked category of exception.
+
+System.in.read() also takes input, it gives IOException. IOException is of Exception class.
+This is why you need to use throws.
+
+4. Checked Exception are those exceptions in Java for which Java forces the programmer to do either of the
+two things:
+
+a. Must handle these exceptions using try-catch
+
+OR
+
+b. THe method from where these exceptions might get generated must DECLARE these exceptions
+using the throws in its prototype/header.
+
+5. if the method has used throws in its declaration then the responsibility to handle the exception 
+will be for the caller of the method.
+
+6. The calling method can again either use try-catch or it also can pass this Exception to 
+its caller by using the Exception name in it's method prototype.
+
+7. This is called HANDLE OR DECLARE Rule.
+
+Example:
+
+import java.util.Scanner;
+import java.io.IOException;
+import java.sql.SQLException;
+
+class UserInput{
+    public void getInt(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter an int: ");
+        int a = sc.nextInt();
+        System.out.println("You inputted: " + a);
+    }
+
+    public void getChar() throws IOException{
+        System.out.println("Enter a character: ");
+        char ch = (char)System.in.read();
+        System.out.println("The character you entered is: " + ch);
+    }
+}
+
+public class Lecture46Example {
+    //just to prove you can write multiple exceptions with throws
+    //in case you want to put more exceptions to handle.
+    //and you can handle some using try catch, and put some in throws.
+    public static void main(String[] args)throws IOException, SQLException{
+        UserInput obj = new UserInput();
+        obj.getInt();
+        obj.getChar(); //caller must use try catch or also use throws keyword as seen
+    }
+}
+
+
+//Better to use try catch in main method as it avoids being a cutting corners type coder.
+
+//throws tells the method caller to handle it from the method prototype.
+
+//indirectly everyone's caller is main.
+
+//You can write multiple Exceptions in throws
+
+Unchecked Exceptions need not be handled. 
+Checked Exceptions must be handled with try catch, or thrown in the prototype.
+

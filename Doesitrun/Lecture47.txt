@@ -1,0 +1,307 @@
+Using The Keyword "finally"
+
+try{
+    ...
+    ...
+    ...
+}catch(){
+    ...
+    ...
+}
+
+//when do the below lines run?
+...
+...
+
+Ans. They will run when the try runs without exceptions
+They will run if the ArithmeticException is caught.
+
+If any exception other than the ArithmeticException occurs,
+then the lines will not run since Java will handle it.
+Java handles it by killing the program.
+
+Some lines are so crucial that without the lines running,
+the program should not terminate.
+
+If a file opened by the program is not closed before the program closes,
+is there a problem? Yes. If the file is open then the other programs may
+manipulate the file.
+
+So put the lines you want to always run inside finally.
+
+
+1. In Java, there are certain statements in our code whose execution is very important before
+the program terminates.
+
+2. For ex. If we have opened a file or a DB connection in our code, then it is very important that we close them
+before our program finishes.
+
+3. Now if we want to guarantee that these lines will always execute, then we must enclose them in a 
+special block called "finally".
+
+4. SO we can say that "finally" is a section of try-catch whose execution is guaranteed by Java.
+
+5. "finally" runs in all 3 cases:
+
+a. if no exception occurs, finally still runs.
+b. if an exception occurs which matches our catch block, then first catch block will run and then Java 
+will excute "finally."
+c. if an exception occurs which DOES NOT MATCH our catch block, then first Java will execute "finally"
+block and after that it will terminate the program.
+
+
+TWO SYNTAXES OF "finally" BLOCK
+===============================
+1.
+
+try{
+    ...
+}catch(<Exception_Name> <exception_ref>){
+    ...
+}finally{
+    ...
+}
+
+//Before we learned try is not possible without catch.
+//Now you know try can run with finally as well.
+//Since the program before closing, it will execute finally.
+
+2. 
+
+try{
+    ...
+    ...
+}finally{
+    ...
+    ...
+}
+
+
+Example:
+
+class Answer44{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a = 0;
+        int b = 0;
+        System.out.println("Enter 2 numbers: ");
+        try{
+            a = sc.nextInt();
+            b = sc.nextInt();
+            System.out.println("Division of " + a + "/" + b + "=" + (a/b));
+        }catch(ArithmeticException e){
+            System.out.println("Cannot divide by zero");
+        }
+        //This line will not run if another exception other than ArithmeticException arises.
+        System.out.println("Have a good day");
+    }
+}
+
+ex.
+
+class Answer46{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a = 0;
+        int b = 0;
+        System.out.println("Enter 2 numbers: ");
+        try{
+            a = sc.nextInt();
+            b = sc.nextInt();
+            System.out.println("Division of " + a + "/" + b + "=" + (a/b));
+        }catch(ArithmeticException e){
+            System.out.println("Cannot divide by zero");
+        }finally{ //now it will run in any case, it will have to run.
+        System.out.println("Have a good day");
+        }
+    }
+}
+
+//It will print Have a good day then give the InputMismatchException after enterint
+ 10
+ Hav
+
+ finally runs after catch or the try block.
+
+ in 2 special cases, finally does not run.
+
+ 1. if the Exception arose before the try was run.
+
+ ex.
+
+ class Answer46{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a = 0;
+        int b = 0;
+        a = sc.nextInt();
+        b = sc.nextInt(); //inputted Hav a String then finally won't run Exception occurs here.
+        System.out.println("Enter 2 numbers: ");
+        try{
+
+            System.out.println("Division of " + a + "/" + b + "=" + (a/b));
+        }catch(ArithmeticException e){
+            System.out.println("Cannot divide by zero");
+        }finally{ //now it will run in any case, it will have to run.
+        System.out.println("Have a good day");
+        }
+    }
+}
+
+2. If you use System.exit(0); before finally, then finally will not run.
+
+class Answer46{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a = 0;
+        int b = 0;
+        System.out.println("Enter 2 numbers: ");
+        try{
+            a = sc.nextInt();
+            b = sc.nextInt();
+            System.out.println("Division of " + a + "/" + b + "=" + (a/b));
+            System.exit(0);
+        }catch(ArithmeticException e){
+            System.out.println("Cannot divide by zero");
+            System.exit(0);
+        }finally{ //now it will run in any case, it will have to run.
+        System.out.println("Have a good day");
+        }
+    }
+}
+
+In this case finally will not run due to System.exit(0); to kill the program 
+
+finally will never run if the Exception is before the try block.
+if you write System.exit(0) before the finally block.
+
+CREATING A PROGRAMMER DEFINED EXCEPTION OR CUSTOM EXCEPTION
+===========================================================
+
+Sometimes you want to create a custom exception that Java does not have pre-defined.
+
+
+
+YOU CAN MAKE YOUR OWN EXCEPTION CLASSES.
+
+THEY ARE CALLED PROGRAMMER DEFINED EXCEPTIONS OR CUSTOM EXCEPTIONS
+
+1. Whenever we develop any Java application then it is very possible that we may find a situation where
+no predefined exception class matches with our exception.
+
+Like a banking application exception to check if the bank is broke.
+If a person withdraws and the bank has not enough cash, generate a Custom Exception.
+
+
+A matrimony website for marriage to give Exceptions when there is TooMuchExpectationsException
+when the parameters are too extreme. A Custom/Programmer Defined Exception.
+
+
+We may call the Bank Exception as InsufficientBalanceException and use it in our program to make our
+code look more real.
+
+6. To create our own Exception Class we just have to do 2 things:
+
+a. Create a class which should inherit any predefined exception class, preferably Exception class.
+Since it is every Exception's parent.
+
+b. Define a parameterized constructor which will accept a String object as argument and 
+pass that to the parent constructor using "super".
+
+THis is needed because parent class constructor takes String and prints the message.
+
+
+ex.
+
+Exception for NegativeNumerator.  NegativeNumeratorException.
+
+//THIS IS HOW TO MAKE A CUSTOM EXCEPTION...
+
+import java.util.Scanner;
+
+class NegativeNumberException extends Exception{
+    public NegativeNumberException(String msg){
+        super(msg); // goes to parent constructor that is Exception class.
+    }
+}
+
+public class CustomException {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        try{
+            System.out.println("Enter 2 int: ");
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+
+            if(a<=0){
+                NegativeNumberException obj = new NegativeNumberException("Numerator should be positive");
+                throw obj;
+            }
+            System.out.println("Div is " + a/b);
+        }catch(ArithmeticException ex){
+            System.out.println(ex.getMessage());
+        }catch(NegativeNumberException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+}
+
+
+Now you can make your own exceptions.
+
+
+
+In the previous code, the catch blocks have the same exact code in their body.
+
+Remember in switch we can club cases.
+
+Just like that, you can club catches too.
+
+It is called MultiCatch (not multiple catch, that's multiple catch blocks)
+=======================
+
+1. A multicatch in Java is a special type of catch block where in a single catch block we can handle
+multiple exceptions.
+
+2. Syntax:
+(we use the single pipe symbol)
+catch(<EcxeptionClassName1> | <ExceptionClassName2> | ... <ref>){
+    ...
+}
+
+ex.
+
+import java.util.Scanner;
+
+class NegativeNumberException extends Exception{
+    public NegativeNumberException(String msg){
+        super(msg); // goes to parent constructor that is Exception class.
+    }
+}
+
+public class CustomException {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        try{
+            System.out.println("Enter 2 int: ");
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+
+            if(a<=0){
+                NegativeNumberException obj = new NegativeNumberException("Numerator should be positive");
+                throw obj;
+            }
+            System.out.println("Div is " + a/b);
+            //this is multicatch in Java.
+        }catch(ArithmeticException | NegativeNumberException ex){
+            System.out.println(ex.getMessage());            
+        }
+    }
+}
+
+Now the exception handling chapter is over.
+

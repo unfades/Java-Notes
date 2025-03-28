@@ -1,0 +1,102 @@
+COLLECTION HIERARCHY
+====================
+
+In the collection Hierarchy, there is an Interface in Java 
+whosename is Collection.
+
+It has 3 Children which are also Interfaces.
+
+List, Set, and Queue.
+
+All of these are also Interfaces.
+
+
+List has 3 direct child classes called:
+
+1. Arraylist.
+2. LinkedList.
+3. Vector. -> Stack.
+Vector also has a derived class called Stack.
+
+Vector and Stack are Legacy classes. Meaning old classes.
+Old code.
+
+Set:
+
+1. HashSet class.
+2. SortedSet Interface. -> NavigableSet interface ->TreeSet class
+
+
+Queue:
+
+1. PriorityQueue class.
+
+These are some you will use often.
+
+
+
+Not related to collections, but has its Hierarchy too.
+Map 
+===
+
+Map is an interface which has:
+
+1. HashMap class
+2. SortedMap interface -> NavigableMap-> TreeMap
+
+Collection's methods are within every one of these interfaces and Classes.
+
+List inside Arraylist.
+
+Set not in Arraylist. 
+
+See the parent child relationships to understand.
+
+NAVYCHIEF AND ARMYCHIEF are different. They are all SecurityForces.
+They do not relate to one another.
+But at war they work together.
+
+Just like that these Collection classes and interfaces may need to work together.
+
+You can perform CRUDSS inside COllections.
+
+3 Most important Collections are List, Set, Map. In Java.
+
+IMPORTANT METHODS OF COLLECTIONS IN JAVA
+
+1. boolean add(Object obj)
+
+2. void clear() 
+
+3. boolean contains(Object obj)
+
+4. boolean equals(Object obj)
+
+5. int hashCode()
+
+6. boolean isEmpty()
+
+7. Iterator iterator()
+
+8. boolean remove(Object obj)
+
+9. int size()
+
+WHAT IS A LIST?
+===============
+
+1. It is a child interface of Collection.
+
+2. It allows Duplicate data.
+
+3. It is always indexed and thus allows us to retrieve the data 
+based on it's index.
+
+4. It preserves INSERTION ORDER.
+
+
+
+The ARRAYLIST CLASS 
+===================
+
+TO BE CONTINUED FROM -58:38

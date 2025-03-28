@@ -51,8 +51,8 @@ public class Genesis
 //2.String of '*' and '#', if equal return true, if not equal
 //print how many stars or hash needed to make them equal and
 //then return false.
-
 //3. a1b3c5 String to -> abbbccccc a2b10c1 -> aabbbbbbbbbbc
 
+//THIS IS A PROBLEM FROM LEETCODE75/BLIND75
 
 
