@@ -99,4 +99,408 @@ based on it's index.
 The ARRAYLIST CLASS 
 ===================
 
-TO BE CONTINUED FROM -58:38
+The List Class we won't make Objects of it.
+We will however make objects of ArrayList class.
+
+It is frequently used.
+
+
+1. It is the child class of List.
+
+2. It internally maintains an array of object and stores all the data in that array.
+
+3. The size of the ArrayList grows automatically.
+
+4. The default capacity of an ArrayList is 10. and as soon as we add the 11'th element the capacity
+automatically increases by the formula -> (currentsize * 3)/2 + 1.
+
+So the new capacity will be 16. After 16, then the formula applies again and then it becomes 25 as 48/2+1.
+And so on. 
+
+5. Since it uses an array for holding the data, so the retrieval of the elements in an ArrayList is 
+very fast.
+
+6. It allows duplicates (because it is a child of List)
+
+7. Preserves insertion order (because its a child of List)
+
+COLLECTION VS COLLECTIONS
+
+Q. are they the same?
+
+A. No 
+
+Q. What is the difference between COllection and COllections?
+
+A. For beginners there is a point of confusion regarding Collection and Collections.
+
+Collection in Java is an interface available in java.util and acts as the super interface 
+for all classes like ArrayList, LinkedList, HashSet, etc.
+
+Collections isa class in the package java.util which contains various static methods for
+performing utility operations on collection classes. SOme of its popular methods are
+
+sort(), copy(), binarySearch().
+
+ARrayList CONTINUED
+===================
+
+Type Unsafe and Type Safe ArrayList().
+
+ArrayList obj = new ArrayList();
+
+It will accept multiple types like "amit", 29, true
+
+For retrieval there will be a problem to remember 
+
+the elements are this at that index.
+So you gotta typecast on the cells of the ArrayList.
+
+String s = obj.get(0) //This gives error as Object is parent of String class.
+
+//So gotta do typecasting.
+
+import java.util.ArrayList;
+
+public class Answer49 {
+    public static void main(String[] args) {
+        ArrayList obj = new ArrayList();
+        obj.add("sachin");
+        obj.add(49);
+        obj.add(true);
+        System.out.println("added");
+        
+        //typecasting needed
+        String s = (String)obj.get(0); //obj.get() return type is Object tthats why
+        System.out.println("The first element was  " + s);
+        //also need to remember the elements types
+        int n = (int)obj.get(1); //obj.get() return type is Object.
+        System.out.println("The second element was " + n);
+
+        boolean t = (boolean)obj.get(2);
+        System.out.println("The third element was  " + t);
+
+    }    
+}
+
+This is considered a bad approach and not a good programming practice.
+
+Java says if you have only one type coming into the ArrayList, then
+use Angular brackets.
+
+
+ArrayList<String> months = new ArrayList<>();
+
+import java.util.ArrayList;
+
+public class Answer49 {
+    public static void main(String[] args) {
+        
+        //Like this you can add angular brackets to avoid typecasting..
+        //<> is called the Diamond operator
+        //it tells the compiler only the value within <> is allowed.
+        //The compiler will generate syntax error if we try and put another val besides
+        //the one in the diamond operator.
+
+        ArrayList<String> months = new ArrayList<>();
+
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        //months.add(25); //Not allowed, ArrayList is TypeSafe
+
+        System.out.println("the first month is " + months.get(0));
+        for(int i = 0; i<months.size(); i++){
+            System.out.println("the month is " + months.get(i));
+        }
+    }    
+}
+
+The add is overloaded in Java.
+
+public boolean add(Object) is COllection add.
+
+public void add(int, Object) This is from List.
+
+One from List, and one from Collection.
+
+ArrayList has it, LinkedList has it as they are children of the class Collection,
+and List.
+
+public boolean add(Object) just adds to the end of the ArrayList.
+
+public void add(int, Object) adds at the specified index.
+
+The elements already in the list make space for it at the index and are shifted.
+
+
+ex: 
+
+
+import java.util.ArrayList;
+
+public class Answer49 {
+    public static void main(String[] args) {
+
+        ArrayList<String> months = new ArrayList<>();
+
+        months.add("Jan");
+        months.add(0,"Feb");
+        months.add("Mar");
+    }    
+}
+
+//Now Feb, Jan, Mar is the new order after adding at the index.
+
+public class Answer49 {
+    public static void main(String[] args) {
+
+        ArrayList<String> months = new ArrayList<>();
+
+        months.add("Jan");
+        months.add(0,"Feb");
+        months.add(0, "Mar");
+    }    
+}
+
+/Now the output will be Mar Feb Jan when printed.
+
+public class Answer49 {
+    public static void main(String[] args) {
+
+        ArrayList<String> months = new ArrayList<>();
+
+        months.add("Jan");
+        months.add(1,"Feb");
+        months.add(2, "Mar");
+    }    
+}
+
+//Now like normal Jan Feb Mar
+
+public class Answer49 {
+    public static void main(String[] args) {
+
+        ArrayList<String> months = new ArrayList<>();
+        months.add("Jan");
+        months.add(2,"Feb");
+        months.add(1, "Mar");
+    }    
+}
+
+//IndexOutOfBoundsException because the available spaces are only 0 and 2.
+//Size is not 10, Capacity is 10.
+
+get() is the method of List and its children. Not of Collection.
+
+get() is used to retrieve elements for List and its children.
+
+import java.util.ArrayList;
+
+public class Answer49 {
+    public static void main(String[] args) {
+
+        ArrayList<String> months = new ArrayList<>();
+
+        months.add("Jan");
+        months.add(0,"Feb");
+        months.add("Mar");
+
+        System.out.println(months); //.toString is called, cause Object passed into println
+        //And ArrayList ovverrides the method .toString() also so it shows the ArrayList.
+
+    }    
+}
+
+WAP to add months names to an ArrayList and to print them one at a time
+
+import java.util.ArrayList;
+
+public class Answer49 {
+    public static void main(String[] args) {
+
+        ArrayList<String> months = new ArrayList<>();
+
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        months.add("Apr);
+        for(int i = 0; i<months.size(); i++){
+            System.out.println(months.get(i));
+        }
+
+        for(String i: months){
+            System.out.println(i);
+        }
+
+        //You can print each element 3 ways.
+        //normal for,while, do while loops.
+        //foreach loop "ENHANCED FOR LOOP"
+        //Iterator iterator and for now we are postponing iterator 
+    }    
+}
+
+For Searching Elements in an ArrayList
+
+2 ways 
+
+.contains()
+
+But contains will not be able to tell at the position at which the element is at.
+
+IndexOf() method is a metho of List and used in an ArrayList() 
+to get the index of the method where it is located or else it returns -1.
+
+
+WAP Enter a month from user, if the ArrayList has the month name at the index, 
+tell at which index the month was found at, and if it's not present, then 
+say "month not found"
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Answer49 {
+    public static void main(String[] args) {
+
+        ArrayList<String> months = new ArrayList<>();
+
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        months.add("Apr");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a month name in 3 letters,first cap[ex: Jun,Feb]: ");
+        String m = sc.nextLine();
+
+        if(months.contains(m)){
+            System.out.println("Month found at index " + months.indexOf(m));
+        }else{
+            System.out.println("month not found");
+        }
+    }    
+}
+
+Assignment:
+
+The coronameter lists the following countries worst affected by COVID 19.
+1 America 2 India 3 Brazil 4 Russia 5 France
+
+WAP to do the follwing:
+
+Accept names of these 5 countries and store them int he ArrayList.
+
+Now ask the user to input a country name and search and print it's ranking.
+If the country's name is not found then print the message "Country not found".
+
+Ans:
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Lecture49Answer2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        ArrayList<String> countries = new ArrayList<>();
+
+        countries.add("America");
+        countries.add("India");
+        countries.add("Brazil");
+        countries.add("Russia");
+        countries.add("France");
+
+        System.out.println("Enter a country to check if it is \n one of the top affected by Covid 19:");
+        String country = sc.next();
+
+        if(countries.contains(country)){
+            System.out.println("Your country ranks no. " + (countries.indexOf(country)+1) +" most affected by Covid19");
+        }else{
+            System.out.println("Country not found among the top 5 affected by Covid19");
+        }
+    }
+}
+
+To Remove from an ArrayList
+
+There are two ways to remove an Element from an ArrayList in Java.
+
+remove() is used to remove elements.
+
+remove has 2 versions.
+
+public boolean remove(Object) of COllections
+
+public Object remove(int) of List
+
+remove("Feb") if Feb is there it will remove Feb 
+
+remove(0) will remove the first element if it exists in the arraylist,
+and this also returns that element as well.
+
+All methods that work with indexes are inherited from List.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Answer49 {
+    public static void main(String[] args) {
+
+        ArrayList<String> months = new ArrayList<>();
+
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        months.add("Apr");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a month name in 3 letters TO REMOVE,first cap[ex: Jun,Feb]: ");
+        String m = sc.nextLine();
+
+        if(months.contains(m)){
+            months.remove(m);
+            System.out.println(m + " removed");
+        }else{
+            System.out.println(m + " month not present in the ArrayList");
+        }
+        System.out.println(months);
+    }    
+}
+
+WAP to do the following:
+
+Accept names of 5 fruits from the user
+
+Ask the user to input a fruit name and remove it from the list
+
+Now print the modified list and if the fruit name is not found then print the message
+Fruit not found.
+
+Ans.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Lecture49Answer3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> fruits = new ArrayList<>();
+
+        fruits.add("Mango");
+        fruits.add("Banana");
+        fruits.add("Pear");
+        fruits.add("Pomegranite");
+        fruits.add("Kiwi");
+
+        System.out.println("Enter a fruit name to remove: ");
+        String f = sc.nextLine();
+
+        if(fruits.contains(f)){
+            fruits.remove(f);
+            System.out.println(f + " was removed from the list of fruits");
+        }else{
+            System.out.println(f + " was not found in the list of fruits");
+        }
+        System.out.println(fruits);
+    }
+}
+
+
