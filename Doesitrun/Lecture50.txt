@@ -369,20 +369,8 @@ class Box50{
     public String toString(){
         return "Box50{" + "length="+this.length + "breadth="+this.breadth + "height="+this.height;
     }
-    //nice but unoptimal as the prototype is different, sirs is better as it points to obj b
-    //so it is not really overriding, it's overloading
-    //ANd this is a custom method. ANd sir's overrides. IT IS BETTER TO OVERRIDE WHEN
-    //THE PURPOSE IS OVERRIDING THIS IS WHY SIRS IS MUCH BETTER.
-    /* 
-    public boolean equals(Box50 o){
-        if(this.length == o.length && this.breadth == o.breadth && this.height == o.height) return true;
-        return false;
-    }
-        */
-    //This is the way to do it proper
-    //THIS IS WHY @Override is theere it is an ANNOTATION
-    //IT IS THERE TO VERIFY IF YOU ARE WRITING SYNTAX OF OVERRIDDEN METHOD PROPER 
-    @Override //SEE EVERYTHING IS FINE HERE
+    
+    @Override 
     public boolean equals(Object o){
         Box50 temp = (Box50)o;
         if(this.length == temp.length && this.breadth == temp.breadth && this.height == temp.height){
@@ -390,6 +378,7 @@ class Box50{
         }
         return false;
     }
+
     @Override  //NOW IT IS GIVING ERROR AS IT IS NOT PROPER OVERRIDING
     public boolean equals(Box50 o){
         if(this.length == o.length && this.breadth == o.breadth && this.height == o.height) return true;
@@ -417,5 +406,199 @@ public class UseBox50{
     }
 }
 
-//TO BE CONTINUED TOMORROW
+In our ArrayList, there are 3 methods that work based on equals.
 
+1. remove() 2. contains() 3. indexOf() 
+
+We will not get the object in the ArrayList because it works on Equals based on
+the criteria.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Emp50{
+
+    int age;
+    String name;
+    int sal;
+    
+    public Emp50(int age, String name, int sal){
+        this.age = age;
+        this.name = name;
+        this.sal = sal;
+    }
+
+    public void setSal(int sal){
+        this.sal = sal;
+    }
+
+    public void setAge(int age){
+        this.age = age;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void show(){
+        System.out.println("Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal);
+    }
+
+    public String toString(){
+        return "[ Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal +"]";
+    }
+
+    public int get(){
+        return this.sal;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
+    @Override 
+    public boolean equals(Object o){
+        Box50 temp = (Box)o;
+        if(this.length == temp.length && this.breadth == temp.breadth && this.height == temp.height){
+            return true;
+        }
+        return false;
+    }
+}
+
+class UseEmp50{
+    public static void main(String[] args){
+
+        ArrayList<Emp50> employees = new ArrayList<>();
+        System.out.println("\n");
+        System.out.println("program start");
+        Emp50 Hav = new Emp50(22, "Hav", 1000_000);
+        employees.add(Hav);
+        Emp50 Ayuj = new Emp50(29, "Ayuj", 95_000);
+        employees.add(Ayuj);
+        Emp50 Abadon = new Emp50(35, "Abadon", 100_000);
+        employees.add(Abadon);
+        Emp50 Owen = new Emp50(24, "Owen", 90_000);
+        employees.add(Owen);
+        
+        //show employees
+        for(Emp50 i: employees){
+            i.show();
+        }
+
+        System.out.println("\n\n\n");
+
+        //ASK FROM THE USER WHO TO REMOVE:
+
+        System.out.println("User, tell me who to remove from the List: ");
+        for(Emp50 i: employees){
+            i.show();
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the User's Name, Age, Sal to Remove(ex: Hav 22 100000): ");
+        String rem = sc.next();
+        int age = sc.nextInt();
+        int sal = sc.nextInt();
+
+        Emp50 gone = new Emp(age, rem, sal);
+        
+        System.out.println(employees.contains(gone)); //true
+        System.out.println(employees.remove(gone)); //true
+        System.out.println(employees.indexOf(gone)); // true
+        
+    }
+}
+
+IMPORTANT RULE 
+
+2. If we are adding Objects of our class in an ArrayList, then we must also Override equals() method.
+Otherwise the operations in the ArrayList will fail that work on the basis of equals() and will 
+fail because they compared addresses. 
+
+contains(), indexOf() and remove() will fail without Overriding equals.
+
+So override equals.
+
+This is because all these 3 methods internally call the equals method of the object added in the 
+ArrayList and if we have not overridden equals in our class then Java further calls equals method of
+the Object class, and the equals method of the Object class always compares addresses of the objects
+and not their data.
+
+NOW to Sort the ArrayList, there is no sort() method in ArrayLists.
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Lecture50ArrayListSort{
+    public static void main(String[] args){
+        ArrayList<Integer> marks = new ArrayList<>();
+        marks.add(50);
+        marks.add(25);
+        marks.add(70);
+        marks.add(90);
+        marks.add(15);
+
+        Collections.sort(marks);
+        System.out.println(marks);
+    }
+}
+
+
+ex2:
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Lecture50ArrayListStringsSort{
+    public static void main(String[] args){
+        ArrayList<String> months = new ArrayList<>();
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        months.add("Apr");
+        months.add("May");
+
+        Collections.sort(months);
+        System.out.println(months);
+    }
+}
+
+
+So... On the basis of Collections.sort() method that is the parent of List and ArrayList
+it should work so why does it not work...
+
+class UseEmp50{
+    public static void main(String[] args){
+
+        ArrayList<Emp50> employees = new ArrayList<>();
+        System.out.println("\n");
+        System.out.println("program start");
+        Emp50 Hav = new Emp50(22, "Hav", 1000_000);
+        employees.add(Hav);
+        Emp50 Ayuj = new Emp50(29, "Ayuj", 95_000);
+        employees.add(Ayuj);
+        Emp50 Abadon = new Emp50(35, "Abadon", 100_000);
+        employees.add(Abadon);
+        Emp50 Owen = new Emp50(24, "Owen", 90_000);
+        employees.add(Owen);
+        
+        System.out.println("Before Sorting: ");
+        for(Emp50 i: employees){
+            i.show();
+        }
+
+        Collectons.sort(employees) // WHY DOES THIS GIVE ERROR AND HOW TO REMOVE IT?
+
+        System.out.println("After Sorting: ");
+        for(Emp50 i: employees){
+            i.show();
+        }
+    }
+}
