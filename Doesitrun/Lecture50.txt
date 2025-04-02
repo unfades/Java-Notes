@@ -1,0 +1,421 @@
+CUSTOM ARRAYLIST, IMPORTANT POINTS RELATED TO ARRAYLIST
+=======================================================
+
+Introduction to Custom ArrayList.
+
+What is a Custom ArrayList?
+
+If you store your own Class's Objects inside an ArrayList,
+then it is a Custom ArrayList.
+
+A Custom ArrayList i an ArrayList which can hold objects of programmer defined classes.
+
+For example, suppose we have a class called Emo and we want to store Emp objects in the ArrayList.
+
+Syntax:
+
+ArrayList<nameofourclass> refName = new ArrayList<>();
+
+if our class name is Emp then the ArrayList will be:
+
+ArrayList<Emp> empList = new ArrayList<>();
+
+
+Exercise 4:
+
+Create a class called Emp with following instance members:
+
+1. age
+
+2. name
+
+3. sal
+
+Provide appropriate constructor to intialize Emp object.
+Then create a driver class called UseEmp which maintains a list
+of Employees. Now do the following operations on this list:
+
+1. Add 4 Emp objects.
+
+2. Display Emp Records.
+
+3. Remove an Emp Object from the List.
+
+4. Sort the List based on Income least to Most.
+5. Sort the List based on Income Most to least.
+6. Sort the List based on Name of Employee ascending.
+7. Sort the List based on Name of Employee descending.
+8. Sort the List based on Age of Employees ascending.
+
+
+PRO TIP WHen sorting an ArrayList NOTE TO SELF
+Add FIRST Remove LATER. When Swapping.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Emp50{
+
+    int age;
+    String name;
+    int sal;
+    
+    public Emp50(int age, String name, int sal){
+        this.age = age;
+        this.name = name;
+        this.sal = sal;
+    }
+
+    public void setSal(int sal){
+        this.sal = sal;
+    }
+
+    public void setAge(int age){
+        this.age = age;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void show(){
+        System.out.println("Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal);
+    }
+
+    public String toString(){
+        return "[ Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal +"]";
+    }
+
+    public int get(){
+        return this.sal;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
+}
+
+class UseEmp50{
+    public static void main(String[] args){
+
+        ArrayList<Emp50> employees = new ArrayList<>();
+        System.out.println("\n");
+        System.out.println("program start");
+        Emp50 Hav = new Emp50(22, "Hav", 1000_000);
+        employees.add(Hav);
+        Emp50 Ayuj = new Emp50(29, "Ayuj", 95_000);
+        employees.add(Ayuj);
+        Emp50 Abadon = new Emp50(35, "Abadon", 100_000);
+        employees.add(Abadon);
+        Emp50 Owen = new Emp50(24, "Owen", 90_000);
+        employees.add(Owen);
+        
+        //show employees
+        for(Emp50 i: employees){
+            i.show();
+        }
+
+        System.out.println("\n\n\n");
+
+        /* 
+        System.out.println("Before removing Abadon");
+        System.out.println(employees);
+        //remove one
+        employees.remove(2);
+        System.out.println("After removing Abadon");
+        System.out.println(employees);
+        */
+        //ASK FROM THE USER WHO TO REMOVE:
+
+        System.out.println("User, tell me who to remove from the List: ");
+        for(Emp50 i: employees){
+            i.show();
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the User's Name, Age, Sal to Remove(ex: Hav 22 100000): ");
+        String rem = sc.next();
+        int age = sc.nextInt();
+        int sal = sc.nextInt();
+
+        for(int i = 0; i<employees.size(); i++){
+            if(employees.get(i).get() == sal && employees.get(i).getName().equals(rem) && employees.get(i).getAge() == age){
+                System.out.println("Found employee " + rem + " at " + i);
+                employees.remove(i);
+                System.out.println(employees);
+                break;
+            }
+        }
+
+        System.out.println("\n\n\n");
+        
+        System.out.println("Sorting the list based on Income Ascending");
+        
+        for(int i = 0; i<employees.size(); i++){
+            for(int j = 0; j<employees.size(); j++){
+                if(i==j) continue;
+                if(employees.get(i).get()<employees.get(j).get()){
+                    System.out.println("At i is "+ i+": ");
+                    Emp50 temp = new Emp50(0,"s",0);
+                    temp = employees.get(i);
+                    //SOMETIMES IT IS MORE SIMPLE THAN YOU EVER REALIZE
+                    //ADD FIRST, REMOVE LATER, SKIPPING THE HASSLE OF 
+                    //REMOVING FIRST, ADDING LATER.
+                    employees.add(i,employees.get(j));
+                    employees.remove(i+1);
+                    employees.add(j,temp);
+                    employees.remove(j+1);
+                    
+                }
+            }
+        }
+        System.out.println(employees);
+        
+    }
+}
+
+
+RULES TO REMEMBER:
+
+1. If we are adding objects of our class in an ArrayList or any Collection. Then we MUST 
+override the toString() method. This is because when we pass ArrayList object to SOP() then
+Java calls toString() method of the ArrayList and the toString() method of ArrayList internally
+calls the toString method of the object that is added in the ArrayList.
+
+in the above program, there are 5 toString() called. 1 for the arrayList and internally 4 for
+the Custom Objects we made.
+
+Otherwise you get className@hashcode in your code where you didn't implement toString()
+
+
+SIR's IMPLEMENTATION:
+
+
+public class Emp50{
+
+    int age;
+    String name;
+    int sal;
+    
+    public Emp50(int age, String name, int sal){
+        this.age = age;
+        this.name = name;
+        this.sal = sal;
+    }
+
+    public void setSal(int sal){
+        this.sal = sal;
+    }
+
+    public void setAge(int age){
+        this.age = age;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void show(){
+        System.out.println("Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal);
+    }
+
+    public String toString(){
+        return "[ Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal +"]";
+    }
+
+    public int get(){
+        return this.sal;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
+}
+
+class UseEmp50{
+    public static void main(String[] args){
+
+        ArrayList<Emp50> employees = new ArrayList<>();
+        System.out.println("\n");
+        System.out.println("program start");
+        Emp50 Hav = new Emp50(22, "Hav", 1000_000);
+        employees.add(Hav);
+        Emp50 Ayuj = new Emp50(29, "Ayuj", 95_000);
+        employees.add(Ayuj);
+        Emp50 Abadon = new Emp50(35, "Abadon", 100_000);
+        employees.add(Abadon);
+        Emp50 Owen = new Emp50(24, "Owen", 90_000);
+        employees.add(Owen);
+        
+        //show employees
+        for(Emp50 i: employees){
+            i.show();
+        }
+
+        System.out.println("\n\n\n");
+
+        /* 
+        System.out.println("Before removing Abadon");
+        System.out.println(employees);
+        //remove one
+        employees.remove(2);
+        System.out.println("After removing Abadon");
+        System.out.println(employees);
+        */
+        //ASK FROM THE USER WHO TO REMOVE:
+
+        System.out.println("User, tell me who to remove from the List: ");
+        for(Emp50 i: employees){
+            i.show();
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the User's Name, Age, Sal to Remove(ex: Hav 22 100000): ");
+        String rem = sc.next();
+        int age = sc.nextInt();
+        int sal = sc.nextInt();
+
+        //SIRS EXPLANATION FOR REMOVAL, THIS DID NOT WORK, WHY?
+        //BECAUSE EACH CLASS IN JAVA HAS AN EQUALS METHOD, AND IT HAS TO GET OVERRIDDEN.
+
+        Emp50 f = new Emp(22, Hav, 1000000);
+        System.out.println("Empwasremoved?: " + employees.remove(f)); //false is the outcome
+        System.out.println("\n\n\n");
+        
+        System.out.println("After removing: ");
+        
+        System.out.println(employees);
+        
+    }
+}
+
+EQUALS IS A METHOD OF THE CLASS OBJECT. EVERY CLASS IN JAVA HAS AN EQUALS METHOD THEN.
+
+EQUALS METHOD COMPARES THE ADDRESSES OF OBJECTS.
+
+f object is not gonna match ANY Address of our objects. THis means that the employee to remove
+was not found.
+
+If we want remove to work proper, then we should override the equals() method in our class as well.
+THen fix the program.
+
+ex: 
+
+class Box{
+    private int length, int breadth, int height;
+
+    Box(int length, int breadth, int height){
+        this.length = length;
+        this.breadth = breadth;
+        this.height = height;
+    }
+
+    public String toString(){
+        return "Box{" + "length="+this.length + "breadth="+this.breadth + "height="+this.height;
+    }
+
+    public boolean equals(Object o){
+        if(this.length == o.length && this.breadth == o.breadth && this.height == o.height) return true;
+        return false;
+    }
+}
+
+public class UseBox{
+    public static void main(String args){
+        Box b1 = new Box(10,20,30);
+        Box b2 = new Box(10,20,30);
+
+        //LOGICALLY b1 and b2 are the same
+        //However their addresses are different
+
+        System.out.println(b1);
+        System.out.println(b2);
+        //equals from Object class.
+        //false, this is not what we want. We wanna compare content not addresses.
+        //System.out.println(b1.equals(b2));
+
+        //We are overriding equals now.
+        System.out.println(b1.equals(b2));
+
+    }
+}
+
+//now we know 3 methods of Object class,
+
+finalize(), toString() and now equals()
+
+Object class has 11 methods. We should know the ones we have learned.
+
+class Box50{
+    private int length, breadth, height;
+
+    Box50(int length, int breadth, int height){
+        this.length = length;
+        this.breadth = breadth;
+        this.height = height;
+    }
+
+    public String toString(){
+        return "Box50{" + "length="+this.length + "breadth="+this.breadth + "height="+this.height;
+    }
+    //nice but unoptimal as the prototype is different, sirs is better as it points to obj b
+    //so it is not really overriding, it's overloading
+    //ANd this is a custom method. ANd sir's overrides. IT IS BETTER TO OVERRIDE WHEN
+    //THE PURPOSE IS OVERRIDING THIS IS WHY SIRS IS MUCH BETTER.
+    /* 
+    public boolean equals(Box50 o){
+        if(this.length == o.length && this.breadth == o.breadth && this.height == o.height) return true;
+        return false;
+    }
+        */
+    //This is the way to do it proper
+    //THIS IS WHY @Override is theere it is an ANNOTATION
+    //IT IS THERE TO VERIFY IF YOU ARE WRITING SYNTAX OF OVERRIDDEN METHOD PROPER 
+    @Override //SEE EVERYTHING IS FINE HERE
+    public boolean equals(Object o){
+        Box50 temp = (Box50)o;
+        if(this.length == temp.length && this.breadth == temp.breadth && this.height == temp.height){
+            return true;
+        }
+        return false;
+    }
+    @Override  //NOW IT IS GIVING ERROR AS IT IS NOT PROPER OVERRIDING
+    public boolean equals(Box50 o){
+        if(this.length == o.length && this.breadth == o.breadth && this.height == o.height) return true;
+        return false;
+    }
+}
+
+public class UseBox50{
+    public static void main(String[] args){
+        Box50 b1 = new Box50(10,20,30);
+        Box50 b2 = new Box50(10,20,30);
+
+        //LOGICALLY b1 and b2 are the same
+        //However their addresses are different
+
+        System.out.println(b1);
+        System.out.println(b2);
+        //equals from Object class.
+        //false, this is not what we want. We wanna compare content not addresses.
+        //System.out.println(b1.equals(b2));
+
+        //We are overriding equals now.
+        System.out.println(b1.equals(b2));
+
+    }
+}
+
+//TO BE CONTINUED TOMORROW
+
