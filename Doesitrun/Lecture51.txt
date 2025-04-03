@@ -1,0 +1,354 @@
+How to Sort the ArrayList
+Q. How does sorting work in Java?
+
+A. In Java, it has natural order sorting.
+
+Strings lexicographically
+Integers ascending
+
+Naturally Correct Order. This is Natural Order Sorting.
+
+In Our ArrayList we have put Employee class objects.
+
+Employee class objects are not strings, ints,
+
+Java doesn't know on what basis we are trying to sort.
+
+Even if the Employee had Strings alone, it still wouldn't know
+
+because it does not know how to sort Custom Object classes.
+
+We have to implement the interface Comparable and override its
+
+compareTo() method which has the following prototype.
+
+public int compareTo(Object)
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Emp50 implements Comparable{
+
+    int age;
+    String name;
+    int sal;
+    
+    public Emp50(int age, String name, int sal){
+        this.age = age;
+        this.name = name;
+        this.sal = sal;
+    }
+
+    public void setSal(int sal){
+        this.sal = sal;
+    }
+
+    public void setAge(int age){
+        this.age = age;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void show(){
+        System.out.println("Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal);
+    }
+
+    public String toString(){
+        return "[ Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal +"]";
+    }
+
+    public int get(){
+        return this.sal;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
+    @Override
+    //o cannot access as parent reference cannot access child methods
+    public int compareTo(Object o){
+        Emp50 temp = (Emp50)o;
+        //sort in Collections.sort says if it gets 1 then it will Swapping
+        //if sort gets -1 or 0, then it will not Swap
+        //this is compareTo()'s inner works, if pos, then swap, else do not swap
+        if(this.age>temp.age){
+            return 1;
+        }else if(temp.age>this.age){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+
+}
+
+class UseEmp50{
+    public static void main(String[] args){
+
+        ArrayList<Emp50> employees = new ArrayList<>();
+        System.out.println("\n");
+        System.out.println("program start");
+        Emp50 Hav = new Emp50(22, "Hav", 1000_000);
+        employees.add(Hav);
+        Emp50 Ayuj = new Emp50(29, "Ayuj", 95_000);
+        employees.add(Ayuj);
+        Emp50 Abadon = new Emp50(35, "Abadon", 100_000);
+        employees.add(Abadon);
+        Emp50 Owen = new Emp50(24, "Owen", 90_000);
+        employees.add(Owen);
+        
+        System.out.println("Before Sorting: ");
+        for(Emp50 i: employees){
+            i.show();
+        }
+
+        Collectons.sort(employees) // WHY DOES THIS GIVE ERROR AND HOW TO REMOVE IT?
+
+        System.out.println("After Sorting: ");
+        for(Emp50 i: employees){
+            i.show();
+        }
+    }
+}
+
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.Objects;
+
+class Emp51 implements Comparable<Object>{
+
+    int age;
+    String name;
+    int sal;
+
+    @Override
+    public int hashCode(){
+        int hash = 3;
+        return hash;
+    }
+
+    
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(obj == null) return false;
+        
+        if(getClass()!=obj.getClass()) return false;
+        final Emp51 other = (Emp51)obj;
+        if(this.age!=other.age) return false;
+        if(Double.doubleToLongBits(this.sal)!=Double.doubleToLongBits(other.sal)) return false;
+        if(!Objects.equals(this.name, other.name)) return false;
+        return true;
+    }
+
+    public Emp51(int age, String name, int sal){
+        this.age = age;
+        this.name = name;
+        this.sal = sal;
+    }
+
+    public void setSal(int sal){
+        this.sal = sal;
+    }
+
+    public void setAge(int age){
+        this.age = age;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void show(){
+        System.out.println("Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal);
+    }
+
+    @Override
+    public String toString(){
+        return "[ Age = " + this.age + " Name = " + this.name + " Salary = " + this.sal +"]";
+    }
+
+    public int get(){
+        return this.sal;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
+    @Override
+    //o cannot access as parent reference cannot access child methods
+    public int compareTo(Object t){
+        Emp51 temp = (Emp51)t;
+        //sort in Collections.sort says if it gets 1 then it will Swapping
+        //if sort gets -1 or 0, then it will not Swap
+        //this is compareTo()'s inner works, if pos, then swap, else do not swap
+        if(this.age>temp.age){
+            return -1;
+        }else if(temp.age>this.age){
+            return 1;
+        }else{
+            if(this.sal>temp.sal){
+                return 1;
+            }else if(temp.sal>this.sal){
+                return -1;
+            }else{
+                return 0;
+            }
+        }
+        //You can do all that in a one liner
+        //But you gotta make the primitives declared and redeclare as Objects.
+        //ex int to Integer, double to Double as seen above in the instance variables of the class.
+        //AS WE ARE CALLING THE PREDEFINED COMPARETO in the Wrapper classes.
+        //int result = this.age.compareTo(temp.age); return result;
+    }
+
+}
+
+public class UseEmp51{
+    public static void main(String[] args){
+
+        ArrayList<Emp51> employees = new ArrayList<>();
+        System.out.println("\n");
+        System.out.println("program start");
+        Emp51 Hav = new Emp51(22, "Hav", 1000_000);
+        employees.add(Hav);
+        Emp51 Ayuj = new Emp51(22, "Ayuj", 95_000);
+        employees.add(Ayuj);
+        Emp51 Abadon = new Emp51(35, "Abadon", 100_000);
+        employees.add(Abadon);
+        Emp51 Owen = new Emp51(24, "Owen", 90_000);
+        employees.add(Owen);
+        
+        System.out.println("Before Sorting: ");
+        for(Emp51 i: employees){
+            i.show();
+        }
+
+        Collections.sort(employees); // WHY DOES THIS GIVE ERROR AND HOW TO REMOVE IT?
+
+        System.out.println("After Sorting: ");
+        for(Emp51 i: employees){
+            i.show();
+        }
+    }
+}
+
+The new rule we learned is that
+
+3. If we are adding objects of our own class in an ArrayList, and we wanna sort the ArrayList on the 
+basis of some data member of our object using the method Collections.sort() then:
+
+a. we must implement the interface Comparable in our class. It is from java.lang.
+b. this interface has an abstract method called compareTo()
+c. So we must override this method in our class.
+d. Because when we call Collections.sort() then it internally calls compareTo() inside it.
+
+Similar to how contains,remove,indexOf calls equals()
+
+e. While overriding compareTo() we must remember that it must return >0 or <0 or 0.
+
+f. If compareTo() returns pos then method sort() swaps the calling object and the object passed as arg.
+g. If compareTo() returns neg or zero then no swapping will happen.
+
+An important point:
+
+If we have objects of other classes as data members of our object for example we have Integer, String, or Double type
+members in Emp class, then inside the method compareTo() which we have overridden we can call the method compareTo() of these classes.
+
+Since they also have implemented the Comparable interface.
+This can simplify our logic.
+
+    @Override
+    //o cannot access as parent reference cannot access child methods
+    public int compareTo(Object t){
+        Emp51 temp = (Emp51)t;
+        //sort in Collections.sort says if it gets 1 then it will Swapping
+        //if sort gets -1 or 0, then it will not Swap
+        //this is compareTo()'s inner works, if pos, then swap, else do not swap
+        if(this.age>temp.age){
+            return -1;
+        }else if(temp.age>this.age){
+            return 1;
+        }else{
+            if(this.sal>temp.sal){
+                return 1;
+            }else if(temp.sal>this.sal){
+                return -1;
+            }else{
+                return 0;
+            }
+        }
+    }
+
+    @Override
+    //o cannot access as parent reference cannot access child methods
+    public int compareTo(Object t){
+        Emp51 temp = (Emp51)t;
+        return this.age.compareTo(temp.age);
+    }
+
+    THE LINKED LIST CLASS
+
+    Internally, Linked Lists use Doubly Linked Lists.
+    Linked List implements the List interface.
+
+    ArrayList<Integer> myList = new ArrayList<>();
+    myList.add(25);
+    it will add 25 to the first index of the ArrayList
+    myList.add(35);
+    it will put 35 after the first index at the second index
+
+
+
+    LinkedList<Integer> myList = new LinkedList<>();
+
+    myList here would point to an Object and it would start with a start pointer that has null inside.
+    There is no size.
+    myList.add(25);
+    this will put 25 in the middle and previous and next pointers to that have null
+    myList.add(35);
+    the previous node's next node will hold the address of the data 35
+    data 35 will hold the previous nodes address of the data 25
+    and the next node that points is gonna be null
+
+    When ArrayList is full at capacity, Java will send the new List made the data of the previous
+    and then add new data into that and throw the old object for the garbage collector.
+
+    Now in the LinkedList, then LinkedList is just gonna point to the next node.
+
+    insert is faster in LinkedLists then ArrayLists
+    and retrieving data is faster in ArrayLists, slower in LinkedLists.
+
+    ArrayLists have get.
+    Linked lists also have get.
+    But Linked lists have to traverse to get it.
+    ArrayLists just get the index node.
+
+    If a project has a lot of retrieval, use ArrayList.
+    If a project has a lot of insertion, use a LinkedList.
+
+    So for a quiz game when someone is retrieving a lot of questions then the better structure is
+    an ArrayList.
+
+    LinkedList implements the List interface
+    It uses Doubly Linked List internally
+    No initial capacity
+    Capacity/Size increases as elements are added
+    Insertion order is preserved
+
+    
