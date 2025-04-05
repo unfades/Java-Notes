@@ -1,0 +1,314 @@
+The "LinkedList" class
+
+LinkedList implements the List interface
+
+It Uses Doubly Linked List internally.
+
+No initial capacity.
+
+Capacity/size increases as elements are added.
+
+Insertion order is preserved.
+
+Good choice when frequent operations are adding and removing and WORST when frequent operation is retrieval.
+
+Internal Mechanism of LinkedList
+
+A LinkedList is an organized collection of elements called as nodes where each node contains an item, a reference
+to the next element and a reference to the previous element.
+
+Adding Elements in the LinkedList
+
+LinkedList <String> cities = new LinkedList<String>();
+cities.add("Mumbai");
+cities.add("Paris");
+cities.add("Delhi");
+
+The above code will create three nodes having "Mumbai", "Paris" and "Delhi" as their content and
+references of the three nodes will be adjusted to point to the previous and next nodes.
+
+Mumbai -> Paris -> Delhi
+Mumbai <- Paris <- Delhi
+
+Now suppose we want to add "New York" at position 3 then we would write:
+
+Meaning at the 2nd index which is at Delhi's index.
+
+overloaded version of add()
+
+cities.add(2, "New York");
+
+Then it becomes 
+
+Mumbai -> Paris -> New York -> Delhi
+Mumbai <- Paris <- New York <- Delhi
+
+for our LinkedList
+
+
+Getting Element from the LinkedList 
+
+To get a particular element from the LinkedList we use the same method called get()
+passing it the index we want.
+
+ex: System.out.println(cities.get(1)); //Paris
+
+If the index doesnt exist then it will throw an IndexOutOfBoundsException 
+
+Linked Lists are great when you want to add stuff and remove stuff.
+But are not good when you want to retrieve stuff.
+
+THE SET INTERFACE 
+=================
+
+The Set interface extends Collection interface.
+
+A Set is a collection that cannot contain duplicate elements.
+
+Set for email ids is good.
+No 2 same projects. 
+
+Set's classes are good for stuff there are no duplicates allowed.
+
+in the List they have order maintained
+
+Sets do not have preserved insertion. They do not preserve order.
+
+Set does not have indexing.
+
+Popular classes of Set are 
+
+1. HashSet - fastest access in Java through HashSet because it has Hashing used with a HashTable
+The Phonebook search in our Phones uses Hashing to lookup who called us.
+O(1) lookup time
+
+2. TreeSet - maintains its elements in a BST Binary Search Tree, if its less than root it goes left and more it goes right.
+Internally it maintains a Binary Search Tree.
+
+THe HashSet class
+
+1. This class implements the Set interface.
+
+2. It internally uses a hash table for storage and applies a mechanism called hashing for storage and retrieval
+of data.
+
+3. It makes no guarantee as to the iteration order of the set.
+
+The hashSet has the add() from Collections class and return type is boolean.
+
+It accepts an Object as argument and adds that Object in the HashSet. If adding is successful it returns true.
+otherwise it returns false.
+ex:
+
+HashSet<String> set = new HashSet<String>();
+
+set.add("C");
+set.add("A");
+set.add("B");
+
+No guarantee that the output will be A B C when printing, the iteration order is not sorted.
+
+If you want it sorted already use TreeSet
+
+TreeSet sorts it in inorder traversal mode and so the elements will be sorted always when
+iterated over.
+
+Exercise 5:
+
+WAP to store names of first 4 months in the HashSet and then print them.
+
+import java.util.HashSet;
+
+class StoreSet52{
+    public static void main(String[] args){
+        HashSet<String> months = new HashSet<>();
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        boolean monthAdded = false;
+        monthAdded = months.add("Apr");
+        System.out.println(monthAdded);
+        monthAdded = months.add("Apr");
+        System.out.println(monthAdded);
+
+        for(String i: months){
+            System.out.println(i);
+        }
+        //Or
+        System.out.println(months.toString());
+    }
+}
+
+ANY COLLECTION DATA IS ACCESSIBLE THROUGH Iterator iterator without loops.
+
+Iterator iterator
+=================
+
+What is an Iterator?
+
+1. The List and Set collections provid iterators which are like pointers that allow going over all the elements
+of a collection in sequence.
+
+Iterator is an interface, and iterator() is a method.
+
+Iterator object is retrieved via iterator() method.
+
+If you want to traverse a HashSet then you have to get the Iterator object of it via the iterator() method.
+
+import java.util.HashSet;
+
+class StoreSet52{
+    public static void main(String[] args){
+        HashSet<String> months = new HashSet<>();
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        months.add("Apr");
+
+
+        //Through iterator()
+
+
+        Iterator it = months.iterator();
+    }
+}
+
+understanding Iterator it = months.iterator(); 's meaning:
+
+
+interface Iterator{
+    //abstract methods
+}
+
+class <someclass> implements Iterator{
+    //overridden method of Iterator interface
+}
+
+class HashSet implements Set{
+    ...
+    ...
+
+    @Override
+    public Iterator iterator(){
+        SomeClass obj = new SomeClass();
+        return obj;
+    }
+}
+
+
+OUR CODE:
+
+Iterator it = months.iterator();
+
+this is calling the overridden method iterator() from the HashSet class
+which implements the Set interface.
+
+<someclass> is classes like LinkedLists, ArrayLists, HashSets, etc.
+
+
+HOW TO CONFIRM A REFERENCE POINTS TO AN OBJECT:
+
+
+.getClass().getName() method chaining.
+
+get the name of the class is the meaning and it can be used for any reference that is in our code
+
+like int x = 9;
+
+System.out.println(x.getClass().getName()); will tell us the class that x is pointing to an object of.
+
+In this case, we have HashMap$KeyIterator.
+
+In Java $ implies nesting, so the left of the $ is the inner class Key Iterator and the right of the $
+is the Outer class HashMap.
+
+KeyIterator is a child of Iterator, and it is nested within the HashMap class.
+
+HashSet's hashing is the hashing used from HashMap class.
+
+Iterator Interface has 3 methods:
+
+1. public boolean hasNext(): checks whether there is an element present in the Collection to be accessed.
+If an element is present it returns true otherwise it returns false.
+
+2. public Object next(): Moves the internal pointed to the next position and returns the element present there.
+If no element is present then it throws NoSuchElementException.
+
+These methods are overridden by the class that has called the iterator() method.
+
+In our case HashSet.
+
+Iterator is like a pointer it points to before the first element in the start.
+
+_Feb_Apr_Jan_Mar
+^iterator points to before the first element.
+
+hasNext() tells us that if there is data ahead or not.
+
+if hasNext() true then there is data ahead of the pointer.
+And if false then there is no data ahead.
+
+next() moves us ahead.
+
+it.hasNext() means there is data to traverse ahead to
+
+it.next() means we are moving to the next data
+
+
+class StoreSet52{
+    public static void main(String[] args){
+        HashSet<String> months = new HashSet<>();
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        months.add("Apr");
+
+        Iterator it = months.iterator();
+
+        while(it.hasNext()){
+            String s = (String)it.next(); //downcasting from object to String
+        }
+    }
+}
+
+ex:
+
+class StoreSet52{
+    public static void main(String[] args){
+        HashSet<String> months = new HashSet<>();
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        months.add("Apr");
+
+        Iterator<String> it = months.iterator();
+
+        while(it.hasNext()){
+            String s = it.next(); //Iterator<String> makes it typesafe. So it tells java
+            //only strings are going to come through it.next()
+            System.out.println(s);
+        }
+    }
+}
+
+import java.util.HashSet;
+import java.util.Iterator;
+
+class StoreSet52{
+    public static void main(String[] args){
+        HashSet<String> months = new HashSet<>();
+        months.add("Jan");
+        months.add("Feb");
+        months.add("Mar");
+        months.add("Apr");
+
+        Iterator<String> it = months.iterator();
+
+        while(it.hasNext()){ // if instead of it.hasNext() it were true, then we would see NoSuchElementException
+            //at the end when there was no element and the loop traversed.
+            String s = it.next(); //Iterator<String> makes it typesafe. So it tells java
+            //only strings are going to come through it.next()
+            System.out.println(s);
+        }
+    }
+}
