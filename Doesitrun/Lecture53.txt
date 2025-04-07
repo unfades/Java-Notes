@@ -1,0 +1,333 @@
+WHY USE AN ITERATOR TO TRAVERSE Collections
+
+WHEN WE HAVE ENHANCED FOR loops
+
+Both can be used is the answer.
+
+To understand better as to why, try this challenge: 
+
+Challenge: Imagine we have an ArrayList and the ArrayList has values
+
+months Jan to Jun
+
+But we must only display only those that do not start with F 
+if a month starts with F, delete that from the ArrayList.
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Lecture53IteratorEnhancedFor {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+
+        list.add("Jan");
+        list.add("Feb");
+        list.add("Mar");
+        list.add("Apr");
+        list.add("May");
+        list.add("Jun");
+
+        //foreach style removal of F starting element
+        /* 
+        for(String i: list){
+            if(i.startsWith("F")){
+                list.remove(i);
+            }
+        }
+            */
+            //Enhanced for is only for ACCESSING COLLECTION DATA
+            //NOT MODIFYING IT
+            //Otherwise it will throw ConcurrentModificationException Exception.
+            //Enhanced for is not applicable for modification of Collection data.
+        
+            //iterator also has a remove() method.
+            //it.remove() do not pass the data inside, just remove() alone.
+            //Iterator works for all Collections.
+            //Iterator is a method of Collection. Then all Collection classes use it.
+            //Use iterator for traversing and changes during it.
+            
+            Iterator<String> it = list.iterator();
+            System.out.println(list);
+            while(it.hasNext()){
+                String s = it.next();
+                if(s.startsWith("F")){
+                    it.remove();
+                }
+            }
+            System.out.println(list);
+    }
+}
+
+Explained hashCode and HashSet HashMap usage, 
+implementation for custom Objects very important.
+Understanding the internal workings of the hashCode() method of
+the Object class.
+
+
+
+import java.util.HashSet;
+
+class Student53{
+    private String name;
+    public Student53(String name){
+        this.name = name;
+    }
+    public String toString(){
+        return name;
+    }
+}
+
+public class Lecture53HashSet {
+    public static void main(String[] args) {
+        HashSet<String> set = new HashSet<>();
+        String str1 = new String("Aman");
+        System.out.println("hashCode for str1:" + str1.hashCode());
+        set.add(str1);
+        
+        String str2 = new String("Suman");
+        System.out.println("hashCode for str2:" + str2.hashCode());
+        set.add(str2);
+
+        String str3 = new String("Aman");
+        System.out.println("hashCode for str3:" + str3.hashCode());
+        set.add(str3);
+        System.out.println("Size of the set is: " + set.size());
+        System.out.println(set); //2 Aman and Suman
+
+        //hashCodes are the same because String class overided the hashCode() method.
+        HashSet<Student53> set2 = new HashSet<>();
+        Student53 s1 = new Student53("Aman");
+        System.out.println("hashCode for s1:" + s1.hashCode());
+        set2.add(s1);
+        Student53 s2 = new Student53("Suman");
+        System.out.println("hashCode for s2:" + s2.hashCode());
+        set2.add(s2);
+        Student53 s3 = new Student53("Aman");
+        System.out.println("hashCode for s3:" + s3.hashCode());
+        set2.add(s3);
+        System.out.println("Size of the set is: " + set2.size());
+        System.out.println(set2); //2 Aman and Suman expected but returns 3 Aman Suman Aman
+        //Why?? Because of the Hashcode, The Hashcodes of Aman are different therefore Java
+        //considers Aman and Aman to be different.
+
+        //hashCode() is the method of the Object class, one of the 11 methods
+        //every class possesses is Object.
+
+        //how Java works is it first calls hashCode, and in Collections, hashCode is overridden,
+        //it calls hashCode() first, then it calls the method equals()...
+        //if it is same, its not added, if different then its added
+
+
+        //So remember if you add your Objects into HashMap and HashSet, 
+        //override the methods hashCode() and equals() in your class of the Object.
+        //because in collections HashSet and HashMap call to check if the Objects hashCodes are
+        //the same.
+    }
+}
+
+HashSet internally maintains a table.
+
+The table is like an array and has a size of 16
+indexes 0 to 15
+
+The whole array is sitting inside the HashSet names.
+
+and you mod the Object's integer unique value for example 10294 generated with an algo
+and 10294 must be used as an index
+
+in the array there are only 16 cells
+
+Java uses hashing, 10294 mod 16 remainder is going to be one of the 0 to 15 cells
+
+because the rule of math states when you divide a number X/Y the remainder will be 0 to Y-1.
+
+So 10294 % 16 is going to give us a value between 0 to 16-1 that is 0 to 15.
+
+and then we place it in the cell which had that value.
+
+Then Java checks if there is any data at there, if there is nothing there, then it will stor the 
+data in tht cell 
+
+so 10294 % 16 gives us 6 it goes in the 6th cell
+
+And imagine another had the same remainder 6 and the data was already there,
+
+then Java checks again if the content and the others content is the same or different
+
+Sumit had different data checked via equals() overridden method then Sumit was added as a LinkedList to it.
+checking the contents was done.
+
+//This is why hashing is the fastest search. 
+
+To search it will directly mod and if the value is there it returns it and if it is in the linked list
+it will return it via the hashCode search.
+Aman->Sumit 
+
+chaining is done.
+
+And in Java when the Array Size of initially 16 is filled up to 12
+
+then Java will double the size of that and changes it to a 32 sized array 
+
+import java.util.HashSet;
+
+class Student53{
+    private String name;
+    public Student53(String name){
+        this.name = name;
+    }
+    public String toString(){
+        return name;
+    }
+    //generated hashCode via using Ctrl+. key and generated the code.
+    //if the class were to also have roll number, and percentage.
+    //then regenerate the hashCode() and equals() via Ctrl + .
+    //and then you will get the logic that pertains to it.
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Student53 other = (Student53) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
+    
+}
+
+public class Lecture53HashSet {
+    public static void main(String[] args) {
+        HashSet<String> set = new HashSet<>();
+        String str1 = new String("Aman");
+        System.out.println("hashCode for str1:" + str1.hashCode());
+        set.add(str1);
+        
+        String str2 = new String("Suman");
+        System.out.println("hashCode for str2:" + str2.hashCode());
+        set.add(str2);
+
+        String str3 = new String("Aman");
+        System.out.println("hashCode for str3:" + str3.hashCode());
+        set.add(str3);
+        System.out.println("Size of the set is: " + set.size());
+        System.out.println(set); //2 Aman and Suman
+
+        //hashCodes are the same because String class overided the hashCode() method.
+        HashSet<Student53> set2 = new HashSet<>();
+        Student53 s1 = new Student53("Aman");
+        System.out.println("hashCode for s1:" + s1.hashCode());
+        set2.add(s1);
+        Student53 s2 = new Student53("Suman");
+        System.out.println("hashCode for s2:" + s2.hashCode());
+        set2.add(s2);
+        Student53 s3 = new Student53("Aman");
+        System.out.println("hashCode for s3:" + s3.hashCode());
+        set2.add(s3);
+        System.out.println("Size of the set is: " + set2.size());
+        System.out.println(set2); 
+    }
+}
+
+ex2:
+
+import java.util.HashSet;
+
+class Student53{
+    private String name;
+    int roll;
+    double per;
+    public Student53(String name, int roll, double per){
+        this.name = name;
+        this.roll = roll;
+        this.per = per;
+    }
+    public String toString(){
+        return name;
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + roll;
+        long temp;
+        temp = Double.doubleToLongBits(per);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Student53 other = (Student53) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (roll != other.roll)
+            return false;
+        if (Double.doubleToLongBits(per) != Double.doubleToLongBits(other.per))
+            return false;
+        return true;
+    }
+    
+    //then regenerate the hashCode() and equals() via Ctrl + .
+    //and then you will get the logic that pertains to it.
+
+    
+    
+}
+
+public class Lecture53HashSet {
+    public static void main(String[] args) {
+        HashSet<String> set = new HashSet<>();
+        String str1 = new String("Aman");
+        System.out.println("hashCode for str1:" + str1.hashCode());
+        set.add(str1);
+        
+        String str2 = new String("Suman");
+        System.out.println("hashCode for str2:" + str2.hashCode());
+        set.add(str2);
+
+        String str3 = new String("Aman");
+        System.out.println("hashCode for str3:" + str3.hashCode());
+        set.add(str3);
+        System.out.println("Size of the set is: " + set.size());
+        System.out.println(set); //2 Aman and Suman
+
+        //hashCodes are the same because String class overided the hashCode() method.
+        HashSet<Student53> set2 = new HashSet<>();
+        Student53 s1 = new Student53("Aman",101, 75.0);
+        System.out.println("hashCode for s1:" + s1.hashCode());
+        set2.add(s1);
+        Student53 s2 = new Student53("Suman",111,45.0);
+        System.out.println("hashCode for s2:" + s2.hashCode());
+        set2.add(s2);
+        Student53 s3 = new Student53("Aman",102,80.0);
+        System.out.println("hashCode for s3:" + s3.hashCode());
+        set2.add(s3);
+        System.out.println("Size of the set is: " + set2.size());
+        System.out.println(set2); 
+    }
+}
+

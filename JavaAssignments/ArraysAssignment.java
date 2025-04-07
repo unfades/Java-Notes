@@ -96,6 +96,6 @@ public class ArraysAssignment {
         //meaning A = A transpose.
 
         //12
-
+        
     }
 }
