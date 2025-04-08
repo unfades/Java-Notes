@@ -81,15 +81,102 @@ public class ArraysAssignment {
             else if(arr[start] == arr[end]){ start++; end--;}
         }
         //7
-        //minmax difference elements returner
 
+
+        //minmax difference elements returner
+        arr = new int[10];
+        int i = 0;
+        while(i<arr.length){
+            System.out.println("(for minmaxdifference-Enter element["+i+"]: ");
+            arr[i] = sc.nextInt();
+            i++;
+        }
+        Arrays.sort(arr);
+        System.out.println("minimum difference elements are: "+ arr[0] + "," + arr[1]);
+        System.out.println("maximum difference elements are: "+ arr[0] + "," + arr[arr.length-1]);
         //8
+
+        int[] arr1 = {30,30,30,25,40,32,31,35,50,62,30,30,30,25,40,32,31,35,50,62};
+        int[] arr2 = {1,2,3,4,7,49,30,25,40,32,31,35,50,60};
+        int[] check = {30,25,40,32,31,35};
+        System.out.println("Checking subarray for " + Arrays.toString(arr1));
+        for(i = 0; i<arr1.length-check.length; i++){
+            
+            if(arr1[i] == check[0]){
+                int b = i;
+                int c = 0;
+                while(arr1[b] == check[c] ){
+                    if(arr1[b] == check[c] && c == check.length-1){
+                        System.out.println("subarray lies between indexes " + i + " and " + b);
+                        break;
+                    }
+                    b++;
+                    c++;
+                }
+            }
+        }
+        
+        System.out.println("Checking subarray for " + Arrays.toString(arr2));
+        for(i = 0; i<arr2.length-check.length; i++){
+            if(arr2[i] == check[0]){
+                int b = i;
+                int c = 0;
+                while(arr2[b] == check[c]){
+                    if(arr2[b] == check[c] && c == check.length-1){
+                        System.out.println("subarray lies between indexes " + i + " and " + b);
+                        break;
+                    }
+                    b++;
+                    c++;
+                }
+            }
+        }
 
         //9
         //find highest split into next highest+remsum return array
-
+        System.out.println("Enter the amount of elements you want:");
+        int amt = sc.nextInt();
+        arr = new int[amt];
+        i = 0;
+        while(i<arr.length){
+            System.out.println("Enter element number["+i+"]: ");
+            arr[i] = sc.nextInt();
+            i++;
+        }
+        arr1 = arr.clone();
+        Arrays.sort(arr);
+        int max = arr[arr.length-1];
+        int secmax =arr[arr.length-2];
+        System.out.println("The highest element found is: " + max);
+        System.out.println("The second maximum found was: " + secmax);
+        System.out.println("The highest max is seperated into: " + (max-secmax) + secmax);
+        arr = arr1.clone();
+        arr1 = new int[arr.length+1];
+        int maxinterval = 0;
+        for(i = 0; i<arr.length; i++){
+            if(arr[i] == max){
+                maxinterval = i;
+                break;
+            }
+        }
+        System.out.println("maxinterval is: " + maxinterval);
+        for(i = 0; i<maxinterval; i++){
+            arr1[i] = arr[i];
+        }
+        System.out.println("arr[1] is " + Arrays.toString(arr1));
+        arr1[maxinterval] = secmax;
+        arr1[maxinterval+1] = max-secmax;
+        for(i = maxinterval+2; i<arr1.length; i++){
+            arr1[i] = arr[maxinterval+1];
+            maxinterval++;
+        }
+        System.out.println("arr[1] is " + Arrays.toString(arr1));
+        System.out.println(Arrays.toString(arr1));
         //10
         //circular shift array right n times
+        //CIRCLE SHIFT RIGHT OR LEFT
+
+        
 
         //11
         //2D array of 3*3 matrx check if the matrix i symmetric or not.

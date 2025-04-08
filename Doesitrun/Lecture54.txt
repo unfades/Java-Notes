@@ -1,0 +1,139 @@
+TreeSet, Map Interface, Methods of Map
+
+ADDING CUSTOM OBJECTS TO TREESET 
+
+TreeSet 
+
+Suppose we want to create a TreeSet of Book object and we want to get the output in ascending order 
+of Price..
+
+import java.util.TreeSet;
+import java.util.Iterator;
+
+class Book54 implements Comparable{
+    private String bookname;
+    private String author;
+    private double price;
+
+    public Book54(String bookname, String author, double price) {
+        this.bookname = bookname;
+        this.author = author;
+        this.price = price;
+    }
+    //TreeSetdoes not have hashing, Hash prefix classes implement these classes.
+
+    @Override
+    public String toString() {
+        return "Book54 [bookname=" + bookname + ", author=" + author + ", price=" + price + "]";
+    }
+    
+    //b1 firstly added made it a BST root node
+    //then b2 ws added then compareTo was called
+    //comparing b1 and b2, then they werent swapped
+    //then b2 compared to b3 and then it was added to the left cause
+    //it was smaller than b2
+    //just like a tree BST
+    // and its not bigger, and its shorter and it went left.
+    //it is bigger than b3 then went to right side.
+    //trick to traverse bst in order traversal is
+    //draw a line below each node and then draw a line to them left dont cross the stuff
+    @Override
+    public int compareTo(Object t){
+        Book54 b = (Book54)t;
+        if(this.price>b.price){
+            return 1;
+        }else if(this.price<b.price){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+
+}
+
+public class Lecture54TreeSet {
+    public static void main(String[] args) {
+        TreeSet<Book54> books = new TreeSet<>();
+        Book54 b1 = new Book54("Let Us C", "Kanetkar", 310);
+        Book54 b2 = new Book54("Learning Java", "Patrick", 600);
+        Book54 b3 = new Book54("Mastering C++", "Venugopal", 450);
+        Book54 b4 = new Book54("Advance Java", "Cornell", 575);
+        
+        books.add(b1);
+        books.add(b2);
+        books.add(b3);
+        books.add(b4);
+
+        for (Book54 b: books){
+            System.out.println(b);
+        }
+        //thru iterator traversal
+        System.out.println("Iterated with iterator: ");
+        Iterator<Book54> it = books.iterator();
+        while(it.hasNext()){
+            Book54 b = it.next();
+            System.out.println(b);
+        }
+    }
+}
+
+//NEXT CHALLENGE SORT BASED ON NAME OF THE BOOKS
+
+
+
+
+
+
+
+MAPS IN Java
+
+MAPS are not related to the Collection Interface.
+
+IT HAS NOTHING TO DO WITH COLLECTION but it allows us to store data and work with it
+
+The Map interface, allows us to store Roll number, and Name for example
+
+101, Ashish
+209, Rajesh
+115, Chetan
+438, Amit
+
+Challenge is based on the number the user typed, it returns the name of the user
+if it doesn't exist, then it returns nothing.
+
+Whenever on the basis of one type of data you want to get another type of data it is called
+a 
+key-value pair in the software world.
+
+It is not a child interface of COllection interface but has methods similar to COllection
+A Map is an object that stores data in pairs, each pair is called a key-value pair
+
+Map does not have add()
+
+Map has put(Object k, Object v)
+
+put will add the value when it is not found at the key, 
+and if it is found then it will overwrite it.
+
+Puts an entry in the invoking map, overwriting any prev value associated with the key
+
+The key and value are k and v, respectively.
+
+Returns null if the key did not already exist, otherwise it returns the previous value linked to the key
+
+Map is a Collection of Entry Objects,
+
+Entry Objects are made when you put the Keys and Values and they become the Entry Object automatically.
+
+Map has a method called get(Object k)
+
+Now it will retrieve the Name based on the Roll number just by saying map.get(109);
+
+Important methods of Map:
+
+put(Object k, Object v)
+get(Object k)
+
+This is gonna be used in our project later.
+
+
