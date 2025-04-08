@@ -47,7 +47,7 @@ public class ArraysAssignment {
         System.out.println("even: " + even);
         System.out.println("odd: " + odd);
         System.out.println("zero: " + zero);
-        */
+        
         //3
         Scanner sc = new Scanner(System.in);
         int[] arr = new int[10];
@@ -95,7 +95,8 @@ public class ArraysAssignment {
         System.out.println("minimum difference elements are: "+ arr[0] + "," + arr[1]);
         System.out.println("maximum difference elements are: "+ arr[0] + "," + arr[arr.length-1]);
         //8
-
+        
+        int i= 0;
         int[] arr1 = {30,30,30,25,40,32,31,35,50,62,30,30,30,25,40,32,31,35,50,62};
         int[] arr2 = {1,2,3,4,7,49,30,25,40,32,31,35,50,60};
         int[] check = {30,25,40,32,31,35};
@@ -134,6 +135,9 @@ public class ArraysAssignment {
 
         //9
         //find highest split into next highest+remsum return array
+
+        Scanner sc = new Scanner(System.in);
+        int[] arr;
         System.out.println("Enter the amount of elements you want:");
         int amt = sc.nextInt();
         arr = new int[amt];
@@ -172,12 +176,22 @@ public class ArraysAssignment {
         }
         System.out.println("arr[1] is " + Arrays.toString(arr1));
         System.out.println(Arrays.toString(arr1));
+        */
+
+
         //10
         //circular shift array right n times
         //CIRCLE SHIFT RIGHT OR LEFT
-
-        
-
+        int[] arr;
+        arr = new int[]{1,2,3,4,5};
+        int k = 3;
+        int rotate = 0;
+        while(k>0){
+            rotate++;
+            if(rotate == arr.length-1) rotate = 0;
+            k--;
+        }
+        System.out.println("The value of rotate is: " + rotate);
         //11
         //2D array of 3*3 matrx check if the matrix i symmetric or not.
         //meaning A = A transpose.

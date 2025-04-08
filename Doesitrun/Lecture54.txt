@@ -133,7 +133,6 @@ Important methods of Map:
 
 put(Object k, Object v)
 get(Object k)
+void clear()
 
 This is gonna be used in our project later.
-
-
