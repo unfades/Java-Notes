@@ -94,16 +94,17 @@ public class ArraysAssignment {
         Arrays.sort(arr);
         System.out.println("minimum difference elements are: "+ arr[0] + "," + arr[1]);
         System.out.println("maximum difference elements are: "+ arr[0] + "," + arr[arr.length-1]);
+        */
         //8
-        
-        int i= 0;
+        /*
+        int i = 0;
         int[] arr1 = {30,30,30,25,40,32,31,35,50,62,30,30,30,25,40,32,31,35,50,62};
         int[] arr2 = {1,2,3,4,7,49,30,25,40,32,31,35,50,60};
         int[] check = {30,25,40,32,31,35};
         System.out.println("Checking subarray for " + Arrays.toString(arr1));
+        
         for(i = 0; i<arr1.length-check.length; i++){
-            
-            if(arr1[i] == check[0]){
+            if(arr1[i] == check[0] && arr1[i+check.length-1] == check[check.length-1]){
                 int b = i;
                 int c = 0;
                 while(arr1[b] == check[c] ){
@@ -116,7 +117,7 @@ public class ArraysAssignment {
                 }
             }
         }
-        
+
         System.out.println("Checking subarray for " + Arrays.toString(arr2));
         for(i = 0; i<arr2.length-check.length; i++){
             if(arr2[i] == check[0]){
@@ -176,7 +177,9 @@ public class ArraysAssignment {
         }
         System.out.println("arr[1] is " + Arrays.toString(arr1));
         System.out.println(Arrays.toString(arr1));
-        */
+    }
+}
+        /*
 
 
         //10
@@ -184,6 +187,7 @@ public class ArraysAssignment {
         //CIRCLE SHIFT RIGHT OR LEFT
         int[] arr;
         arr = new int[]{1,2,3,4,5};
+        System.out.println(Arrays.toString(arr));
         int k = 3;
         int rotate = 0;
         while(k>0){
@@ -192,7 +196,39 @@ public class ArraysAssignment {
             k--;
         }
         System.out.println("The value of rotate is: " + rotate);
+        int[] arr2 = new int[arr.length-rotate];
+        int j = 0;
+        for(int i = rotate; i<arr.length; i++){
+            arr2[j] = arr[i];
+            j++;
+        }
+        System.out.println(Arrays.toString(arr2));
+        int[] arr3 = new int[rotate];
+        j = 0;
+        for(int i = 0; i<rotate; i++){
+            arr3[j] = arr[i];
+            j++;
+        }
+        System.out.println(Arrays.toString(arr3));
+        for(int i = 0; i<arr2.length-rotate; i++){
+            arr[i] = arr2[i];
+        }
+        j = 0;
+        for(int i = arr.length-rotate; i<arr.length; i++){
+            arr[i] = arr3[j];
+            j++;
+        }
+        System.out.println(Arrays.toString(arr));
+        j = 0;
+        for(int i = 0; i<arr.length-rotate; i++){
+            arr[i] = arr2[j];
+            j++;
+        }
+        System.out.println(Arrays.toString(arr));
+        */
+
         //11
+        System.out.println();
         //2D array of 3*3 matrx check if the matrix i symmetric or not.
         //meaning A = A transpose.
 

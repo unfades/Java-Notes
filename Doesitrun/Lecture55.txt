@@ -1,0 +1,458 @@
+IMPORTANT METHODS OF MAP, STRING HANDLING, STRING VS STRINGBUFFER 
+
+put(Object k, Object v)
+get(Object k)
+containsKey(Object k)
+isEmpty() -> if there is no key-value pairs then it returns true or else false
+
+int size() returns the amount of key val pairs in the map or 0
+
+IMPLEMENTATION OF A HASHMAP IN JAVA 
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+class Lecture55HashMap {
+    public static void main(String[] args) {
+        HashMap<String, Long> teamSCA = new HashMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+        //indexing is based on the hashCode() so that's why the output is not sorted
+        System.out.println(teamSCA);
+        System.out.println("Enter the team member whose phone number is required: ");
+        Scanner sc = new Scanner(System.in);
+        //my code
+        String name = sc.nextLine();
+        if(teamSCA.containsKey(name))
+        System.out.println("The phone number of " + name +" is "+teamSCA.get(name));
+        else
+        System.out.println("no such team member exists");
+        //sir's code:
+        System.out.println("(Sir's)Enter name to search: ");
+        name = sc.next();
+        Long phone = teamSCA.get(name);
+        if(phone == null){
+            System.out.println("No record of " + name + " exists");
+        }else{
+            System.out.println("Phone number of " + name + " is " + phone);
+        }
+    }    
+}
+
+Next Challenge, I want to write code that only displays the Names of the members of teamSCA
+
+we can do it using the keySet() method.
+
+for(String i: teamSCA.keySet()){
+    System.out.println(i);
+}
+
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+class Lecture55HashMap {
+    public static void main(String[] args) {
+        HashMap<String, Long> teamSCA = new HashMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+
+        for(String i : teamSCA.keySet()){
+            System.out.println(i);
+        }
+
+        //keySet() return type is Set
+        Set<String> names = teamSCA.keySet();
+        for(String i : names){
+            System.out.println(i);
+        }
+    }    
+}
+
+I only want to view phone numbers.
+
+Then we will use the method values.
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+class Lecture55HashMap {
+    public static void main(String[] args) {
+        HashMap<String, Long> teamSCA = new HashMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+
+        //values() return type is Collection
+        Collection<Long> phones = teamSCA.values();
+        for(Long i : phones){
+            System.out.println(i);
+        }
+    }    
+}
+
+Now we want both vertically, we can do this:
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+class Lecture55HashMap {
+    public static void main(String[] args) {
+        HashMap<String, Long> teamSCA = new HashMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+
+        for(String i : teamSCA.keySet()){
+            System.out.println(i + ", " + teamSCA.get(i));
+        }
+    }
+}
+
+
+Sir's way Entry usage:
+
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Map;
+class Lecture55HashMap {
+    public static void main(String[] args) {
+        HashMap<String, Long> teamSCA = new HashMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+
+        Set<Map.Entry<String,Long>> all = teamSCA.entrySet();
+        for(Map.Entry<String,Long> i : all){ //all contains Entry members Map.Entry cause Entry is nested in Map
+            //now we are printing Map.Entry types k v pairs String and Long in all that is of type Map.Entry
+            System.out.println(i); //gives the Map.Entry
+            System.out.println(i.getKey()); // gives the Key
+            System.out.println(i.getValue()); //gives the Value
+        }
+    }    
+}
+
+Now the same stuff can be done using a TreeMap, now let's do a TreeMap IMPLEMENTATION
+
+import java.util.TreeMap;
+import java.util.Scanner;
+
+class Lecture55HashMap {
+    public static void main(String[] args) {
+        TreeMap<String, Long> teamSCA = new TreeMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+        //indexing is based on the hashCode() so that's why the output is not sorted
+        System.out.println(teamSCA);
+        System.out.println("Enter the team member whose phone number is required: ");
+        Scanner sc = new Scanner(System.in);
+        //my code
+        String name = sc.nextLine();
+        if(teamSCA.containsKey(name))
+        System.out.println("The phone number of " + name +" is "+teamSCA.get(name));
+        else
+        System.out.println("no such team member exists");
+        //sir's code:
+        System.out.println("(Sir's)Enter name to search: ");
+        name = sc.next();
+        Long phone = teamSCA.get(name);
+        if(phone == null){
+            System.out.println("No record of " + name + " exists");
+        }else{
+            System.out.println("Phone number of " + name + " is " + phone);
+        }
+    }    
+}
+
+Next Challenge, I want to write code that only displays the Names of the members of teamSCA
+
+we can do it using the keySet() method.
+
+for(String i: teamSCA.keySet()){
+    System.out.println(i);
+}
+
+
+import java.util.TreeMap;
+import java.util.Scanner;
+
+class Lecture55TreeMap {
+    public static void main(String[] args) {
+        TreeMap<String, Long> teamSCA = new TreeMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+
+        for(String i : teamSCA.keySet()){
+            System.out.println(i);
+        }
+
+        //keySet() return type is Set
+        Set<String> names = teamSCA.keySet();
+        for(String i : names){
+            System.out.println(i);
+        }
+    }    
+}
+
+I only want to view phone numbers.
+
+Then we will use the method values.
+
+import java.util.TreeMap;
+import java.util.Scanner;
+
+class Lecture55TreeMap {
+    public static void main(String[] args) {
+        TreeMap<String, Long> teamSCA = new TreeMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+
+        //values() return type is Collection
+        Collection<Long> phones = teamSCA.values();
+        for(Long i : phones){
+            System.out.println(i);
+        }
+    }    
+}
+
+Now we want both vertically, we can do this:
+
+import java.util.TreeMap;
+import java.util.Scanner;
+
+class Lecture55TreeMap {
+    public static void main(String[] args) {
+        TreeMap<String, Long> teamSCA = new TreeMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+
+        for(String i : teamSCA.keySet()){
+            System.out.println(i + ", " + teamSCA.get(i));
+        }
+    }
+}
+
+
+Sir's way Entry usage:
+
+import java.util.TreeMap;
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Set;
+import java.util.Map;
+class Lecture55TreeMap {
+    public static void main(String[] args) {
+        TreeMap<String, Long> teamSCA = new TreeMap<>();
+        teamSCA.put("Sachin",70000897L);
+        teamSCA.put("Afroz",10005897L);
+        teamSCA.put("Shivam",90080897L);
+        teamSCA.put("Faizaan",80060897L);
+
+        Set<Map.Entry<String,Long>> all = teamSCA.entrySet();
+        for(Map.Entry<String,Long> i : all){ //all contains Entry members Map.Entry cause Entry is nested in Map
+            //now we are printing Map.Entry types k v pairs String and Long in all that is of type Map.Entry
+            System.out.println(i); //gives the Map.Entry
+            System.out.println(i.getKey()); // gives the Key
+            System.out.println(i.getValue()); //gives the Value
+        }
+    }    
+}
+
+In Java, is there a way to Sort Collections in Java? Yes.
+Then use the Collections way to Sort these structures.
+
+
+Exercise:
+
+The program should have 3 classes:
+
+Account: should contain 3 data members called accountNumber, name, and balance.
+Also provide appropriate constructor and other important methods.
+
+Bank: should contain a HashMap of Account. Also provide 5 methods called:
+
+addAccount()
+getAccount()
+removeAccount()
+getCount()
+getAllAccounts()
+
+UseBank: This will be the driver class. It will contain code to do the following:
+
+Create 4 Account objects and add them to the Bank.
+Display their details.
+Now fetch the details of a particular account by passing it's account number.
+Remove an account by passing its account number.
+Display total number of accounts.
+
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Map;
+
+class Account{
+    private String name;
+    private int number;
+    private double balance;
+
+    public Account(String name, int number, double balance){
+        this.name = name;
+        this.number = number;
+        this.balance = balance;
+    }
+
+    public int getNumber(){
+        return this.number;
+    }
+
+    @Override
+    public String toString(){
+        return this.name + ", " + this.number + ", " + this.balance;
+    }
+
+}
+
+class Bank{
+    HashMap<Integer, Account> map = new HashMap<>();
+    
+    public void addAccount(Account a){
+        map.put(a.getNumber(),a);
+    }
+
+    public void getAccount(int k){
+        if(map.containsKey(k))
+            System.out.println(map.get(k));
+        else
+            System.out.println("the account number " + k + " doesn't exist, try another or create a new account");
+    }
+
+    public void removeAccount(int k){
+        if(map.containsKey(k))
+            map.remove(k);
+        else
+            System.out.println("Wrong credentials or doesn't exist");
+    }
+
+    public void getCount(){
+        System.out.println("The amount of accounts in the bank is: " + map.size());
+    }
+
+    public void getAllAccounts(){
+        System.out.println("all accounts in the bank are as follows: ");
+        
+        for(Map.Entry<Integer, Account> i : map.entrySet()){
+            System.out.println(i.getValue());
+        }
+    }
+}
+
+public class Lecture55Exercise10 {
+    public static void main(String[] args) {
+        Account a1 = new Account("hav", 7777, 1000000.0);
+        Account a2 = new Account("jay", 7801, 1000000.0);
+        Account a3 = new Account("ayu", 8000, 1000000.0);
+        Account a4 = new Account("kay", 6666, 1000000.0);
+        Bank b = new Bank();
+        b.addAccount(a1);
+        b.addAccount(a2);
+        b.addAccount(a3);
+        b.addAccount(a4);
+        b.getAllAccounts();
+        System.out.println("getting account as asked by account number: ");
+        b.getAccount(7777);
+        System.out.println("removing account by account number: ");
+        b.removeAccount(7777);
+        System.out.println("now the total is calculated again: ");
+        b.getCount();
+        System.out.println("after removal of that account all accounts are: ");
+        b.getAllAccounts();
+    }
+}
+
+
+NOW JAVA's EASIEST CHAPTER AND INTERVIEW QUESTIONS LOVE THIS TOPIC:
+
+String Handling
+===============
+
+For storing Strings, all youknow is String for holding Strings, the String class.
+
+But we have 3 classes to deal with String data.
+
+1. String class
+
+2. StringBuffer Class
+
+3. StringBuilder Class
+
+1. All these classes are available int he package java.lang 
+
+so you can use them by default in your psvm
+
+
+2. The classes String and StringBuffer are available from JDK 1.0 onwards.
+
+3. The class StringBuilder came in Java 5.
+(StringBuilder will be in our project batch for multithreading)
+
+String vs StringBuffer class.
+
+What is the difference?
+
+String objects in Java are always IMMUTABLE, while StringBufferobjects in Java are ALWAYS MUTABLE.
+
+IMMUTABLE AND MUTABLE. MUTABLE MEANS CAN BE CHANGED AND IMMUTABLE MEANS CANT BE CHANGED.
+
+IMMUTABLE MEANS ONCE INITIALIZED WE CAN NEVER CHANGE THE CONTENTS OF THAT OBJECT
+
+MUTABLE MEANS AFTER INITIALIZATION IT CAN BE CHANGED.
+
+example:
+
+String name = "Sachin";
+
+SOP(name); //Sachin
+
+name = name+" kapoor";
+
+SOP(name); // Sachin kapoor
+
+name is a reference, and contains String "Sachin"
+
+in memory a new String is created that can contain "Sachin kapoor"
+
+then the original "Sachin" is not pointed to by name
+
+and then it is addressed to the new initialized String Sachin kapoor at a new address
+
+The old Sachin was not changed.
+
+If it was a StringBuffer, then the object address "Sachin" would be mutated
+
+and then the alterations would happen at that address, no new object would be made for it.
+
+This is Java's nature.
+
+DUE TO IMMUTABILITY, A NEW COPY WAS MADE FOR THE STRING THEN IT WAS COPIED AND ADDED kapoor TO IT
+THATS WORSE THAN JUST USING THE STRINGBUILDER Class
+
+
+
+
+
