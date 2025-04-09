@@ -228,7 +228,26 @@ public class ArraysAssignment {
         */
 
         //11
-        System.out.println();
+        System.out.println("Enter values for the 3x3 array matrix: ");
+        Scanner sc = new Scanner(System.in);
+
+        int[][] mat = new int[3][3];
+        for(int i = 0; i<mat.length; i++){
+            for(int j = 0; j<mat[i].length; j++){
+                System.out.println("Enter value for mxpos["+i+"] ["+j+"]: ");
+                mat[i][j] = sc.nextInt();
+            }
+        }
+        for(int i = 0; i<mat.length; i++){
+            System.out.println(Arrays.toString(mat[i]));
+        }
+        //check transpose code
+        for(int i = 0; i<mat.length; i++){
+            for(int j = 0; j<mat[i].length; j++){
+                if(mat[i][j] == mat[mat.length-1-j][i])
+            }
+        }
+        
         //2D array of 3*3 matrx check if the matrix i symmetric or not.
         //meaning A = A transpose.
 
