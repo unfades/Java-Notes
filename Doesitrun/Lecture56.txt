@@ -1,0 +1,353 @@
+CONSTRUCTORS OF "String" Class
+
+1. public String()
+
+Ex: String name = new String();
+
+name will be an object reference and a new String is made in memory and "\o" is stored in it
+at an address in memory
+
+System.out.println(name.length()); //0
+
+2. public String(String)
+
+Ex: String name = new String("Sham");
+System.out.println(name);
+System.out.println(name.length); // 4
+
+Here name is Sham 
+and it is at an address 8000 which is stored in ref name
+and has String Sham in there
+
+String name = new String("Sham");
+String name = "Sham";
+
+difference.
+
+What do each of these Lines do?
+
+The first statement will create a String object in the HEAP area.
+But the second statement will create a String LITERAL in another special area of memory 
+called STRING CONSTANT POOL or METHOD AREA or PERM GEN AREA 
+
+new String("Sham") is in the HEAP
+
+"Sham" is in the String Constant Pool 
+
+Another difference is that the garbage collector will clean the HEAP AREA while removing the String object "Sham"
+when the ref name stops pointing to it. But the sString literal Sham will remain in memory until the program 
+terminates.
+
+
+String s1 = new String("hello");
+String s2 = new String("hello");
+
+System.out.println(s1==s2); // false
+
+new String creates a new object in memory
+so for s1 and s2 are created in memory at different locations holding the same contents
+pointed by refs s1 and s2
+Because the object addresses are compared. Not the contents.
+
+String s1 = "Hello";
+
+String s2 = "Hello";
+
+These Hellos are in the String Constant Pool...
+
+So Java first makes Hello if it is not already there for s1 
+
+then it is already in the String Constant Pool then it will just have 
+s2 point to the same String in the SCP 
+
+so here s1 and s2 are references pointing to the same address.
+
+therefore
+System.out.println(s1==s2); //yields true for the above
+
+3. public String (char[])
+
+Ex:
+
+char[] arr = {'s','h','a','m','i'};
+
+String name = arr; //SYNTAX ERROR : Incompatible types
+
+SOLUTION:
+
+String name = new Stirng(arr);
+System.out.println(name); //shami
+//game changer before i used loops
+
+4. public String(char[],int,int)
+
+int first is the starting index 
+int second is the number of characters
+
+char[] arr = {'s','h','a','m','i'};
+String name = new String(arr, 2, 3); ami stored in name as a String
+
+
+These are the constructors of String
+
+
+STRING METHODS
+==============
+
+
+1. public int length() : returns the length of the String
+
+EXAMPLE:
+
+String name = "ARUN" 
+System.out.println(name.length()); //4
+
+2. public char charAt(int) : Returns the character present at the index passed as arg.
+
+Ex:
+
+    String str = "Welcome";
+    System.out.println(str.charAt(2)); l
+    System.out.println(str.charAt(4)); o
+    System.out.println(str.charAt(12)); Exception
+
+3. public boolean equals(Object) //overridden by String class 
+
+4. public boolean equalsIgnoreCase(String)
+
+String s1 = new String("Bhopal");
+String s2 = new String("Bhopal");
+
+System.out.println(s1.equals(s2)); //true
+System.out.println(s1.equalsIgnoreCase(s2)); //true
+String s3 = new String("Bhopal");
+String(s1.equals(s3)); // false
+
+System.out.println(s1.equalsIgnoreCase(s3)); // true
+
+
+5. public int compareTo(Object) // also overridden in String class
+
+//all predefined classes in java have overridden compareTo
+
+6. public int compareToIgnoreCase(String) 
+
+EX:
+
+String s1 = new String("Bhopal");
+String s2 = new String("Bhopal");
+String s3 = new String("bhopal");
+
+System.out.println(s1.compareTo(s2)); -> 0
+System.out.println(s1.compareTo(s3)); -> -32
+System.out.println(s1.compareToIgnoreCase(s3)); - 0 because IgnoreCase.
+
+7. public int indexOf(char)
+
+8. public int indexOf(String) 
+
+String s1 = "Welcome";
+
+System.out.println(s1.indexOf('E')); //1
+System.out.println(s1.indexOf('A')); //-1
+System.out.println(s1.indexOf("COM")); //3
+
+9. public int lastIndexOf(char)
+
+10. public int lastIndexOf(String)
+
+System.out.println(s1.lastIndexOf('E')); //6
+System.out.println(s1.lastIndexOf('A')); //-1
+System.out.println(s1.lastIndexOf("COM")); //3
+
+11. public String substring(int, int)
+
+12. public String substring(int) 
+
+String str = "INDUSTRY";
+
+System.out.println(str.substring(2,6));//2 to 5 DUST
+System.out.println(str.substring(2)); //2 to str.length()-1 DUSTRY
+
+13. public boolean startsWith(String)
+14. public boolean endsWith(String)
+
+String str = "Hello";
+
+System.out.println(str.startsWith('Hell')); //true
+System.out.println(str.endsWith('heaven')); //false
+
+15. public String toLowerCase();
+15. public String toUpperCase();
+
+EX:
+
+String s1 = "Sachin";
+System.out.println(s1.toLowerCase());
+System.out.println(s1.toUpperCase());
+System.out.println(s1);
+
+17. 
+
+ex:
+
+int a = 25;
+
+String str = a; //ERROR
+
+2 Solutions.
+
+int a = 25;
+
+String str = a+"";
+
+
+Solution 2(best practices):
+
+public static String valueOf(int); //it can take bool double long float anything
+
+valueOf() //superoverloaded
+
+
+int a = 25;
+
+String str = String.valueOf(a); // works for all vals boolean double int etc etc
+
+System.out.println(str);
+
+The StringBuffer Class
+======================
+
+Whenever you want to make many changes into your string in your program,
+then use the StringBuffer class
+
+BAD PROGRAMMING
+
+String days = "";
+
+days = days+"Monday";
+
+days = days+"Tuesday";
+
+days = days+ "Wednesday";
+...
+
+System.out.println(days);// Monday thru Sunday
+
+BAD BAD
+
+for such cases always use StringBuffer.
+
+This calss is also used for String Handling, but we must use it in those situations where our string is 
+
+getting changed very frequently.
+
+
+CONSTRUCTORS OF STRINGBUFFER 
+============================
+
+1. public StringBuffer(String): Accepts a String as argument and initializes the StringBuffer Object with that String/
+
+But it creats the StringBuffer object with 16 extra characters set to '\0'... just Java's choice, 16
+
+2. public StringBuffer(int): Accepts an integers as arg and creates a StringBuffer object of that size
+
+
+3. public StringBuffer(): Accepts no arguments and creates a StringBuffer of 16 characters.
+
+METHODS:
+========
+
+1. public int length() : returns the number of characters
+
+2. public int capacity(): returns total buffer size 
+
+
+EX: 
+
+StringBuffer sb = "Shami"; //ERROR cannot make StringBuffer objects without new keyword
+
+StringBuffer sb = new StringBuffer("Shami"); //ok
+
+System.out.println(sb.length()); //6
+System.out.println(sb.capacity()); //22 -> 6 + 16
+
+EX: 
+StringBuffer sb = new StringBuffer("Welcome");
+
+System.out.println(sb); //Welcome
+System.out.println(sb.length()); //7
+System.out.println(sb.capacity()); //23
+
+3. public StringBuffer append(String)
+
+public StringBuffer append(int)
+
+public StringBuffer append(double)
+...
+
+StringBuffer sb = new StringBuffer("Welcome");
+
+System.out.println(sb); //Welcome
+System.out.println(sb.length()); // 7
+System.out.println(sb.capacity());// 23
+
+sb.append(" To Java");
+
+System.out.println(sb); //Welcome To Java
+System.out.println(sb.length()); // 15
+System.out.println(sb.capacity());// 23
+
+sb.append(" Programming");
+
+System.out.println(sb); // Welcome to Java Programming
+System.out.println(sb.length()); // 27 //now exceeds capacity 23
+System.out.println(sb.capacity());// 23 x 2 + 2 = 46+2 = 48 is the new capacity
+
+4. public void ensureCapacity(int)
+
+In case you wantt to specify the capacity and it will become the StringBuffers new capacity
+
+
+StringBuffer sb = new StringBuffer("Welcome");
+
+sb.ensureCapacity(50);
+System.out.println(sb); //Welcome
+System.out.println(sb.length()); // 7
+System.out.println(sb.capacity());// 50
+
+sb.ensureCapacity(80);
+System.out.println(sb); //Welcome 
+System.out.println(sb.length()); //7
+System.out.println(sb.capacity());// 102 and not 80 because our given 80 is less THAN
+//javas formula of capacity which is 5x2+2 = 102<80 then chosen 102
+
+//capacity rule in Java is that if your given capacity is less than javas formula for the current capacity
+//then it will choose the formula over your capacity for it
+//if its greater like ex not 80 and 200 then it will choose yours
+
+
+StringBuffer reverse()
+
+StringBuffer sb = new StringBuffer("Welcome");
+System.out.println(sb); // Welcome
+sb.reverse();
+System.out.println(sb); // emocleW
+
+6. StringBuffer replace(int,int,String)
+
+StringBuffer sb = new StringBuffer("Hello World!");
+
+System.out.println(sb); // Hello World!
+sb.replace(6,11, "India");
+System.out.println(sb); // Hello India!
+
+Java goes from 6 to 10, not to 11, it goes just before the index
+
+sb.replace(6,11,"Indians");
+System.out.println(sb); // Hello Indians!
+
+ALL THE REST OF THE METHODS THAT ARE IN STRING ARE ALSO PRESENT IN THE STRINGBUFFER Class
+
+StringHandling done.
+

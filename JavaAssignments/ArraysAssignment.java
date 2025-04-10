@@ -4,6 +4,16 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class ArraysAssignment {
+
+    //12 sum of dig of number recursive
+    public static int sum = 0;
+    public static int recurse(int number){
+        sum+=number%10;
+        System.out.println("sum is " + sum);
+        if(number == 0) return sum  + 0;
+        return recurse(number/10);
+    }
+
     public static void main(String[] args){
         /*
         //1
@@ -242,16 +252,26 @@ public class ArraysAssignment {
             System.out.println(Arrays.toString(mat[i]));
         }
         //check transpose code
+        int k = 0, l = 0;
+        boolean checkMat = true;
         for(int i = 0; i<mat.length; i++){
             for(int j = 0; j<mat[i].length; j++){
-                if(mat[i][j] == mat[mat.length-1-j][i])
+                if(mat[i][j] == mat[k][l]){
+                    k++;
+                    if(k==mat.length){ k = 0; l++;}
+                }else{
+                    System.out.println("Not symmetric matrices");
+                    checkMat = false;
+                    break;
+                }
             }
         }
+        if(checkMat){System.out.println("Symmetric matrices");}
         
         //2D array of 3*3 matrx check if the matrix i symmetric or not.
         //meaning A = A transpose.
 
-        //12
-        
+        //12 see recursive in the main class
+        System.out.println(recurse(123));
     }
 }
