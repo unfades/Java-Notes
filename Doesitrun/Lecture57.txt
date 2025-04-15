@@ -1,0 +1,417 @@
+KNOWLEDGE:
+
+String Constant Pool Area is also a special part of the Heap area where the Heap objects are not there,
+Just SCP Strings in it.
+
+==========================================================================================================
+
+PACKAGES
+========
+
+1. A package is a collection of related classes and interfaces.
+
+2. For example: if we are developing a project in Java then all the classes and interfaces related to DB interaction
+must go in one package, all the classes related to GUI should go in another package and all the classes related to business
+logic must go in a different package.
+
+3. Java itself has around 230 packages containing classes of different nature. Like in java.util. we have 
+Collection and Date-Time related classes, java.io contains File Handling classes, java.sql contains classes
+or interfaces related to DB programming etc.
+
+WHAT IS THE BENEFIT OF CREATING A PACKAGE when it works without it.
+===================================================================
+
+There are multiple benefits of creating a package:
+
+1. The code looks more organized if we create packages and put classes into them.
+
+2. We can import a class in other programs only if a class is a part of a package.
+
+3. There cannot be classes of the same name in our program. But if we use packages,
+we can easily solve naming conflicts.
+
+For ex: if we have 2 packages, we can have 2 classes in them with the same name without any problem.
+
+STANDARD STRUCTURE OF A JAVA CODE 
+=================================
+
+Packages are simply folders by the way.
+Just by making a folder on the hard disk, it is not a package in Java,
+it is a folder in java.
+
+Java considers your folder a package when you do these 2 things:
+
+declare package keyword and package name
+
+import java.util.HashMap;
+
+util is a package, and util is a package.
+Nested packages.
+
+//first line in notepad is for packages.
+
+package <package_name>;
+import...
+import...
+
+class <classname>{
+    ...
+    ...
+}
+
+in a folder go to it and make a file called Test57.java
+
+and above it write package part as well and then compile it specially using 
+
+command prompt by this syntax: javac -d . <classname>.java
+
+here dot means the current location, here means . , where you want to save the package it will go there.
+
+and then compile it and the .class will be held in that package.
+
+And you run it by syntax: java <packagename>.<classname>
+
+How do we compile a program with a package?
+
+===========================================================
+
+How do we compile a program with a package?
+===========================================
+
+1. javac -d . <NameOfTheSourceCodeFile>
+
+   javac is the java compiler
+
+   -d is a switch which forces the compiler to create a package
+
+    . is the period which represents that the package must be located HERE, current location, 
+    instead of . it could be a filepath from your pc 
+
+
+//These are terminal commands to make switches, 
+//in the CS subject operating systems.
+
+
+Ex:
+
+javac -d . Test.java 
+
+2. java package_name.name_of_main_class
+
+Ex: java mystudents.Test 
+
+camelCase is only for methods and variables
+packages is all lowercase.
+
+
+when 2 classes have the same package, no need to import that class, you can directly use it make objects
+of it.
+
+WHen we compile a class like UseNum, and it has Object of Num class
+
+Both UseNum and Num are uncompiled, then when I compile UseNum, Num is automatically compiled
+This is the way of Java and how efficient is that right.
+
+You do it by saying *.java in the command:
+
+javac -d . *.java //compiles all uncompiled classes in that file 
+
+
+package mystudents;
+
+class Num{
+
+	private int a,b,c;
+
+	void set(int i, int j){
+		a = i;
+		b = j;
+	}
+
+	void add(){ c = a+b; }
+
+	void show(){
+		System.out.println("Nos are: " + a + "," + b);
+		System.out.println("Sum is: " + c);
+	}
+}
+
+and
+
+package mystudents;
+
+import java.util.Scanner;
+
+class UseNum{
+
+	public static void main(String[] args){
+
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Enter 2 int:");
+	int x = sc.nextInt();
+	int y = sc.nextInt();
+	Num obj = new Num();
+	obj.set(x,y);
+	obj.add();
+	obj.show();
+	}
+}
+
+running it all works out they are in the same package.
+mystudents 
+
+
+Twist:
+
+
+changing packages of UseNum and Num 
+
+package sahabi;
+
+import java.util.Scanner;
+
+class UseNum{
+
+	public static void main(String[] args){
+
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Enter 2 int:");
+	int x = sc.nextInt();
+	int y = sc.nextInt();
+	Num obj = new Num();
+	obj.set(x,y);
+	obj.add();
+	obj.show();
+	}
+}
+
+package mystudents;
+
+class Num{
+
+	private int a,b,c;
+
+	void set(int i, int j){
+		a = i;
+		b = j;
+	}
+
+	void add(){ c = a+b; }
+
+	void show(){
+		System.out.println("Nos are: " + a + "," + b);
+		System.out.println("Sum is: " + c);
+	}
+}
+
+now java will say where is Num cause it ain't found.
+
+package sahabi;
+import mystudents.Num;
+
+import java.util.Scanner;
+
+class UseNum{
+
+	public static void main(String[] args){
+
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Enter 2 int:");
+	int x = sc.nextInt();
+	int y = sc.nextInt();
+	Num obj = new Num();
+	obj.set(x,y);
+	obj.add();
+	obj.show();
+	}
+}
+
+even after importing there is an error,
+
+why because the class Num wasn't public, it was default.
+
+Now class vs public class difference:
+
+means
+default class vs public class:
+
+So default classes can be accessed within the package but not outside the package.
+
+
+
+Accessing a class outside its package
+=====================================
+
+1. To access a class outside its package, we will have to import it.
+
+2. To be imported the class must be declared as a public class.
+
+3. Making a class public doesn't make its members as public. So in order to access these members from 
+outside the package, they too will have to be declared as "public"
+
+4. If a class is "public" then the name of the SOURCE CODE file must be the same as the name of "public" class.
+
+5. In one .java file we can have multiple classes but only ONE public class per program.
+Because then the program will be confused which file is the NAME of the PROGRAM SOURCE CODE FILE.
+Because the SOURCE CODE file must have the same name as the name of the "public class".
+
+so making Num public here:
+
+package mystudents;
+//now it can be accessed in other packages cause its not default its public.
+public class Num{
+
+	private int a,b,c;
+
+	void set(int i, int j){
+		a = i;
+		b = j;
+	}
+
+	void add(){ c = a+b; }
+
+	void show(){
+		System.out.println("Nos are: " + a + "," + b);
+		System.out.println("Sum is: " + c);
+	}
+}
+
+package sahabi;
+import mystudents.Num;
+
+import java.util.Scanner;
+
+class UseNum{
+
+	public static void main(String[] args){
+
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Enter 2 int:");
+	int x = sc.nextInt();
+	int y = sc.nextInt();
+	Num obj = new Num();
+	obj.set(x,y);
+	obj.add();
+	obj.show();
+	}
+}
+
+after code recompilation and running we get:
+
+Another error,
+
+The methods of UseNum are not able to be called as they are in default mode.
+
+they need to be named public,
+
+Making a class as public doesnt make its members public,
+in order to access these members from outside the package they too will have to be declared as public.
+
+D:\Packages>javac -d . Num.java
+
+D:\Packages>javac -d . UseNum.java
+
+D:\Packages>java sahabi.UseNum
+Enter 2 int:
+44 25
+Nos are: 44,25
+Sum is: 69
+
+now it works fine after making the methods access specifiers as public
+
+package mystudents;
+
+public class Num{
+
+	private int a,b,c;
+
+	public void set(int i, int j){
+		a = i;
+		b = j;
+	}
+
+	public void add(){ c = a+b; }
+
+	public void show(){
+		System.out.println("Nos are: " + a + "," + b);
+		System.out.println("Sum is: " + c);
+	}
+}
+
+and 
+
+package sahabi;
+import mystudents.Num;
+
+import java.util.Scanner;
+
+class UseNum{
+
+	public static void main(String[] args){
+
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Enter 2 int:");
+	int x = sc.nextInt();
+	int y = sc.nextInt();
+	Num obj = new Num();
+	obj.set(x,y);
+	obj.add();
+	obj.show();
+	}
+}
+
+is giving the proper output the right way.
+
+
+MOST IMPORTANT TO REMEMBER:
+
+In a .java file you can only make 1 class public, if you want 2 public classes you must make a seperate .java file for
+them seperately.
+
+in 1 java file it can have unlimited classes.
+
+But only ONE public class.
+
+UNDERSTAND
+
+I made a package called geometry
+
+inside there is a .java file and it has classes 
+
+public class Rectangle
+
+class Circle 
+
+class Triangle
+
+these classes in their package geometry are available in another program in geometry.
+
+But they are not available in another package only Rectangle will be as
+
+Rectangle is public
+
+if all should be available we will have to make Seperate .java files for Circle, Rectangle,
+and Triangle and set them to public to be available in another package
+
+So 
+
+public class Circle in a .java 
+public class Rectangle in a .java 
+public class Triangle in a .java
+
+and then they are able to be used in another package as imports in its programs like seen in
+
+UseNum and Num the same way.
+
+JAVA DOES NOT FORCE THE PROGRAM NAME AND CLASS NAME TO BE THE SAME But
+
+IF IN YOUR PROGRAM IF YOU MADE A CLASS PUBLIC THEN JAVA FORCES your Program name to be 
+the same as the public class's name.
+
+THIS IS THE REASON 2 CLASSES CANNOT BE PUBLIC IN A JAVA PROGRAM, BECAUSE THE CLASS THAT IS PUBLIC
+WILL HAVE THE SAME NAME AS THE PROGRAM NAME 
+
+like public class Program{} and Program.java //ALIGNS VALID
+
+
+
