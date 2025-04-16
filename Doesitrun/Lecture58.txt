@@ -1,0 +1,309 @@
+packages, accessibility rules, file Handling
+
+Sample
+======
+
+If the folder path for classes in packages is different
+
+E:\OnlineJavaBatch6\mystudents\Num.class
+
+now we want to use it in D:\sample2\sachin
+
+C:\Users\sahab>cd sample2
+
+C:\Users\sahab\sample2>javac -d . UseNum.java
+UseNum.java:3: error: package mystudents does not exist
+import mystudents.Num;
+                 ^
+UseNum.java:15: error: cannot find symbol
+        Num obj = new Num();
+        ^
+  symbol:   class Num
+  location: class UseNum
+UseNum.java:15: error: cannot find symbol
+        Num obj = new Num();
+                      ^
+  symbol:   class Num
+  location: class UseNum
+3 errors
+
+mystudent is not in sample2, it is in another drive. It was tryna find it in sample2
+
+So Java says you gotta add a classpath in your environment variables.
+
+Set classpath
+
+classpath is a setting we do in our computer for enabling our program to access packages that
+are not at our location nor are a part of the JRE
+
+by default in the classPath, it has all the JRE packages.
+
+But our location of mystudents is not in there.
+
+You need to set the classpath, you cannot specify the location in cmd
+
+cause that is in our program.
+
+to set classpath:
+
+1. turn off cmd 
+
+2. go to environment variables in your pc
+
+3. Remember we had set path there before.
+
+4. today we are setting classpath
+
+path is set for windows(your OS), so windows gets java software to be executed outside the bin, 
+
+classpath is set for java, it is for java compiler and jvm for when we import it in our program
+
+if it is not at current location nor in JRE, we have to set that in the classpath environment variable.
+
+click new user variable
+
+as name classpath
+
+as location you set the location of the folder that holds packages.
+
+You can put multiple packages there with semicolons, then after it put dot .
+
+to specify current location inside that folder. thats what the dot is for
+
+to mention that the program is running from the current location
+
+if there is another classpath, then you can also do ;%classpath% for that as well.
+
+
+E:\OnlineJavaBatch6
+
+^location for the package mystudents
+
+.
+
+^represents current location, means the location from where the program is getting compiled and executed.
+
+;%classpath%
+
+^
+this tells the compiler to retain the old classpath if it has been set already...
+
+E:\onlinejavabatchg;.;%classpath%
+
+
+for my classpath it is 
+
+D:\Packages;.;%classpath%
+
+DURING DOING THIS THE COMMAND PROMPT MUST BE CLOSED OR ELSE NONE OF THIS IS GOING TO WORK 
+
+now,
+
+in cmd you type the same compilation code and it will work now since classpath was set
+
+Microsoft Windows [Version 10.0.19045.5371]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\sahab>AFolderInC
+'AFolderInC' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\sahab>cd AFolderInC
+
+C:\Users\sahab\AFolderInC>javac -d . *.java //couldve also said UseNum.java, * means everything inside which is just UseNum
+
+C:\Users\sahab\AFolderInC>java sample2.UseNum
+Enter 2 int:
+4 5
+Nos are: 4,5
+Sum is: 9
+
+This is for whenever you put code in a new directory, or new drive location and stuff
+
+This is for directly doing things on the command prompt, netbeans auto does all that for you
+
+so this knowledge is for you as a developer 
+
+ACCESSIBILITY RULES FOR CLASS MEMBERS WRT PACKAGES
+==================================================
+
+Access Modifers -----> public, private, default, protected
+
+FINAL SESSION THAT COVERS EVERYTHING ON THESE ACCESS MODIFIERS STRAIGHT UP 
+
+Place Of Access  
+|
+|
+|
+1. SAME CLASS   
+private(yes) public(yes) default(yes) protected(yes)
+
+2. SAME PACKAGE, NON SUB CLASS
+(didn't have to import Num)
+(cause Num and UseNum were in the same package)
+as private doesnt go out of class
+private(no) public(yes) default(yes) protected(yes)
+
+protected is available in any class in a package if the package is the same for them
+default and protected difference explained soon 
+
+3. SAME PACKAGE,
+SUB CLASS
+as private doesnt go out of class
+if non subclass is getting it then subclas ofc also will get it
+
+private(no) public(yes) default(yes) protected(yes)
+
+4. DIFFERENT PACKAGE,
+NON SUB CLASS
+due to being a NON sub class 
+private(no) public(yes) default(no) protected(no)
+
+5. DIFFERENT PACKAGE,
+SUB CLASS 
+
+this is the difference between protected and default, 
+as long as the class is a child of a class,
+protected are allowed to be accessed from parent class,
+while default are not allowed to be accessed.
+They cannot be accessed outside the package.
+Protected are allowed outside the package but in SUBCLASSES.
+
+private(no) public(yes) default(no) protected(yes) 100%
+
+default is more restricted than protected.
+however protected is more accessible than default.
+
+PACKAGES COMPLETE.
+
+FILE HANDLING IN JAVA 
+=====================
+
+JAVA HAS BETTER FILE HANDLING POWER THAN C/C++
+
+With File Handlingin Java you can do 2 activities:
+
+1. Reading and Writing Data in the File
+
+2. Performing non I/O operations on files and directories like:
+
+creating a new folder,
+
+listing all the members of a folder,
+
+deleting a file or folder,
+
+etc. 
+
+These are Non I/O operations that are also available in Java.
+
+Performing Non I/O operations:
+
+For this category of Operations we use the class java.io.File
+
+For this category of operations we use 4 classes. Reader, Writer, InputStream, OutputStream.
+All are available in the package java.io.
+
+Reader and Writer class is used for performing I/O operations on text files.
+
+OutputStream and InputStream are used for performing I/O operations on binary files.
+
+Important points:
+=================
+
+1. For the category of operations of non i/o on files and directories we use the class java.io.File.
+This class can perform various operations on files as well as directories but cannot read or write Data
+in a file.
+
+2. For the category of operations of reading and writing, we have 4 classes. Reader, Writer, 
+InputStream, OutputStream. All are available in the package java.io
+
+3. Reader and Writer classes are used for performing I/O operations on text files.
+
+4. OutputStream and InputStream are used for performing I/O operations on BINARY files.
+
+5. Reader, Writer, InputStream, OutputStream are all ABSTRACT classes.
+
+cannot have objects made of these classes, but we can create objects of their CHILD CLASSES and 
+using those CHILD CLASSES we can call the methods of these ABSTRACT CLASSES.
+
+Java has already made child classes of these abstract classes by itself.
+We do not need to make our own child classes, we are simply gonna use those classes which 
+Java already made.
+
+They are abstract because you can read data from various resources, so read was made once in the abstract class
+Reader but it didn't know from where it was read.
+
+Wherever its read from, the derived class would be there for reading that data.
+You can read from files, networks, html, etc etc.
+
+Before Java 5's Scanner class was made, 
+people could take keyboard input too, they would use this Reader class during those times.
+
+All 4 of those classes have premade child classes, 
+
+we just call their methods and make objects of the premade child classes. That's it.
+
+Theres a lot of them you can search them on the internet but for us we are going to use a limited
+amount of them.
+
+===================================================================================================
+
+
+not an abstract class 
+
+
+The "File" class
+Constructor:
+
+public File(String)
+
+
+Example:
+
+Object instantiated of File via f reference:
+
+\\ for separator or /
+because \ is an escape sequence in Java and programming languages.
+
+
+File f = new File("d:\\Assignments\\Test Papers\\Test Paper 2.docx");
+OR you can 
+File f = new File("d:/Assignments/Test Papers/Test Paper 2.docx");
+
+f is now pointing to that file 
+
+now methods are gonna be for that file
+methods can be called now
+f.length() --> the size of the file in bytes.
+
+f needs to be connected to the file before they can be accessed.
+
+
+Methods of File class:
+
+1. public boolean exists();
+2. public String getName();
+3. public boolean isFile();
+4. public boolean isDirectory();
+5. public boolean isHidden();
+6. public boolean canWrite();
+
+exists() makes sure the file exists before you start your manipulations/operations
+
+
+getName() returns file name
+
+isFile() tells us if its a file or directory
+true for file, false for directory
+
+same for isDirectory() but the opposite
+true for directory, false for file 
+
+isHidden() tells us if the file is hidden or not
+
+isHidden() true if it is hidden, if it isn't hidden then false
+
+canWrite() false if the file is read only and true if it is able to be written to.
+
+
