@@ -25,5 +25,6 @@ public class StringAssignment6 {
         System.out.println("before removal: " + s);
         s = s.replace(removal, "");
         System.out.println("after removal: " + s);
+        sc.close();
     }    
 }

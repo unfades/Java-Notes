@@ -30,5 +30,6 @@ public class StringAssignment2{
         if(onlyone){
             System.out.println("there are no multiple elements in the string");
         }
+        sc.close();
     }
 }

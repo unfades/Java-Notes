@@ -19,5 +19,6 @@ public class StringAssignment9 {
             }
         }
         System.out.println("string " + occurrences + " occurs " + count + " times in string " + s);
+        sc.close();
     }
 }

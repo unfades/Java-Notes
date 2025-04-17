@@ -24,5 +24,6 @@ public class StringsAssignment7 {
             }
         }
         System.out.println(sum);
+        sc.close();
     }
 }

@@ -13,5 +13,6 @@ public class StringAssignment8 {
         char remove = sc.next().charAt(0);
         s = s.replace(Character.toString(remove), "");
         System.out.println("after removing that it is: " + s);
+        sc.close();
     }
 }

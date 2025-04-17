@@ -23,5 +23,6 @@ public class StringAssignment3{
         }else{
             System.out.println(s + s2);
         }
+        sc.close();
     }
 }

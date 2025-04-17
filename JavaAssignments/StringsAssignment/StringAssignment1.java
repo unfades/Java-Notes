@@ -13,5 +13,6 @@ public class StringAssignment1{
             s = s.replace("ac","");
         }
         System.out.println(s + " after replacement");
+        sc.close();
     }
 }
