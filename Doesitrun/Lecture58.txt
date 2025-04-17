@@ -306,4 +306,3 @@ isHidden() true if it is hidden, if it isn't hidden then false
 
 canWrite() false if the file is read only and true if it is able to be written to.
 
-
