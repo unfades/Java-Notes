@@ -1,3 +1,201 @@
 file handling, classes and methods used in file handling
 ========================================================
 
+import java.io.*;
+public class Lecture59FileIO{
+    public static void main(String[] args){
+        File myfile = new File("D:/File/TestWord.docx");
+        if(myfile.exists()){
+            System.out.println(myfile.getName() + " is present.");
+        }else{
+            System.out.println("File is not present");
+            System.exit(0);
+        }
+
+        if(myfile.isFile()){
+            System.out.println(myfile.getName() + " is a file" + " and its size is " + myfile.length());
+        }else{
+            System.out.println(myfile.getName() + " is a directory");
+        }
+
+        if(myfile.isHidden()){
+            System.out.println(myfile.getName() + " is hidden!");
+        }else{
+            System.out.println(myfile.getName()  + " is not hidden...");
+        }
+
+        if(myfile.canWrite()){
+            System.out.println(myfile.getName() + " allows writing");
+        }else{
+            System.out.println(myfile.getName() + " doesnt allow writing");
+        }
+    }
+}
+
+
+Methods of File class:
+
+1. public boolean exists();
+2. public String getName();
+3. public boolean isFile();
+4. public boolean isDirectory();
+5. public boolean isHidden();
+6. public boolean canWrite();
+
+exists() makes sure the file exists before you start your manipulations/operations
+
+
+getName() returns file name
+
+isFile() tells us if its a file or directory
+true for file, false for directory
+
+same for isDirectory() but the opposite
+true for directory, false for file 
+
+isHidden() tells us if the file is hidden or not
+
+isHidden() true if it is hidden, if it isn't hidden then false
+
+canWrite() false if the file is read only and true if it is able to be written to.
+
+More methods learned today:
+
+7. public boolean delete()
+
+8. public long length()
+
+9. public long lastModified()
+
+10. public boolean mkdir()
+
+11. public boolean mkdirs()
+
+12. pubic String[] list()
+
+
+7. delete() will delete the file permanently
+and even the folder only if the folder has no other files inside
+and if the file to be deleted is also closed and not open.
+
+8. will tell you the file size in bytes precisely
+
+import java.io.*;
+
+public class Lecture59Part2 {
+    public static void main(String[] args) {
+        //go create this file in the directory if it is not there already first for it to work
+        File myfile = new File("D:/File/mysecrets.txt");
+        System.out.println(myfile.getName() + " exists?: " + myfile.exists());        
+        System.out.println(myfile.getName() + " size in bytes is: " + myfile.length() + " bytes");
+        System.out.println(myfile.getName() + "is deleted?: " + myfile.delete());
+        System.out.println(myfile.getName() + " exists now after deletion?: " + myfile.exists());
+    }
+}
+
+9. public long lastModified()
+
+this tells us the last time the file was modified.
+windows properties tells you as well, so this method works just like that.
+
+lastModified is gonna give you that date. But the return type is long, 
+so how is date and time gonna come into long?
+
+it is going to be told in milliseconds,
+it starts counting at 
+1st jan 1970 12am time in milliseconds
+and subtracts that by the current date of today in milliseconds
+and returns the value of the difference to us also in milliseconds
+
+1st Jan 1970 12:00 AM is the epoch date.
+
+epoch means the day something specail was done 
+
+The first server of unix operating system was launched at this date.
+
+if the file was modified before 1970 then the answer will be in negative values
+of milliseconds
+
+the answer is not going to be understood by us logically, 
+
+so we have to convert it to date from milliseconds, by using the Date class.
+
+Date class has 2 constructors, 
+
+Date d = new Date(); //puts the current date and time in there.
+
+Date d1 = new Date(num); //then the number in milliseconds is converted into the date and time conversion for our
+date and time
+
+import java.io.*;
+import java.util.Date;
+
+public class Lecture59Part3 {
+    public static void main(String[] args) {
+        //go create this file in the directory if it is not there already first for it to work
+        File myfile = new File("D:/File/mysecrets.txt");
+        System.out.println(myfile.getName() + " exists?: " + myfile.exists());        
+        System.out.println(myfile.getName() + " was last modified " + myfile.lastModified());
+        Date d = new Date(myfile.lastModified());
+        System.out.println("the above time is: " + d);
+    }
+}
+
+10. mkdir() and mkdirs()
+
+these make directories
+
+and the difference between them is:
+
+File f = new File("D:/Bhopal/sca");
+//not there then we can do f.mkdir();
+
+it will only happen when the previous path is there,
+meaning if bhopal is not there it wont make it,
+//a folder in the pre existing path will be made alone.
+
+f.mkdirs() 
+
+//this will make all the folders that are not already there in the path.
+//folders within folders that did not exist.
+
+import java.io.File;
+
+public class Lecture59Part4 {
+    public static void main(String[] args) {
+        //initially all false since nothing is there,
+        //then after replacing mkdir with mkdirs() then false, true true, cause the paths will be made
+        //if not already present for the folder
+        File f = new File("D:\\File\\City\\Address");
+        System.out.println(f.getName() + " exists?: " + f.exists());
+        System.out.println(f.getName() + " gotcreated?: " + f.mkdirs());
+        System.out.println(f.getName() + " exists?: " + f.exists());
+    }
+}
+
+12. public String[] list()
+
+list() 
+
+gives us the name list of all files and directories within a folder
+
+
+import java.io.File;
+
+public class Lecture59Part5 {
+    public static void main(String[] args) {
+        File f = new File("D:\\File");
+        String[] arr = f.list();
+        System.out.println("total members: " + arr.length);
+        for(String i: arr){
+            System.out.println(i);
+        }
+        
+    }
+}
+
+Reading files
+=============
+
+TBC TBC TBC
+

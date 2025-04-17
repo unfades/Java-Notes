@@ -23,5 +23,6 @@ public class StringAssignment4 {
             sb.append(""+s.charAt(s.length()-2));
         }
         System.out.println(sb.toString());
+        sc.close();
     }
 }

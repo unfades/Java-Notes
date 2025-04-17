@@ -13,5 +13,6 @@ public class StringAssignment10 {
         s = s.repeat(concat);
         System.out.println("after concatenating it is: ");
         System.out.println(s);
+        sc.close();
     }
 }

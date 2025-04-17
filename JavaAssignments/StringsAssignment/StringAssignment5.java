@@ -17,5 +17,6 @@ public class StringAssignment5 {
             System.out.println("The given string is: " + s);
             System.out.println("The first two characters appear in the last is false");
         }
+        sc.close();
     }    
 }
