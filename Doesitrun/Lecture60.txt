@@ -1,0 +1,283 @@
+FileReader fr = new FileReader("C:/AboutJava.txt");
+
+
+
+Answer:
+
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
+
+public class FileExample3a{
+    public static void main(String[] args) {
+
+        FileReader fr = null;
+        try{
+            fr = new FileReader("D:/AboutJava.txt");
+            int count = 0;
+            File f = new File("D:/AboutJava.txt");
+            char[] arr = new char[(int)f.length()];
+            count = fr.read(arr);
+            String s = new String(arr);
+            System.out.println(s);
+            System.out.println("\nTotal characters read: "+count);
+        }catch(FileNotFoundException fnf){
+            System.out.println("Cannot open the file: "+ fnf.getMessage());
+        }catch(IOException io){
+            System.out.println("Error while reading file");
+        }finally{
+            //must happen, as long as fr is not null, then close it up, its try catch in finally again because
+            //close also throws IOException
+            if(fr!=null){
+                try{
+                    fr.close();
+                }catch(Exception ex){
+                    System.out.println("Error while closing the file");
+                }
+            }
+        }
+    }
+}
+//The BufferedReader class is the recommended way to do stuff not this
+/*Because the FileReader uses read() and it gets it from the disk,
+ meaning its called again and again making the performance slower...
+ Better to use BufferedReader instead.
+Because Buffer is in RAM.
+
+ BufferedReader gets the data from the file and BufferedReader is faster.
+
+ BufferedReader is the fastest class of Reader class speed wise, reading is super fast.
+ */
+
+
+ import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileExample3{
+    public static void main(String[] args) {
+
+        //in case the file is not present, then in the try, there is a FileNotFoundException.
+        //user gets the message System cannot find the file etc..
+
+        //finally runs. and then if is false. because the file wasnt opened, its null,
+        //then there would be a NullPointerException,
+        //to be saved from that NullPointerException, then we use if(fr!=null)
+
+        FileReader fr = null;
+        try{
+            fr = new FileReader("D:/AboutJava.txt"); //filepath to read via FileReader object, cause Reader is Abstract. FileReader is its child.
+            /*throws FileNotFound Exception check prototype, checked exception,
+            must use try catch or use throws in main()*/
+            int ch; //int because read() returns unicode of the current char() being read, then moves to the next char.
+            int count = 0; //to count the characters.
+            while((ch=fr.read())!=-1){
+                System.out.print((char)ch);
+                ++count;
+            }
+            System.out.println("\nTotal characters read: "+count);
+        }catch(FileNotFoundException fnf){
+            System.out.println("Cannot open the file: "+ fnf.getMessage());
+        }catch(IOException io){
+            System.out.println("Error while reading file");
+        }finally{
+            //must happen, as long as fr is not null, then close it up, its try catch in finally again because
+            //close also throws IOException
+            if(fr!=null){
+                try{
+                    fr.close();
+                }catch(Exception ex){
+                    System.out.println("Error while closing the file");
+                }
+            }
+        }
+    }
+}
+//The BufferedReader class is the recommended way to do stuff not this
+/*Because the FileReader uses read() and it gets it from the disk,
+ meaning its called again and again making the performance slower...
+ Better to use BufferedReader instead.
+Because Buffer is in RAM.
+
+ BufferedReader gets the data from the file and BufferedReader is faster.
+
+ BufferedReader is the fastest class of Reader class speed wise, reading is super fast.
+ */
+
+
+
+//The BufferedReader class is the recommended way to do stuff not this
+/*Because the FileReader uses read() and it gets it from the disk,
+ meaning its called again and again making the performance slower...
+ Better to use BufferedReader instead.
+Because Buffer is in RAM.
+
+ BufferedReader gets the data from the file and BufferedReader is faster.
+
+ BufferedReader is the fastest class of Reader class speed wise, reading is super fast.
+ */
+
+BufferedReader class
+
+ReadLine() method is best for reading files fast.
+
+But there is one problem in the constructor.
+
+BufferReader br = new BufferReader(Reader); Reader child is gonna be going into it that is FileReader for us
+
+FileReader fr = new FileReader("D:/AboutJava.txt");
+BufferReader br = new BufferReader(fr);
+
+just like read() from FileReader returns -1 at the end of File, readLine() at the end of File returns null.
+
+The recommended way:
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
+
+public class FileExample3b{
+    public static void main(String[] args) {
+        FileReader fr = null;
+        try{
+            fr = new FileReader("D:/AboutJava.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String str;
+            int count = 0; 
+            while((str=br.readLine())!=null){
+                System.out.println(str);
+                count = count+str.length();
+            }
+            System.out.println("\nTotal characters read: "+count);
+        }catch(FileNotFoundException fnf){
+            System.out.println("Cannot open the file: "+ fnf.getMessage());
+        }catch(IOException io){
+            System.out.println("Error while reading file");
+        }finally{
+            if(fr!=null){
+                try{
+                    fr.close();
+                }catch(Exception ex){
+                    System.out.println("Error while closing the file");
+                }
+            }
+        }
+    }
+}
+
+JUST LIKE THE Abstract Reader CLASS IN JAVA FOR READING via child methods,
+
+WE HAVE THE ABSTRACT CLASS Writer FOR WRITING...
+
+WRITING TEXT FILES JAVA:
+
+The Writer class
+
+Methods:
+
+In this its similar to the Reader as well.. So see these methods:
+
+1. public void write(int) throws IOException
+//^int because you can pass both characters into it and also int val of the chars.
+'A'or 65 can be entered in the method.
+
+2. public void write(char[]) throws IOException
+
+3. public abstract void write(char[],int off, int len) throws IOException
+
+4. public void write(String) throws IOException
+
+5. public void write(String,int off, int len) throws IOException
+
+String str = "Sachin Kapoor";
+
+Sachin Kapoor, 0, 6 in case you just want Sachin in there.
+
+6. public void close() throws IOException
+writes data in disk, then close the file
+exception comes up cause it was closed if you try to alter stuff after.
+
+7. public void flush() throws IOException
+writes data in disk, doesnt close it,
+so you can do more operations after as its not closed
+
+The "FileWriter" class
+
+Constructors:
+
+1. public FileWriter(String) throws IOException
+
+if file not found, then it creates that file,
+and if the file is there, and has data, then the data is lost..
+
+if you want to append the data, theres no metho for it, you need to pass using method 3.
+2. public FileWriter(File) throws IOException
+
+3. public FileWriter(String, boolean) throws IOException
+appends the data in there if its true, if its false, then it overwrites it.
+just like using the first method 1. if false.
+
+4. public FileWriter(File, boolean) throws IOException
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+public class FileExample4 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        FileWriter fw = null;
+        try{
+            fw = new FileWriter("D:/myfile.txt");
+            System.out.println("What is your name?");
+            String name = sc.nextLine();
+            System.out.println("What is your address?");
+            String addr = sc.nextLine();
+            fw.write(name);
+            fw.write("\n");
+            fw.write(addr);
+        }catch(IOException ex){
+            System.out.println("Error while writing file");
+        }finally{
+            if(fw!=null){
+                try{
+                    fw.close();
+                    System.out.println("File was saved successfully...");
+                }catch(Exception e){
+                    System.out.println("Error while closing the file...");
+                }
+            }
+            sc.close();
+        }
+    }
+}
+
+
+The class PrintWriter is Much Better than FileWriter...
+
+Here are the reasons why and here is the class details:
+
+The PrintWriter Class:
+
+This class is also the derived class of Writer but has got print() and println() methods.
+Just like System.out.
+
+These Methods are overloaded and can accept any kind of argument and write it in the file.
+
+Thus as a programmer we don't have to convert these values into Strings.
+
+The Constructors of PrintWriter are:
+
+1. public PrintWriter(String)
+2. public PrintWriter(File)
+3. public PrintWriter(Writer)
+
+Just lecture 61 and 62 to go now...
+
+61 serialization and deserialization
+
+62 important relation between system and println
