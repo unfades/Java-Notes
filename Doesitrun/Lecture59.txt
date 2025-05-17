@@ -197,5 +197,129 @@ public class Lecture59Part5 {
 Reading files
 =============
 
-TBC TBC TBC
+READING TEXT FILES 
 
+The "Reader" class
+
+Methods:
+
+1. public int read() throws IOException
+
+when you call read it returns the unicode of current character of the file
+then it moves to the next char,
+when it reaches the end of the file, then it returns -1.
+
+throws IOException is there at the end of this, it means it is a checked exception,
+that means you MUST handle it using try-catch. or else we will have to write throws at main method.
+
+2. public int read(char[]) throws IOException
+
+this read(char[]) takes in multiple characters at once in the form of an array.
+this read will check how much the file size is and the array size is.
+the smallest size will be read and return the count of that.
+
+we need to make that array.
+ex:
+if the file size is 6, and the array is 3 sized.
+char[] arr = new char[3];
+
+it will read the smallest size the file or the array, and after it will return the count of that.
+
+So here it will return 3, since file characters are 6.
+
+if arr size is 10, and characters in the file are 4, then it will return 4.
+
+3. public int read(char[], int off, int len) throws IOException
+
+in this if you want to read some of the array and not all of it then you can with this.
+
+int off is the start, and int len is the number of characters you want to read.
+
+char[] arr = new char[5];
+
+arr[0] = 'A';
+arr[1] = 'B';
+f.read(arr);
+
+file contained BHOPAL
+
+so it will be overwritten in it.
+
+If you don'twant that then
+
+you can do
+for storing some into it.
+
+
+char[] arr = new char[5];
+
+arr[0] = 'A';
+arr[1] = 'B';
+f.read(arr,2,3);
+
+it becomes ABBHO
+
+Meaning 0th gets A, 1 gets B, then the rest get BHO from Bhopal
+This is the third version of the read method.
+
+for the reads that is why they return int, if the file is bigger than the array read it will just
+return the amount read, and if the array is bigger than the file it only returns the amount read.
+
+4. public boolean ready() throws IOException
+
+ready sees if there is any character left that's capable of being read in the file.
+if there is anything left to read then it will return true, otherwise false.
+it does not move the pointer from current character to the next character.
+
+5. public void close() throws IOException
+
+close() method closes the file. Yes it is important to close the file.
+
+file is an important resource and if left open it will be vulnerable to attacks.
+to save us from the attacks. close() can save us.
+
+
+
+6. public void reset() throws IOException
+
+reset takes the file pointer back to the beginning of the file.
+
+
+Challenge HOMEWORK:
+
+Everything of Java will be revised here except collections.
+
+In telegram it will be a file called About Java.txt
+
+You need to make a program that reads the file called About Java,
+
+and then you will have to makea  program that reads the file and then also
+tells us how many characters are present in that file.
+
+AboutJava.txt
+
+contains text - 
+
+Java is a high-level programming language
+originally developed by Sun Microsystems
+and released in 1996. Java runs on a variety
+of platforms, such as Windows, Mac OS, and
+the various versions of UNIX.
+
+program reads it, after reading displays it,
+then it shows how many characters are present in it.
+
+Reader cannot have objects made.
+
+You must use children of Reader to make Objects.
+
+You will use FileReader in order to do this.
+
+The FileReader class has a constructor that will open the file.
+
+File must be opened before it is read.
+
+FileReader constructor will open the file. The String is the path of the File in the constructor.
+
+
+FileReader fr = new FileReader("C:/AboutJava.txt");
