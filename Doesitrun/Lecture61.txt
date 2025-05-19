@@ -1,0 +1,158 @@
+FileWriter class is great for only string printing, however if you want to print other stuff
+Then it needs to get converted, so it's better to use PrintWriter.
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+public class FileExample4 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        FileWriter fw = null;
+        try{
+            fw = new FileWriter("D:/myfile.txt");
+            System.out.println("What is your name?");
+            String name = sc.nextLine();
+            System.out.println("What is your address?");
+            String addr = sc.nextLine();
+            fw.write(name);
+            fw.write("\n");
+            fw.write(addr);
+        }catch(IOException ex){
+            System.out.println("Error while writing file");
+        }finally{
+            if(fw!=null){
+                try{
+                    fw.close();
+                    System.out.println("File was saved successfully...");
+                }catch(Exception e){
+                    System.out.println("Error while closing the file...");
+                }
+            }
+            sc.close();
+        }
+    }
+}
+
+Like here, what if they wanted name and phone instead of just name...
+
+Then...
+
+it'd be:
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+public class FileExample4a {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        FileWriter fw = null;
+        try{
+            fw = new FileWriter("D:/person.txt");
+
+            for(int i = 0; i<2; i++){
+                System.out.println("Enter name and phone: ");
+                String name = sc.next();
+                fw.write(name+ " ");
+                long phone = sc.nextLong();
+                fw.write(String.valueOf(phone));
+                fw.write("\n");
+            }
+        }catch(IOException ex){
+            System.out.println("Error while writing file");
+        }finally{
+            if(fw!=null){
+                try{
+                    fw.close();
+                    System.out.println("File was saved successfully...");
+                }catch(Exception e){
+                    System.out.println("Error while closing the file...");
+                }
+            }
+            sc.close();
+        }
+    }
+}
+
+The PrintWriter Class:
+
+This class is also the derived class of Writer but has got print() and println() methods.
+Just like System.out.
+
+These Methods are overloaded and can accept any kind of argument and write it in the file.
+
+Thus as a programmer we don't have to convert these values into Strings.
+
+The Constructors of PrintWriter are:
+
+1. public PrintWriter(String)
+2. public PrintWriter(File)
+3. public PrintWriter(Writer)
+
+Methods of PrintWriter are:
+
+1. public void println(String) throws IOException
+
+2. public void println(int) throws IOException
+
+3. public void println(float) throws IOException
+
+4. public void println(boolean) throws IOException
+
+like these we have methods for every primitive type...
+
+IMPROVED VERSION VIA PRINTWRITER CLASS CAUSE IT HAS in-built Methods to Print to a file.
+
+Check it:
+
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class FileExample4b {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        PrintWriter pw = null;
+        try{
+            pw = new PrintWriter("D:/person.txt");
+
+            for(int i = 0; i<2; i++){
+                System.out.println("Enter name and phone: ");
+                String name = sc.next();
+                Long number = Long.valueOf(sc.next());
+                pw.println(name + " " + number);
+            }
+        }catch(IOException ex){
+            System.out.println("Error while writing file");
+        }finally{
+            if(pw!=null){
+                try{
+                    pw.close();
+                    System.out.println("File was saved successfully...");
+                }catch(Exception e){
+                    System.out.println("Error while closing the file...");
+                }
+            }
+            sc.close();
+        }
+    }
+}
+
+This is the improved code then and the functionality is kept the same.
+using methods print() and println() instead of write()
+
+If you want just strings printed in your file, then use FileWriter. It's fine.
+And if you want Other values entered also and easier, then use PrintWriter.
+
+Mixed Data? PrintWriter.
+Only Strings? FileWriter.
+That's all.
+
+PrintWriter takes in the values of any type then converts them into String vals, and if you used println() 
+then the "\n"
+
+
+
