@@ -1,6 +1,4 @@
-
-
-public class bunnyEarsPart2{
+public class BunnyEars2{
 
     public int bunnyEars2(int bunnies) {
         if(bunnies == 0) return 0;
@@ -14,7 +12,7 @@ public class bunnyEarsPart2{
         //just reminding yourself you can do this, since
         // bunnyEars2 is a nonstatic method you cannot directly call it in main gotta make
         //an object of the class that holds this method and then call if nonstatic
-        bunnyEarsPart2 bunny = new bunnyEarsPart2();
+        BunnyEars2 bunny = new BunnyEars2();
         bunny.bunnyEars2(7);
     }
 }
