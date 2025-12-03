@@ -34,6 +34,6 @@ public class EndX {
         return x;
     }
     public static void main(String[] args) {
-        System.out.println(endX("erxxxhi"));
+        System.out.println(endX("erxxxhi "));
     }
 }
