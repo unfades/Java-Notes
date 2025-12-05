@@ -1,0 +1,23 @@
+The key takeaway here for you is that you were sending a single recursive call 
+for most of your code, now you know you can send multiple recursive calls also
+in order to pursue different outcomes that get added into the result
+
+public int countPairs(String str) {
+  if(str.length()<=2) return 0;
+  if(str.length()>=3 && str.charAt(str.length()-1) == str.charAt(str.length()-3))
+    return 1 + countPairs(str.substring(0,str.length()-1));
+  else return countPairs(str.substring(0,str.length()-1)) + 0;
+}
+
+instead of making a variable int num and changing its val based on the current char,
+you just directly send the literal as it is and it succeeds the same way!
+
+public int countAbc(String str) {
+  if(str.length()<=2) return 0;
+  if((""+str.charAt(str.length()-3)+str.charAt(str.length()-2)+str.charAt(str.length()-1)).equals("abc") ||
+  (""+str.charAt(str.length()-3)+str.charAt(str.length()-2)+str.charAt(str.length()-1)).equals("aba")){
+    return 1+countAbc(str.substring(0,str.length()-1));
+  }else{
+    return 0 + countAbc(str.substring(0,str.length()-1));
+  }
+}
