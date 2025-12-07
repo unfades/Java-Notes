@@ -21,3 +21,6 @@ public int countAbc(String str) {
     return 0 + countAbc(str.substring(0,str.length()-1));
   }
 }
+
+Its okay to debug your code using printLns, it helps you see what you are missing you already do this
+good for you man... just reminding you is all.
